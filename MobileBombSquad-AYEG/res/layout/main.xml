@@ -4,9 +4,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
+    
+<!-- <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:text="@string/hello"
-    />
+    /> -->
+    
+<edu.wpi.cs525h.mobilebombsquad.ayeg.PlayableSurfaceView
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	/>
+	
+<!--  <edu.wpi.cs525h.mobilebombsquad.ayeg.TouchPointView
+	android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:src="@drawable/touchpointblue"
+	/>-->
+	
+
 </LinearLayout>
