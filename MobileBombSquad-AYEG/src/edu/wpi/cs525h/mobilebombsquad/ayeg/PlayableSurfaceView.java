@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class PlayableSurfaceView extends View {
@@ -18,6 +19,7 @@ public class PlayableSurfaceView extends View {
 	
 	private ShapeDrawable mDrawable;	
 	private boolean touchpointColor;
+	private int numTouchpoints;
 	ArrayList<TouchPoint> touchpoints = new ArrayList<TouchPoint>();
 	
 	
@@ -25,8 +27,9 @@ public class PlayableSurfaceView extends View {
 		super(context, attributes);
 		
 		touchpointColor = true;
+		numTouchpoints = 1;
 		
-        generateTouchPoints(touchpointColor, 2);
+        generateTouchPoints(touchpointColor, numTouchpoints);
         
         mDrawable = new ShapeDrawable(new RectShape());
         mDrawable.getPaint().setColor(0xFFFFFFFF);
@@ -47,6 +50,7 @@ public class PlayableSurfaceView extends View {
     
     /**
      * TODO: Something other than boolean
+     * TODO: Make sure they don't overlap
      * @param color red = true, blue = false
      */
     void generateTouchPoints(boolean color, int number) {
@@ -60,4 +64,39 @@ public class PlayableSurfaceView extends View {
     	}
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+		int action = event.getAction();
+		int x = (int) event.getX();
+        int y = (int) event.getY(); 
+		
+        //if (action == MotionEvent.ACTION_DOWN) {
+        for (TouchPoint point : touchpoints) {
+           	if (point.contains(x, y)) {
+           		if (action == MotionEvent.ACTION_DOWN) {
+           			point.setSelected(true);
+           		} else if (action == MotionEvent.ACTION_UP) {
+           			point.setSelected(false);
+           		}
+           	}
+        }
+
+        if (checkConditions()) {
+        	//audio
+        	//vibrate
+        	touchpointColor = !touchpointColor;
+        	generateTouchPoints(touchpointColor, numTouchpoints);
+        }
+        return true;
+    }
+
+
+	private boolean checkConditions() {
+		for (TouchPoint point : touchpoints) {
+			if (!point.getSelected()) {
+				return false;
+			}
+		}
+		return true;
+		
+	}
 }
