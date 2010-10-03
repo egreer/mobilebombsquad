@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,7 +84,10 @@ public class PlayableSurfaceView extends View {
 
         if (checkConditions()) {
         	//audio
-        	//vibrate
+        	
+        	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+    		vibrator.vibrate(2000);
+    		
         	touchpointColor = !touchpointColor;
         	generateTouchPoints(touchpointColor, numTouchpoints);
         	this.invalidate();
