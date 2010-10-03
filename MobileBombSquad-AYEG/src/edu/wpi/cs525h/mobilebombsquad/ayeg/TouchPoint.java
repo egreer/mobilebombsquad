@@ -1,6 +1,5 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg;
 
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 public class TouchPoint {

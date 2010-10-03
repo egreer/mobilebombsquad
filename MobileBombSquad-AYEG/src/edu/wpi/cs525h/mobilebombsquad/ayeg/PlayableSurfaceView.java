@@ -62,6 +62,7 @@ public class PlayableSurfaceView extends View {
     			touchpoints.add(new TouchPoint(getResources().getDrawable(R.drawable.touchpointblue)));
     		}
     	}
+ 
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -85,6 +86,7 @@ public class PlayableSurfaceView extends View {
         	//vibrate
         	touchpointColor = !touchpointColor;
         	generateTouchPoints(touchpointColor, numTouchpoints);
+        	this.invalidate();
         }
         return true;
     }
