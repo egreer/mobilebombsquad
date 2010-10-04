@@ -88,7 +88,6 @@ public class PlayableSurfaceView extends View {
 			}
 
 			if (checkConditions()) {
-				mp.stop();
 				mp.start();
 				vibrator.vibrate(250);
 
