@@ -88,8 +88,9 @@ public class PlayableSurfaceView extends View {
 			}
 
 			if (checkConditions()) {
+				mp.stop();
 				mp.start();
-				vibrator.vibrate(500);
+				vibrator.vibrate(250);
 
 				touchpointColor = !touchpointColor;
 				generateTouchPoints(touchpointColor, numTouchpoints);
