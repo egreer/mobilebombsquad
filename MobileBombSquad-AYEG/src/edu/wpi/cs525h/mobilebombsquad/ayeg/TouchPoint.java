@@ -16,19 +16,16 @@ public class TouchPoint {
 		touchHeight = touchpoint.getIntrinsicHeight()*2;
 		randomizePosition();
 		touchpoint.setBounds(locX, locY, locX + touchWidth, locY + touchHeight);
-		
 	}
 
 	/** 
-	 * TODO: specify upper bound
+	 * 
 	 */
 	void randomizePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - touchWidth;
 		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - touchHeight;
 		int x =(int)(Math.random() * PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX);
 		int y =(int)(Math.random() * PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY);
-		//int x = 300;
-		//int y = 600;
 		locX = x > maxWidth ? maxWidth : x;  
 		locY = y > maxHeight ? maxHeight : y;
 	}
