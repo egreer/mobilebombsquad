@@ -11,6 +11,7 @@ public class TouchPoint {
 	private boolean selected = false;
 	
 	public TouchPoint(Drawable touchpoint) {
+		
 		this.touchpoint = touchpoint;
 		touchWidth = touchpoint.getIntrinsicWidth()*2;
 		touchHeight = touchpoint.getIntrinsicHeight()*2;
