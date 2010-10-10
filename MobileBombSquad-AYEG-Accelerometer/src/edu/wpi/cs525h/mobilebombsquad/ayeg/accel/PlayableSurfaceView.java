@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
@@ -16,6 +17,8 @@ public class PlayableSurfaceView extends View {
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
 
+	private SensorManager manager;
+	
 	private ShapeDrawable mDrawable;	
 	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
 	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -26,6 +29,8 @@ public class PlayableSurfaceView extends View {
 		mDrawable = new ShapeDrawable(new RectShape());
 		mDrawable.getPaint().setColor(0xFFFFFFFF);
 		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
+		
+		manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 	}
 
 	protected void onDraw(Canvas canvas) {
