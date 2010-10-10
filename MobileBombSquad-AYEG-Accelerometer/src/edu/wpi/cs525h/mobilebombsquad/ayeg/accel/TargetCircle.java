@@ -1,14 +1,16 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
 public class TargetCircle {
 
+	final static int COLOR = 0xFF000000;
+	
 	OvalShape circle;
 	Drawable drawable;
-	//Paint paint;
 	
 	int locX, locY;
 	int circleWidth = 100, circleHeight = 100;
@@ -19,35 +21,32 @@ public class TargetCircle {
 
 		drawable = new ShapeDrawable(circle);
 		
-		//((ShapeDrawable) drawable).getPaint().setColor(0x00000000);
-		
-		initializePosition();
-		//drawable.setBounds(locX, locY, locX+circleWidth, locY+circleHeight);
-		((ShapeDrawable) drawable).getPaint().setColor(0xFF000000);
-		drawable.setBounds(75,75,175,175);
+		generatePosition();
+		((ShapeDrawable) drawable).getPaint().setColor(COLOR);
 	}
 	
 	Drawable getDrawable() {
 		return drawable;
 	}
 	
-	/*Paint getPaint() {
-		return paint;
-	}*/
+	void updateBounds() {
+		drawable.setBounds(locX,locY,locX+circleWidth,locY+circleHeight);
+	}
 	
-	void initializePosition() {
+	Rect getBounds() {
+		return drawable.getBounds();
+	}
+	
+	void generatePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - circleWidth;
 		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - circleHeight;
 		int x =(int)(Math.random() * PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX);
 		int y =(int)(Math.random() * PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY);
 		locX = x > maxWidth ? maxWidth : x;  
 		locY = y > maxHeight ? maxHeight : y;
+		updateBounds();
 	}
 	
-	void updatePosition(int locX, int locY) {
-		this.locX = locX;
-		this.locY = locY;
-	}
 	
 	
 	

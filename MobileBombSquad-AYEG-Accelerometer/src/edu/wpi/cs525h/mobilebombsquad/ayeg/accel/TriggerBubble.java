@@ -1,15 +1,17 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
 public class TriggerBubble {
 
+	final static int COLOR = 0xFF00FF00;
+	
 	OvalShape bubble;
 	Drawable drawable;
-	//Paint paint;
 	
 	int locX, locY;
 	int bubbleWidth = 25, bubbleHeight = 25;
@@ -20,8 +22,8 @@ public class TriggerBubble {
 
 		drawable = new ShapeDrawable(bubble);
 		
-		//paint = new Paint();
-		//paint.setARGB(0, 0, 255, 0);
+		((ShapeDrawable) drawable).getPaint().setColor(COLOR);
+		updateBounds();
 		
 		initializePosition();
 	}
@@ -30,9 +32,13 @@ public class TriggerBubble {
 		return drawable;
 	}
 	
-	/*Paint getPaint() {
-		return paint;
-	}*/
+	void updateBounds() {
+		drawable.setBounds(locX, locY, locX+bubbleWidth, locY+bubbleHeight);
+	}
+	
+	Rect getBounds() {
+		return drawable.getBounds();
+	}
 	
 	void initializePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
@@ -46,8 +52,7 @@ public class TriggerBubble {
 	void updatePosition(int locX, int locY) {
 		this.locX = locX;
 		this.locY = locY;
+		updateBounds();
 	}
-	
-	
 	
 }
