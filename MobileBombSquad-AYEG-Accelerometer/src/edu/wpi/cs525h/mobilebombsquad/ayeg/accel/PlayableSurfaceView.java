@@ -36,6 +36,8 @@ public class PlayableSurfaceView extends View {
 		bubble.getDrawable().setBounds(25, 25, 50, 50);
 		
 		circle = new TargetCircle();
+		((ShapeDrawable) circle.getDrawable()).getPaint().setColor(0xFF000000);
+		circle.getDrawable().setBounds(75,75,175,175);
 	}
 
 	protected void onDraw(Canvas canvas) {

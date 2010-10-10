@@ -19,10 +19,10 @@ public class TargetCircle {
 
 		drawable = new ShapeDrawable(circle);
 		
-		((ShapeDrawable) drawable).getPaint().setColor(0x00000000);
+		//((ShapeDrawable) drawable).getPaint().setColor(0x00000000);
 		
 		initializePosition();
-		drawable.setBounds(locX, locY, locX+circleWidth, locY+circleHeight);
+		//drawable.setBounds(locX, locY, locX+circleWidth, locY+circleHeight);
 	}
 	
 	Drawable getDrawable() {
