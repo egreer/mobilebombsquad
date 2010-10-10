@@ -17,7 +17,8 @@ public class PlayableSurfaceView extends View {
 	final static int HEIGHT = 500;
 
 	
-	private ShapeDrawable mDrawable;	
+	private ShapeDrawable mDrawable;
+	private TriggerBubble bubble;
 	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
 	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -27,10 +28,16 @@ public class PlayableSurfaceView extends View {
 		mDrawable = new ShapeDrawable(new RectShape());
 		mDrawable.getPaint().setColor(0xFFFFFFFF);
 		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
+		
+		bubble = new TriggerBubble();
+		((ShapeDrawable) bubble.getDrawable()).getPaint().setColor(0xFF00FF00);
+		bubble.getDrawable().setBounds(25, 25, 50, 50);
+		
 	}
 
 	protected void onDraw(Canvas canvas) {
 		mDrawable.draw(canvas);
+		bubble.getDrawable().draw(canvas);
 
 	}
 }
