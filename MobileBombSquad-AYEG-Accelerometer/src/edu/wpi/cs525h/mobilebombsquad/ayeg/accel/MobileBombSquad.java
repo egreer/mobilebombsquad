@@ -17,7 +17,7 @@ public class MobileBombSquad extends Activity {
         
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         
-        listener = new AccelListener(this);
+        listener = new AccelListener();
                 
         
         Sensor mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -25,5 +25,11 @@ public class MobileBombSquad extends Activity {
         
         manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_GAME/*SensorManager.SENSOR_DELAY_UI*/);
 		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_GAME/*SensorManager.SENSOR_DELAY_UI*/);
+    }
+    
+    @Override
+    public void onDestroy(){
+    	super.onDestroy();
+    	manager.unregisterListener(listener);
     }
 }
