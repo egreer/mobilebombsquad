@@ -18,6 +18,7 @@ public class PlayableSurfaceView extends View {
 	final static int HEIGHT = 500;
 
 	private SensorManager manager;
+	private AccelListener listener;
 	
 	private ShapeDrawable mDrawable;	
 	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
@@ -31,10 +32,16 @@ public class PlayableSurfaceView extends View {
 		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
 		manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+		listener = createNewAccelListener(context);
 	}
 
 	protected void onDraw(Canvas canvas) {
 		mDrawable.draw(canvas);
 
+	}
+	
+	AccelListener createNewAccelListener(Context context) {
+		AccelListener newListener = new AccelListener(context);
+		return newListener;
 	}
 }
