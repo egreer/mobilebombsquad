@@ -23,6 +23,8 @@ public class TargetCircle {
 		
 		initializePosition();
 		//drawable.setBounds(locX, locY, locX+circleWidth, locY+circleHeight);
+		((ShapeDrawable) drawable).getPaint().setColor(0xFF000000);
+		drawable.setBounds(75,75,175,175);
 	}
 	
 	Drawable getDrawable() {
