@@ -11,15 +11,19 @@ public class TriggerBubble {
 	Drawable drawable;
 	Paint paint;
 	
+	int locX, locY;
+	int bubbleWidth = 25, bubbleHeight = 25;
+	
 	public TriggerBubble() {
 		bubble = new OvalShape();
-		bubble.resize(25, 25);
+		bubble.resize(bubbleWidth, bubbleHeight);
 
 		drawable = new ShapeDrawable(bubble);
 		
-		
 		paint = new Paint();
 		paint.setARGB(0, 0, 255, 0);
+		
+		initializePosition();
 	}
 	
 	Drawable getDrawable() {
@@ -30,7 +34,19 @@ public class TriggerBubble {
 		return paint;
 	}
 	
+	void initializePosition() {
+		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
+		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - bubbleHeight;
+		int x =(int)(Math.random() * PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX);
+		int y =(int)(Math.random() * PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY);
+		locX = x > maxWidth ? maxWidth : x;  
+		locY = y > maxHeight ? maxHeight : y;
+	}
 	
+	void updatePosition(int locX, int locY) {
+		this.locX = locX;
+		this.locY = locY;
+	}
 	
 	
 	
