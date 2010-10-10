@@ -1,29 +1,28 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
-public class TriggerBubble {
+public class TargetCircle {
 
-	OvalShape bubble;
+	OvalShape circle;
 	Drawable drawable;
 	//Paint paint;
 	
 	int locX, locY;
-	int bubbleWidth = 25, bubbleHeight = 25;
+	int circleWidth = 100, circleHeight = 100;
 	
-	public TriggerBubble() {
-		bubble = new OvalShape();
-		bubble.resize(bubbleWidth, bubbleHeight);
+	public TargetCircle() {
+		circle = new OvalShape();
+		circle.resize(circleWidth, circleHeight);
 
-		drawable = new ShapeDrawable(bubble);
+		drawable = new ShapeDrawable(circle);
 		
-		//paint = new Paint();
-		//paint.setARGB(0, 0, 255, 0);
+		((ShapeDrawable) drawable).getPaint().setColor(0x00000000);
 		
 		initializePosition();
+		drawable.setBounds(locX, locY, locX+circleWidth, locY+circleHeight);
 	}
 	
 	Drawable getDrawable() {
@@ -35,8 +34,8 @@ public class TriggerBubble {
 	}*/
 	
 	void initializePosition() {
-		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
-		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - bubbleHeight;
+		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - circleWidth;
+		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - circleHeight;
 		int x =(int)(Math.random() * PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX);
 		int y =(int)(Math.random() * PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY);
 		locX = x > maxWidth ? maxWidth : x;  
