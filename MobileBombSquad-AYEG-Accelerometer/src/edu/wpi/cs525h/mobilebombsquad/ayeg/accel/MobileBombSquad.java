@@ -9,6 +9,7 @@ public class MobileBombSquad extends Activity {
     /** Called when the activity is first created. */
 	private SensorManager manager;
 	private AccelListener listener;
+	private AccelHandler handler;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,7 +18,8 @@ public class MobileBombSquad extends Activity {
         
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         
-        listener = new AccelListener();
+        handler = new AccelHandler();
+        listener = new AccelListener(handler);
                 
         
         Sensor mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
