@@ -12,7 +12,13 @@ public class AccelListener implements SensorEventListener {
 	float I[] = new float [9];
 	float[] gravity = new float [3];
 	float[] geomagnetic = new float[3];
+	AccelHandler handler;
 	
+	public AccelListener(AccelHandler handler) {
+		super();
+		this.handler = handler;	
+	}
+
 	@Override
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
 		// TODO Auto-generated method stub
@@ -36,5 +42,6 @@ public class AccelListener implements SensorEventListener {
         float x = values[0];
         float y = values[1];
         float z = values[2];
+        handler.updateBubble(x, y, z);
 	}
 }
