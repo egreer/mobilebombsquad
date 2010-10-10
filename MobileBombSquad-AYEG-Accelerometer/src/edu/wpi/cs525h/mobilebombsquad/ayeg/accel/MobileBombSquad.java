@@ -1,7 +1,6 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
 import android.app.Activity;
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -21,7 +20,10 @@ public class MobileBombSquad extends Activity {
         listener = new AccelListener(this);
                 
         
+        Sensor mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         Sensor accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_GAME);
+        
+        manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_GAME/*SensorManager.SENSOR_DELAY_UI*/);
+		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_GAME/*SensorManager.SENSOR_DELAY_UI*/);
     }
 }
