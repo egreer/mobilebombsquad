@@ -19,11 +19,17 @@ public class AccelListener implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent sensorEvent) {
+		if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+		    double x = sensorEvent.values[0];
+		    double y = sensorEvent.values[1];
+		    double z = sensorEvent.values[2];    
+		    Toast.makeText(context, "Accel x: " + x + " y: " + y + " z: " + z, Toast.LENGTH_SHORT);
+	 }
 		 if (sensorEvent.sensor.getType() == Sensor.TYPE_ORIENTATION) {
 			    double x = sensorEvent.values[0];
 			    double y = sensorEvent.values[1];
 			    double z = sensorEvent.values[2];    
-			    Toast.makeText(context, "x: " + x + " y: " + y + " z: " + z, Toast.LENGTH_SHORT);
+			    Toast.makeText(context, "Orient x: " + x + " y: " + y + " z: " + z, Toast.LENGTH_SHORT);
 		 }
 	}
 

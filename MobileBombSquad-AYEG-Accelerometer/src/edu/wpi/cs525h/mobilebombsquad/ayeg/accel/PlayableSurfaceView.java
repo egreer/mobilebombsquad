@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
@@ -18,8 +16,6 @@ public class PlayableSurfaceView extends View {
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
 
-	private SensorManager manager;
-	private AccelListener listener;
 	
 	private ShapeDrawable mDrawable;	
 	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
@@ -31,21 +27,10 @@ public class PlayableSurfaceView extends View {
 		mDrawable = new ShapeDrawable(new RectShape());
 		mDrawable.getPaint().setColor(0xFFFFFFFF);
 		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
-		
-		manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-		createNewAccelListener(context);
 	}
 
 	protected void onDraw(Canvas canvas) {
 		mDrawable.draw(canvas);
 
-	}
-	
-	void createNewAccelListener(Context context) {
-		listener = new AccelListener(context);
-		
-		Sensor accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_GAME);
-		
 	}
 }
