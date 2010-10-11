@@ -30,7 +30,7 @@ public class PlayableSurfaceView extends View {
 		super(context, attributes);
 
 		touchpointColor = true;
-		numTouchpoints = 4;
+		numTouchpoints = 2;
 
 		generateTouchPoints(touchpointColor, numTouchpoints);
 
