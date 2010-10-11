@@ -9,20 +9,25 @@ public class TargetCircle {
 
 	final static int COLOR = 0xFF000000;
 	
-	OvalShape circle;
 	Drawable drawable;
 	
 	int locX, locY;
 	int circleWidth = 100, circleHeight = 100;
 	
 	public TargetCircle() {
-		circle = new OvalShape();
+		this(50);
+	}
+	
+	public TargetCircle(double radius) {
+		circleWidth = (int)(radius * 2);
+		circleHeight = (int)(radius * 2);
+		
+		OvalShape circle = new OvalShape();
 		circle.resize(circleWidth, circleHeight);
-
 		drawable = new ShapeDrawable(circle);
 		
-		generatePosition();
 		((ShapeDrawable) drawable).getPaint().setColor(COLOR);
+		generatePosition();
 	}
 	
 	Drawable getDrawable() {
@@ -46,8 +51,6 @@ public class TargetCircle {
 		locY = y > maxHeight ? maxHeight : y;
 		updateBounds();
 	}
-	
-	
 	
 	
 }

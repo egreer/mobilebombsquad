@@ -1,6 +1,5 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -10,16 +9,21 @@ public class TriggerBubble {
 
 	final static int COLOR = 0xFF00FF00;
 	
-	OvalShape bubble;
 	Drawable drawable;
 	
 	int locX, locY;
-	int bubbleWidth = 25, bubbleHeight = 25;
+	int bubbleWidth, bubbleHeight;
 	
 	public TriggerBubble() {
-		bubble = new OvalShape();
+		this(12.5);
+	}
+	
+	public TriggerBubble(double radius) {
+		bubbleWidth = (int) (radius * 2);
+		bubbleHeight = (int) (radius * 2);
+		
+		OvalShape bubble = new OvalShape();
 		bubble.resize(bubbleWidth, bubbleHeight);
-
 		drawable = new ShapeDrawable(bubble);
 		
 		((ShapeDrawable) drawable).getPaint().setColor(COLOR);		
