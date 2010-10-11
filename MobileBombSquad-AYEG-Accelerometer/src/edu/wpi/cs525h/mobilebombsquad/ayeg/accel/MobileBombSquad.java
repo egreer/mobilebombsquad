@@ -34,8 +34,8 @@ public class MobileBombSquad extends Activity {
         Sensor mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         Sensor accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         
-        manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_GAME);
-		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_GAME);
+        manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_FASTEST);
+		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_FASTEST);
     }
     
     @Override
