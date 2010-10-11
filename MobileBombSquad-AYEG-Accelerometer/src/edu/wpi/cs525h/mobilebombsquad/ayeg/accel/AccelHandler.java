@@ -6,10 +6,22 @@ import android.os.Vibrator;
 
 public class AccelHandler {
 
-	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
-	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+	Context context;
+	PlayableSurfaceView view;
 	
-	public AccelHandler() {
+	MediaPlayer mp;
+	Vibrator vibrator;
+	
+	public AccelHandler(Context context, PlayableSurfaceView view) {
+		this.context = context;
+		this.view = view;
+		
+		mp = MediaPlayer.create(context, R.raw.notify);
+		vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+		
+	}
+	
+	void updateBubble(float x, float y, float z) {
 		
 	}
 	

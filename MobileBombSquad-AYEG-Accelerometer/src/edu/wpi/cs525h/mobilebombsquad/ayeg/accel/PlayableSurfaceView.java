@@ -21,9 +21,20 @@ public class PlayableSurfaceView extends View {
 	private TriggerBubble bubble;
 	private TargetCircle circle;
 	
-	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
-	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+	public PlayableSurfaceView(Context context) {
+		super(context);
 
+		mDrawable = new ShapeDrawable(new RectShape());
+		mDrawable.getPaint().setColor(0xFFFFFFFF);
+		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
+		
+		bubble = new TriggerBubble();
+		((ShapeDrawable) bubble.getDrawable()).getPaint().setColor(0xFF00FF00);
+		bubble.getDrawable().setBounds(25, 25, 50, 50);
+		
+		circle = new TargetCircle();
+	}
+	
 	public PlayableSurfaceView(Context context, AttributeSet attributes) {
 		super(context, attributes);
 
