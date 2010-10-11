@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
 public class MobileBombSquad extends Activity {

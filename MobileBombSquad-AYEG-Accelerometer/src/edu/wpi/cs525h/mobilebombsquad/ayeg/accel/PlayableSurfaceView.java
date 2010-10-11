@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.util.AttributeSet;
 import android.view.View;
 
 public class PlayableSurfaceView extends View {
@@ -31,8 +30,8 @@ public class PlayableSurfaceView extends View {
 
 	protected void onDraw(Canvas canvas) {
 		playable.draw(canvas);
-		circle.getDrawable().draw(canvas);
-		bubble.getDrawable().draw(canvas);
+		circle.draw(canvas);
+		bubble.draw(canvas);
 
 	}
 	

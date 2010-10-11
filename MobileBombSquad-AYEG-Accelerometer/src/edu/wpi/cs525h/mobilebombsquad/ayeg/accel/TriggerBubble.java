@@ -1,46 +1,36 @@
 package edu.wpi.cs525h.mobilebombsquad.ayeg.accel;
 
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
-public class TriggerBubble {
+public class TriggerBubble extends ShapeDrawable{
 
 	final static int COLOR = 0xFF00FF00;
 	
-	Drawable drawable;
-	
 	int locX, locY;
 	int bubbleWidth, bubbleHeight;
+	static OvalShape bubble = new OvalShape();
 	
 	public TriggerBubble() {
 		this(12.5);
 	}
 	
 	public TriggerBubble(double radius) {
+		super(bubble);
+	
 		bubbleWidth = (int) (radius * 2);
 		bubbleHeight = (int) (radius * 2);
-		
-		OvalShape bubble = new OvalShape();
+			
 		bubble.resize(bubbleWidth, bubbleHeight);
-		drawable = new ShapeDrawable(bubble);
 		
-		((ShapeDrawable) drawable).getPaint().setColor(COLOR);		
+		
+		this.getPaint().setColor(COLOR);		
 		initializePosition();
 		updateBounds();
 	}
 	
-	Drawable getDrawable() {
-		return drawable;
-	}
-	
 	void updateBounds() {
-		drawable.setBounds(locX, locY, locX+bubbleWidth, locY+bubbleHeight);
-	}
-	
-	Rect getBounds() {
-		return drawable.getBounds();
+		this.setBounds(locX, locY, locX+bubbleWidth, locY+bubbleHeight);
 	}
 	
 	void initializePosition() {
@@ -60,5 +50,4 @@ public class TriggerBubble {
 		this.locY = locY > maxHeight ? maxHeight : (locY < PlayableSurfaceView.OFFSETY ? PlayableSurfaceView.OFFSETY : locY);
 		updateBounds();
 	}
-	
 }
