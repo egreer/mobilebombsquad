@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.media.MediaPlayer;
-import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -15,7 +13,6 @@ public class PlayableSurfaceView extends View {
 	final static int OFFSETY = 10;
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
-
 	
 	private ShapeDrawable mDrawable;
 	private TriggerBubble bubble;
@@ -29,9 +26,6 @@ public class PlayableSurfaceView extends View {
 		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
 		bubble = new TriggerBubble();
-		((ShapeDrawable) bubble.getDrawable()).getPaint().setColor(0xFF00FF00);
-		bubble.getDrawable().setBounds(25, 25, 50, 50);
-		
 		circle = new TargetCircle();
 	}
 	

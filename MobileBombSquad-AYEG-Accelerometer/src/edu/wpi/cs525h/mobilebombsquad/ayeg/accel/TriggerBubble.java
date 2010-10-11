@@ -22,10 +22,9 @@ public class TriggerBubble {
 
 		drawable = new ShapeDrawable(bubble);
 		
-		((ShapeDrawable) drawable).getPaint().setColor(COLOR);
-		updateBounds();
-		
+		((ShapeDrawable) drawable).getPaint().setColor(COLOR);		
 		initializePosition();
+		updateBounds();
 	}
 	
 	Drawable getDrawable() {
