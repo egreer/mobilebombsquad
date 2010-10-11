@@ -1,22 +1,40 @@
 package com.google.code.mobilebombsquad;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 
-public class TouchPoint {
+public class TouchPoint extends ShapeDrawable{
 
-	Drawable touchpoint;
+	final static int NORM = 0xFF;
+	final static int SELECT = 0x15;
+	
 	int locX, locY;
 	int touchHeight, touchWidth;
 	
-	private boolean selected = false;
+	static OvalShape circle = new OvalShape();
 	
-	public TouchPoint(Drawable touchpoint) {
-		
-		this.touchpoint = touchpoint;
-		touchWidth = touchpoint.getIntrinsicWidth()*2;
-		touchHeight = touchpoint.getIntrinsicHeight()*2;
+	private boolean selected = false;
+	int color;
+	
+	public TouchPoint() {
+		this(Color.RED);
+	}
+	
+	public TouchPoint(int color) {
+		this(25, color);
+	}
+	
+	public TouchPoint(double radius, int color) {
+		super(circle);
+		this.color = color;
+		touchWidth = (int)(radius * 2);
+		touchHeight = (int)(radius * 2);
+				
+		circle.resize(touchWidth, touchHeight);
 		randomizePosition();
-		touchpoint.setBounds(locX, locY, locX + touchWidth, locY + touchHeight);
+		this.getPaint().setColor(color);
+		this.setBounds(locX, locY, locX + touchWidth, locY + touchHeight);
 	}
 
 	/** 
@@ -37,6 +55,12 @@ public class TouchPoint {
 	
 	void setSelected(boolean newStatus) {
 		selected = newStatus;
+		
+		if(selected){
+			this.getPaint().setAlpha(SELECT);
+		}else{
+			this.getPaint().setAlpha(NORM);
+		}
 	}
 	
 	/**
@@ -46,6 +70,6 @@ public class TouchPoint {
 	 * @return
 	 */
 	boolean contains(int x, int y) {
-		return touchpoint.getBounds().contains(x, y);
+		return this.getBounds().contains(x, y);
 	}
 }

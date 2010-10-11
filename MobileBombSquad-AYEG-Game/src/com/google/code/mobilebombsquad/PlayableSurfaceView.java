@@ -60,7 +60,7 @@ public class PlayableSurfaceView extends View {
 	
 	void drawTouchPoints(Canvas canvas) {
 		for (TouchPoint point : touchpoints) {
-			point.touchpoint.draw(canvas);
+			point.draw(canvas);
 		}
 	}
 
@@ -72,13 +72,8 @@ public class PlayableSurfaceView extends View {
 	void generateTouchPoints(boolean color, int number) {
 		touchpoints.clear(); //TODO: Change for final app
 		for (int i = 0; i < number; i++) {
-			if (color) {
-				touchpoints.add(new TouchPoint(getResources().getDrawable(R.drawable.touchpointred)));
-			} else {
-				touchpoints.add(new TouchPoint(getResources().getDrawable(R.drawable.touchpointblue)));
-			}
+			touchpoints.add(new TouchPoint());
 		}
-
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {

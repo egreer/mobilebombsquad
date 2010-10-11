@@ -6,6 +6,13 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+/*TODO: 
+ * Smoothing
+ * Animations?
+ *  
+ * 
+ */
+
 public class MobileBombSquad extends Activity {
 	/** Called when the activity is first created. */
 	private SensorManager manager;
