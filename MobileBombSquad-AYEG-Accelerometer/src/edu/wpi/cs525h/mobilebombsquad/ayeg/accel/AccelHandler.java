@@ -30,18 +30,16 @@ public class AccelHandler {
 		double xProportion = x / (Math.PI / 2);
 		double yProportion = y / (Math.PI / 2);
 		
-		//int newX = (int) ((width/2.0) + ((width/2.0)- 25.0) * x);
-		//int newY = (int) ((height/2.0) + ((height/2.0)- 25.0)  * y);
-		
-		int newX = (int) (width/2.0 + xProportion*(width/2.0)-25);
-		int newY = (int) (height/2.0 + yProportion*(height/2.0)-25);
+		int newX = (int) (width/2.0 + xProportion*(width/2.0));
+		int newY = (int) (height/2.0 + yProportion*(height/2.0));
 		
 		view.bubble.updatePosition(newX, newY);
 		view.invalidate();
 		
 		if (checkCondition()) {
 			if (!conditionMet) {
-				vibrator.vibrate(100);
+				//vibrator.vibrate(75);
+				mp.start();
 				conditionMet = true;
 			}
 		} else {
