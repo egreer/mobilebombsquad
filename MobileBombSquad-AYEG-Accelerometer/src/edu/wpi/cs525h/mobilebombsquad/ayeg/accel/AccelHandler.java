@@ -12,6 +12,8 @@ public class AccelHandler {
 	MediaPlayer mp;
 	Vibrator vibrator;
 	
+	boolean conditionMet = false;
+	
 	public AccelHandler(Context context, PlayableSurfaceView view) {
 		this.context = context;
 		this.view = view;
@@ -25,15 +27,30 @@ public class AccelHandler {
 		int height = view.getHeight();
 		int width = view.getWidth();
 		
-		int newX = (int) ((width / 2) + ((width / 2)- 25) * x);
-		int newY = (int) ((height /2) + ((height /2)- 25)  * y); 
+		double xProportion = x / (Math.PI / 2);
+		double yProportion = y / (Math.PI / 2);
+		
+		//int newX = (int) ((width/2.0) + ((width/2.0)- 25.0) * x);
+		//int newY = (int) ((height/2.0) + ((height/2.0)- 25.0)  * y);
+		
+		int newX = (int) (width/2.0 + xProportion*(width/2.0)-25);
+		int newY = (int) (height/2.0 + yProportion*(height/2.0)-25);
 		
 		view.bubble.updatePosition(newX, newY);
 		view.invalidate();
+		
+		if (checkCondition()) {
+			if (!conditionMet) {
+				vibrator.vibrate(100);
+				conditionMet = true;
+			}
+		} else {
+			conditionMet = false;
+		}
 	}
 	
 	boolean checkCondition() {
-		return false;
+		return view.checkBubbleCircle();
 	}
 	
 }

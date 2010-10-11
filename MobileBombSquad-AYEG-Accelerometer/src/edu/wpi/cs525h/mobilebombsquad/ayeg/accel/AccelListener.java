@@ -39,9 +39,9 @@ public class AccelListener implements SensorEventListener {
 		SensorManager.getRotationMatrix(R, I, gravity, geomagnetic);
         SensorManager.getOrientation(R, values);
         
-        float x = values[0];
+        float x = (-1.0f) * values[2];
         float y = values[1];
-        float z = values[2];
+        float z = values[0];
         handler.updateBubble(x, y, z);
 	}
 }

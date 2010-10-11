@@ -49,4 +49,8 @@ public class PlayableSurfaceView extends View {
 		bubble.getDrawable().draw(canvas);
 
 	}
+	
+	boolean checkBubbleCircle() {
+		return circle.getBounds().contains(bubble.getBounds());
+	}
 }
