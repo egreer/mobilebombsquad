@@ -49,8 +49,11 @@ public class TriggerBubble {
 	}
 	
 	void updatePosition(int locX, int locY) {
-		this.locX = locX;
-		this.locY = locY;
+		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
+		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - bubbleHeight;
+			
+		this.locX = locX > maxWidth ? maxWidth : (locX < PlayableSurfaceView.OFFSETX ? PlayableSurfaceView.OFFSETX : locX);  
+		this.locY = locY > maxHeight ? maxHeight : (locY < PlayableSurfaceView.OFFSETY ? PlayableSurfaceView.OFFSETY : locY);
 		updateBounds();
 	}
 	

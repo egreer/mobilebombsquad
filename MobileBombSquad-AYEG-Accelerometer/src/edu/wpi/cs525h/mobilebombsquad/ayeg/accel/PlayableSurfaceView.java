@@ -15,8 +15,8 @@ public class PlayableSurfaceView extends View {
 	final static int HEIGHT = 500;
 	
 	private ShapeDrawable mDrawable;
-	private TriggerBubble bubble;
-	private TargetCircle circle;
+	TriggerBubble bubble;
+	TargetCircle circle;
 	
 	public PlayableSurfaceView(Context context) {
 		super(context);
