@@ -14,37 +14,23 @@ public class PlayableSurfaceView extends View {
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
 	
-	private ShapeDrawable mDrawable;
+	private ShapeDrawable playable;
 	TriggerBubble bubble;
 	TargetCircle circle;
 	
 	public PlayableSurfaceView(Context context) {
 		super(context);
 
-		mDrawable = new ShapeDrawable(new RectShape());
-		mDrawable.getPaint().setColor(0xFFFFFFFF);
-		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
+		playable = new ShapeDrawable(new RectShape());
+		playable.getPaint().setColor(0xFFFFFFFF);
+		playable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
 		bubble = new TriggerBubble();
-		circle = new TargetCircle();
-	}
-	
-	public PlayableSurfaceView(Context context, AttributeSet attributes) {
-		super(context, attributes);
-
-		mDrawable = new ShapeDrawable(new RectShape());
-		mDrawable.getPaint().setColor(0xFFFFFFFF);
-		mDrawable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
-		
-		bubble = new TriggerBubble();
-		((ShapeDrawable) bubble.getDrawable()).getPaint().setColor(0xFF00FF00);
-		bubble.getDrawable().setBounds(25, 25, 50, 50);
-		
 		circle = new TargetCircle();
 	}
 
 	protected void onDraw(Canvas canvas) {
-		mDrawable.draw(canvas);
+		playable.draw(canvas);
 		circle.getDrawable().draw(canvas);
 		bubble.getDrawable().draw(canvas);
 

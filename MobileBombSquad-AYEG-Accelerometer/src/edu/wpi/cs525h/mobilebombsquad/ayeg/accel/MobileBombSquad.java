@@ -24,7 +24,6 @@ public class MobileBombSquad extends Activity {
         view = new PlayableSurfaceView(this);
         layout.addView(view);
         layout.setOrientation(LinearLayout.VERTICAL);
-        
         setContentView(layout);
         
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
