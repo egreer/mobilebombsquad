@@ -1,6 +1,8 @@
 package com.google.code.mobilebombsquad;
 
+import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.OvalShape;
 
 public class TargetCircle extends ShapeDrawable{
@@ -13,7 +15,7 @@ public class TargetCircle extends ShapeDrawable{
 	static OvalShape circle = new OvalShape();
 	
 	public TargetCircle() {
-		this(50);
+		this(40);
 	}
 	
 	public TargetCircle(double radius) {
@@ -22,8 +24,9 @@ public class TargetCircle extends ShapeDrawable{
 		circleHeight = (int)(radius * 2);
 				
 		circle.resize(circleWidth, circleHeight);
-				
+		
 		this.getPaint().setColor(COLOR);
+		this.getPaint().setStyle(Style.STROKE);
 		generatePosition();
 	}
 	

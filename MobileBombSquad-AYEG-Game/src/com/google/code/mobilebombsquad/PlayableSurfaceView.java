@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.media.MediaPlayer;
@@ -23,7 +24,7 @@ public class PlayableSurfaceView extends View {
 	TargetCircle circle;
 	
 	
-	private boolean touchpointColor;
+	private int touchpointColor;
 	private int numTouchpoints;
 	ArrayList<TouchPoint> touchpoints = new ArrayList<TouchPoint>();
 	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
@@ -33,7 +34,7 @@ public class PlayableSurfaceView extends View {
 	public PlayableSurfaceView(Context context) {
 		super(context);
 
-		touchpointColor = true;
+		touchpointColor = Color.RED;
 		numTouchpoints = 2;
 		
 		playable = new ShapeDrawable(new RectShape());
@@ -69,10 +70,10 @@ public class PlayableSurfaceView extends View {
 	 * TODO: Make sure they don't overlap
 	 * @param color red = true, blue = false
 	 */
-	void generateTouchPoints(boolean color, int number) {
+	void generateTouchPoints(int color, int number) {
 		touchpoints.clear(); //TODO: Change for final app
 		for (int i = 0; i < number; i++) {
-			touchpoints.add(new TouchPoint());
+			touchpoints.add(new TouchPoint(color));
 		}
 	}
 
@@ -99,9 +100,10 @@ public class PlayableSurfaceView extends View {
 				vibrator.vibrate(250);
 				mp.start();
 				
-
-				touchpointColor = !touchpointColor;
+				if (touchpointColor == Color.RED) touchpointColor = Color.BLUE;
+				else if (touchpointColor == Color.BLUE) touchpointColor = Color.RED;
 				generateTouchPoints(touchpointColor, numTouchpoints);
+				
 				this.invalidate();
 			}
 		}
