@@ -2,7 +2,6 @@ package com.google.code.mobilebombsquad;
 
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.OvalShape;
 
 public class TargetCircle extends ShapeDrawable{

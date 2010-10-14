@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +23,7 @@ public class PlayableSurfaceView extends View {
 	private ShapeDrawable playable;
 	TriggerBubble bubble;
 	TargetCircle circle;
-	
+
 	
 	private int touchpointColor;
 	private int numTouchpoints;
@@ -44,14 +45,16 @@ public class PlayableSurfaceView extends View {
 		generateTouchPoints(touchpointColor, numTouchpoints);
 		bubble = new TriggerBubble();
 		circle = new TargetCircle();
+
+
 	}
 
 	protected void onDraw(Canvas canvas) {
 		playable.draw(canvas);
 		circle.draw(canvas);
 		bubble.draw(canvas);
+		//clock.draw(canvas);
 		drawTouchPoints(canvas);
-
 	}
 	
 	boolean checkBubbleCircle() {
@@ -118,6 +121,10 @@ public class PlayableSurfaceView extends View {
 			}
 		}
 		return true;
-
 	}
+	
+	void resetTimer(){
+		
+	}
+	
 }
