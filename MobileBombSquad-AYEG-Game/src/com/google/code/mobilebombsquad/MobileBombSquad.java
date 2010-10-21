@@ -116,7 +116,7 @@ public class MobileBombSquad extends Activity {
 			if (color == players.get(currentPlayer).getTouchpointColor()) {
 				//start timer/game
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
-				//signal release
+				signalRelease();
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
-	public void release() {
+	public void signalRelease() {
 		releasable = true;
 		//sound
 		//vibrate??
