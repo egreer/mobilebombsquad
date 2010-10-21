@@ -15,8 +15,12 @@ public class TouchPoint extends ShapeDrawable{
 	static OvalShape circle = new OvalShape();
 	
 	private boolean selected = false;
-	int color;
+	private int color;
 	
+	public int getColor() {
+		return color;
+	}
+
 	public TouchPoint() {
 		this(Color.RED);
 	}
@@ -49,7 +53,7 @@ public class TouchPoint extends ShapeDrawable{
 		locY = y > maxHeight ? maxHeight : y;
 	}
 
-	boolean getSelected() {
+	boolean isSelected() {
 		return selected;
 	}
 	

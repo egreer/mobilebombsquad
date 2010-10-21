@@ -27,8 +27,8 @@ public class AccelHandler {
 		int height = view.getHeight();
 		int width = view.getWidth();
 		
-		double xProportion = x / (Math.PI / 2);
-		double yProportion = y / (Math.PI / 2);
+		double xProportion = x / (Math.PI / 2.5);
+		double yProportion = y / (Math.PI / 2.5);
 		
 		int newX = (int) (width/2.0 + xProportion*(width/2.0));
 		int newY = (int) (height/2.0 + yProportion*(height/2.0));

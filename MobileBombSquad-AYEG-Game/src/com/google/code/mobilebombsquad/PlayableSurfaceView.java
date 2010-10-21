@@ -24,36 +24,24 @@ public class PlayableSurfaceView extends View {
 	TriggerBubble bubble;
 	TargetCircle circle;
 
-	
-	private int touchpointColor;
-	private int numTouchpoints;
 	ArrayList<TouchPoint> touchpoints = new ArrayList<TouchPoint>();
-	MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.notify);
-	Vibrator vibrator = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
 	
-	public PlayableSurfaceView(Context context) {
+	public PlayableSurfaceView(Context context, int initialColor) {
 		super(context);
-
-		touchpointColor = Color.RED;
-		numTouchpoints = 2;
 		
 		playable = new ShapeDrawable(new RectShape());
-		playable.getPaint().setColor(0xFFFFFFFF);
+		playable.getPaint().setColor(initialColor);
 		playable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
-		generateTouchPoints(touchpointColor, numTouchpoints);
 		bubble = new TriggerBubble();
 		circle = new TargetCircle();
-
-
 	}
 
 	protected void onDraw(Canvas canvas) {
 		playable.draw(canvas);
 		circle.draw(canvas);
 		bubble.draw(canvas);
-		//clock.draw(canvas);
 		drawTouchPoints(canvas);
 	}
 	
@@ -68,18 +56,27 @@ public class PlayableSurfaceView extends View {
 		}
 	}
 
-	/**
-	 * TODO: Something other than boolean
-	 * TODO: Make sure they don't overlap
-	 * @param color red = true, blue = false
-	 */
-	void generateTouchPoints(int color, int number) {
-		touchpoints.clear(); //TODO: Change for final app
-		for (int i = 0; i < number; i++) {
-			touchpoints.add(new TouchPoint(color));
+	void addNewTouchPoint(int color) {
+		touchpoints.add(new TouchPoint(color));
+	}
+	
+	void removeTouchPoints(int color) {
+		ArrayList<TouchPoint> removable = new ArrayList<TouchPoint>();
+		
+		for (TouchPoint point : touchpoints) {
+			if (point.getColor() == color) {
+				removable.add(point);
+			}
 		}
+		
+		touchpoints.removeAll(removable);
 	}
 
+	public void changeBackgroundColor(int color) {
+		playable.getPaint().setColor(color);
+		//playable.invalidateSelf();
+	}
+	
 	public boolean onTouchEvent(MotionEvent event) {
 		for (int i=0; i<event.getPointerCount(); i++) {
 
@@ -93,38 +90,45 @@ public class PlayableSurfaceView extends View {
 					//point.setSelected(true); //Uncomment to do multitouch more then 3 points implements a toggle that  
 					if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
 						point.setSelected(true);
+						//tell MobileBombSquad a point and its color is selected
+						((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
 					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
 						point.setSelected(false);
+						//tell MobileBombSquad a point and its color is unselected
+						((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
 					}
 				}
-			}
-
-			if (checkConditions()) {
-				vibrator.vibrate(250);
-				mp.start();
-				
-				if (touchpointColor == Color.RED) touchpointColor = Color.BLUE;
-				else if (touchpointColor == Color.BLUE) touchpointColor = Color.RED;
-				generateTouchPoints(touchpointColor, numTouchpoints);
-				
-				this.invalidate();
 			}
 		}
 		return true;
 	}
-
-
-	private boolean checkConditions() {
+	
+	/**
+	 * Assumes a touchpoint with that color is available
+	 * @param color
+	 * @return
+	 */
+	public boolean allTouchPointsPressed(int color) {
 		for (TouchPoint point : touchpoints) {
-			if (!point.getSelected()) {
+			if (point.getColor() == color && !point.isSelected()) {
 				return false;
 			}
 		}
 		return true;
 	}
 	
-	void resetTimer(){
-		
+	/**
+	 * Assumes a touchpoint with that color is available
+	 * @param color
+	 * @return
+	 */
+	public boolean allTouchPointsReleased(int color) {
+		for (TouchPoint point : touchpoints) {
+			if (point.getColor() == color && point.isSelected()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }
