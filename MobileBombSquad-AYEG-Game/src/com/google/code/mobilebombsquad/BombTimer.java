@@ -55,8 +55,13 @@ public class BombTimer {
 	}
 	
 	public void start() {
+		timer = generateTimer(initialMillisInFuture, countDownInterval);
 		timer.start();
 	}
+	
+	/*public void reset() {
+		timer = generateTimer(initialMillisInFuture, countDownInterval);
+	}*/
 	
 	public void cancel() {
 		timer.cancel();
