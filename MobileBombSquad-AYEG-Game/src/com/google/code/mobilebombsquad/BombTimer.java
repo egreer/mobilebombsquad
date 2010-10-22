@@ -12,6 +12,8 @@ public class BombTimer {
 	long countDownInterval;
 	long millisUntilFinished;
 	
+	boolean paused = false;
+	
 	public BombTimer(long millisInFuture, long countDownInterval, TextView clock, MobileBombSquad exploder) {
 		//super(millisInFuture, countDownInterval);
 		initialMillisInFuture = millisInFuture;
@@ -68,12 +70,18 @@ public class BombTimer {
 	}
 	
 	public void pause() {
+		paused = true;
 		timer.cancel();
 	}
 	
 	public void resume() {
+		paused = false;
 		timer = generateTimer(millisUntilFinished, countDownInterval);
 		timer.start();
+	}
+	
+	public boolean isPaused() {
+		return paused;
 	}
 
 }

@@ -124,8 +124,9 @@ public class MobileBombSquad extends Activity {
 				//startTurn();
 				//view.bubble.
 				//bombTimer.start();
-				startTurn();
+				//bombTimer.pause();
 				view.circle.generatePosition();
+				startTurn();
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
 			}
@@ -158,8 +159,10 @@ public class MobileBombSquad extends Activity {
 			bombTimer.pause();
 			confirmTimer.start();
 		} else {
-			confirmTimer.cancel();
-			bombTimer.resume();
+			if (bombTimer.isPaused()) {
+				confirmTimer.cancel();
+				bombTimer.resume();
+			}
 		}
 	}
 	
