@@ -71,10 +71,16 @@ public class MobileBombSquad extends Activity {
 
 			public void onTick(long millisUntilFinished) {
 				//do nothing
+				//play tick sound
 			}
 
 			public void onFinish() {
 				//play confirm sound
+				//generate next player's stuff
+				for (int i = 0; i < numTouchPoints; i++) {
+					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
+				}
+				
 			}
 		};
 		
