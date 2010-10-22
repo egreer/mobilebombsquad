@@ -26,19 +26,27 @@ public class PlayableSurfaceView extends View {
 
 	ArrayList<TouchPoint> touchpoints = new ArrayList<TouchPoint>();
 
+	boolean explosion;
 	
-	public PlayableSurfaceView(Context context, int initialColor) {
+	public PlayableSurfaceView(Context context, Player player) {
 		super(context);
 		
 		playable = new ShapeDrawable(new RectShape());
-		playable.getPaint().setColor(initialColor);
+		//playable.getPaint().setColor(initialColor);
+		playable.getPaint().setColor(player.getBackgroundColor());
 		playable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
 		bubble = new TriggerBubble();
-		circle = new TargetCircle();
+		circle = new TargetCircle(40, player.getTargetcircleColor());
+		
+		explosion = false;
 	}
 
 	protected void onDraw(Canvas canvas) {
+		if (explosion) {
+			this.getContext().getResources().getDrawable(R.drawable.explode).draw(canvas);
+			return;
+		}
 		playable.draw(canvas);
 		circle.draw(canvas);
 		bubble.draw(canvas);
@@ -92,7 +100,7 @@ public class PlayableSurfaceView extends View {
 						point.setSelected(true);
 						//tell MobileBombSquad a point and its color is selected
 						((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
-					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP || action == MotionEvent.ACTION_MOVE) {
 						point.setSelected(false);
 						//tell MobileBombSquad a point and its color is unselected
 						((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
@@ -129,6 +137,18 @@ public class PlayableSurfaceView extends View {
 			}
 		}
 		return true;
+	}
+	
+	public void drawExplosion() {
+		explosion = true;
+		this.invalidate();
+	}
+	
+	public void changePlayer(Player player) {
+		changeBackgroundColor(player.getBackgroundColor());
+		circle.changeColor(player.getTargetcircleColor());
+		circle.generatePosition();
+		this.invalidate();
 	}
 	
 }

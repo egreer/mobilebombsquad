@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
@@ -32,7 +34,7 @@ public class MobileBombSquad extends Activity {
 	private RelativeLayout layout;
 	private PlayableSurfaceView view;
 	TextView clock;
-	CountDownTimer failTimer;
+	BombTimer bombTimer;
 	CountDownTimer confirmTimer;
 	private ArrayList<Player> players;
 	private int currentPlayer;
@@ -40,8 +42,8 @@ public class MobileBombSquad extends Activity {
 	
 	private boolean releasable;
 	
-	MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
-	Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
+	//Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,13 @@ public class MobileBombSquad extends Activity {
 		
 		createPlayers();
 		
+		
 		layout = new RelativeLayout(this);
-		view = new PlayableSurfaceView(this, players.get(0).getBackgroundColor());
+		//view = new PlayableSurfaceView(this, players.get(0).getBackgroundColor());
+		view = new PlayableSurfaceView(this, players.get(0));
 		clock = new TextView(this);
+		
+		initializeGame();
 		
 		clock.setText("4");
 		clock.setTextColor(Color.BLUE);
@@ -61,7 +67,7 @@ public class MobileBombSquad extends Activity {
 		layout.addView(clock);
 		setContentView(layout);
 
-		failTimer =  new CountDownTimer(5000, 1000) {
+		/*failTimer =  new CountDownTimer(5000, 1000) {
 
 	     public void onTick(long millisUntilFinished) {
 	         clock.setText("" + millisUntilFinished / 1000);
@@ -73,7 +79,9 @@ public class MobileBombSquad extends Activity {
 	         clock.invalidate();
 	         //explosion();
 	     }
-	  };//.start();
+	  };.start();*/
+		
+		bombTimer = new BombTimer(5000, 1000, clock, this);
 
 		
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -90,8 +98,9 @@ public class MobileBombSquad extends Activity {
 		//hit start game
 		//initialization:
 		////show one color's touch point
-		initializeGame();
-		gameLogic();
+		//explosion();
+		//initializeGame();
+		//gameLogic();
 	}
 	
 	public void initializeGame() {
@@ -115,6 +124,7 @@ public class MobileBombSquad extends Activity {
 			//start condition
 			if (color == players.get(currentPlayer).getTouchpointColor()) {
 				//start timer/game
+				startTurn();
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
 			}
@@ -128,10 +138,20 @@ public class MobileBombSquad extends Activity {
 					view.removeTouchPoints(color);
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
+					startTurn();
 			}
 		} else {
 			explosion();
 		}
+	}
+	
+	public void onBubbleInCircle() {
+		//once trigger bubble is in targetcircle
+		//pause timer
+		//pauseTimer(failTimer);
+		bombTimer.pause();
+		//start "confirm" timer
+		confirmTimer.start();
 	}
 	
 	public void signalRelease() {
@@ -146,13 +166,24 @@ public class MobileBombSquad extends Activity {
 	
 	public void explosion() {
 		//play explosion
+		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
+		//explosion.draw(new Canvas());
+		view.drawExplosion();
 		//show game over screen + retry?
 	}
 	
 	void createPlayers() {
 		players = new ArrayList<Player>();
-		players.add(new Player(Color.RED, Color.WHITE));
-		players.add(new Player(Color.CYAN, Color.BLACK));
+		players.add(new Player(Color.RED, Color.WHITE, Color.BLACK));
+		players.add(new Player(Color.CYAN, Color.BLACK, Color.WHITE));
+	}
+	
+	void startTurn() {
+		//change colors + randomize position of target circle
+		view.changePlayer(players.get(currentPlayer));
+		//start fail timer
+		bombTimer.start();
+		//play sound
 	}
 	
 	@Override
