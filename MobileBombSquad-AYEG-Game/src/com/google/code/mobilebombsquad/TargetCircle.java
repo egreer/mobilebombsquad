@@ -1,12 +1,13 @@
 package com.google.code.mobilebombsquad;
 
+import android.graphics.Color;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
 public class TargetCircle extends ShapeDrawable{
 
-	final static int COLOR = 0xFF000000;
+	final static int COLOR = Color.MAGENTA;
 
 	
 	int locX, locY;
