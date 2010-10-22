@@ -123,6 +123,8 @@ public class MobileBombSquad extends Activity {
 				//start timer/game
 				//startTurn();
 				//view.bubble.
+				//bombTimer.start();
+				startTurn();
 				view.circle.generatePosition();
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
