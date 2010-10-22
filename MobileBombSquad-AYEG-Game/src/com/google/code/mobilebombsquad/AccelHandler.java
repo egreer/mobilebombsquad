@@ -6,7 +6,7 @@ import android.os.Vibrator;
 
 public class AccelHandler {
 
-	Context context;
+	MobileBombSquad context;
 	PlayableSurfaceView view;
 	
 	MediaPlayer mp;
@@ -15,7 +15,7 @@ public class AccelHandler {
 	boolean conditionMet = false;
 	
 	public AccelHandler(Context context, PlayableSurfaceView view) {
-		this.context = context;
+		this.context = (MobileBombSquad) context;
 		this.view = view;
 		
 		mp = MediaPlayer.create(context, R.raw.notify);
@@ -41,9 +41,11 @@ public class AccelHandler {
 				//vibrator.vibrate(75);
 				mp.start();
 				conditionMet = true;
+				context.isBubbleInCircle(conditionMet);
 			}
 		} else {
 			conditionMet = false;
+			context.isBubbleInCircle(conditionMet);
 		}
 	}
 	

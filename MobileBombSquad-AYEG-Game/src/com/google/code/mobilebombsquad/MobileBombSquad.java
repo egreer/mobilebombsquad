@@ -67,19 +67,16 @@ public class MobileBombSquad extends Activity {
 		layout.addView(clock);
 		setContentView(layout);
 
-		/*failTimer =  new CountDownTimer(5000, 1000) {
+		confirmTimer =  new CountDownTimer(5000, 1000) {
 
-	     public void onTick(long millisUntilFinished) {
-	         clock.setText("" + millisUntilFinished / 1000);
-	         clock.invalidate();
-	     }
+			public void onTick(long millisUntilFinished) {
+				//do nothing
+			}
 
-	     public void onFinish() {
-	         clock.setText("Boom");
-	         clock.invalidate();
-	         //explosion();
-	     }
-	  };.start();*/
+			public void onFinish() {
+				//play confirm sound
+			}
+		};
 		
 		bombTimer = new BombTimer(5000, 1000, clock, this);
 
@@ -124,7 +121,9 @@ public class MobileBombSquad extends Activity {
 			//start condition
 			if (color == players.get(currentPlayer).getTouchpointColor()) {
 				//start timer/game
-				startTurn();
+				//startTurn();
+				//view.bubble.
+				view.circle.generatePosition();
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
 			}
@@ -145,13 +144,21 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
-	public void onBubbleInCircle() {
+	public void isBubbleInCircle(boolean yes) {
 		//once trigger bubble is in targetcircle
 		//pause timer
 		//pauseTimer(failTimer);
-		bombTimer.pause();
+		//bombTimer.pause();
 		//start "confirm" timer
-		confirmTimer.start();
+		//confirmTimer.start();
+		
+		if (yes) {
+			bombTimer.pause();
+			confirmTimer.start();
+		} else {
+			confirmTimer.cancel();
+			bombTimer.resume();
+		}
 	}
 	
 	public void signalRelease() {
