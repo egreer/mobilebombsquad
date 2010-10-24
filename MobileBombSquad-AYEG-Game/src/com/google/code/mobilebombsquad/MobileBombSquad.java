@@ -131,7 +131,7 @@ public class MobileBombSquad extends Activity {
 				//view.bubble.
 				//bombTimer.start();
 				//bombTimer.pause();
-				view.circle.generatePosition();
+				//view.circle.generatePosition();
 				startTurn();
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
@@ -141,7 +141,10 @@ public class MobileBombSquad extends Activity {
 	
 	public void touchPointReleased(int color) {
 		if (releasable) {
-			if (view.allTouchPointsReleased(color) && (color == players.get(currentPlayer).getTouchpointColor())) {
+			if (view.allTouchPointsReleased(color) && 
+				(color == players.get(currentPlayer).getTouchpointColor()) &&
+				view.checkBubbleCircle() &&
+				view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor())) {
 					releasable = false;
 					view.removeTouchPoints(color);
 					currentPlayer = nextPlayer();
@@ -161,7 +164,7 @@ public class MobileBombSquad extends Activity {
 		//start "confirm" timer
 		//confirmTimer.start();
 		
-		if (yes) {
+		if (yes && view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor())) {
 			bombTimer.pause();
 			confirmTimer.start();
 		} else {
