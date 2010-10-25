@@ -3,19 +3,11 @@ package com.google.code.mobilebombsquad;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Vibrator;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.DigitalClock;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +34,7 @@ public class MobileBombSquad extends Activity {
 	private int numTouchPoints; //correct amount per player
 	
 	private boolean releasable;
+	private boolean confirming = false;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
 	//Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -78,7 +71,7 @@ public class MobileBombSquad extends Activity {
 			public void onFinish() {
 				//play confirm sound
 				//generate next player's stuff
-				bombTimer.cancel();
+				//bombTimer.cancel();
 				for (int i = 0; i < numTouchPoints; i++) {
 					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				}
@@ -171,6 +164,7 @@ public class MobileBombSquad extends Activity {
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
 					releasable = false;
+					confirming = false;
 					startTurn();
 				}
 		} else {
@@ -186,13 +180,17 @@ public class MobileBombSquad extends Activity {
 		//start "confirm" timer
 		//confirmTimer.start();
 		
-		if (yes && view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor())) {
-			bombTimer.pause();
-			confirmTimer.start();
+		if (yes){
+			if(!confirming && view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor())) {
+				bombTimer.pause();
+				confirmTimer.start();
+				confirming = true;
+			}
 		} else {
-			if (releasable) {
+			if (releasable || confirming) {
 				explosion();
 			} else if (bombTimer.isPaused()) {
+				confirming = false;
 				confirmTimer.cancel();
 				bombTimer.resume();
 			}

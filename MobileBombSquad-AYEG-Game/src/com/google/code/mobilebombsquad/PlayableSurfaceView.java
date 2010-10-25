@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 public class PlayableSurfaceView extends View {
 
@@ -94,22 +95,62 @@ public class PlayableSurfaceView extends View {
 
 			//if (action == MotionEvent.ACTION_DOWN) {
 			for (TouchPoint point : touchpoints) {
-				if (point.contains(x, y)) {
+				if (action == MotionEvent.ACTION_MOVE){
+					if (point.contains(x, y)){
+						if(!point.isSelected()){
+							point.setSelected(true);
+							((MobileBombSquad) this.getContext()).touchPointPressed();
+						}
+					//}else{
+						/*Toast ate = Toast.makeText(this.getContext(), "Move doesn't contain point", Toast.LENGTH_SHORT);
+						ate.show();
+						boolean contained = false; 
+						//for (int h = 0 ; h < event.getHistorySize() ; h++){
+						//for (int h = event.getHistorySize() ; h >= 0 ; h--){
+						int minimum = (int) Math.min(5,event.getHistorySize());
+						for (int h = 0; h < minimum; h++) {
+							
+							int hisX  = (int) event.getHistoricalX(i, event.getHistorySize()-h);
+							int hisY = (int) event.getHistoricalY(i, event.getHistorySize()-h);
+							
+							if (point.contains(hisX, hisY) && point.isSelected()){
+								point.setSelected(false);
+								((MobileBombSquad) this.getContext()).touchPointReleased();
+								//contained = true;
+								//if ( h <= /*event.getHistorySize() - 5){
+									//contained = false;
+									break;
+								//}
+							}
+						}
+						
+						if (contained && point.isSelected()){
+							point.setSelected(false);
+							((MobileBombSquad) this.getContext()).touchPointReleased();	
+						}*/
+						
+					}
+				}
+				
+				else if (point.contains(x, y)) {
 					//point.setSelected(true); //Uncomment to do multitouch more then 3 points implements a toggle that  
 					if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
 						point.setSelected(true);
 						//tell MobileBombSquad a point and its color is selected
 						//((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
 						((MobileBombSquad) this.getContext()).touchPointPressed();
-					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+					} else if (action == MotionEvent.ACTION_UP | action == MotionEvent.ACTION_POINTER_UP) {
 						point.setSelected(false);
 						//tell MobileBombSquad a point and its color is unselected
 						//((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
 						((MobileBombSquad) this.getContext()).touchPointReleased();
 					}
 				}
+				
+				
+				}
 			}
-		}
+		
 		return true;
 	}
 	
