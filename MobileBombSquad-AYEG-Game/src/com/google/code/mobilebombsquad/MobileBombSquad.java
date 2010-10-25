@@ -39,11 +39,12 @@ public class MobileBombSquad extends Activity {
 	private boolean confirming;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
-	Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+	Vibrator vibrator;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		
 		createPlayers();
 		
