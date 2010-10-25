@@ -27,7 +27,7 @@ public class TargetCircle extends ShapeDrawable{
 		
 		this.getPaint().setColor(color);
 		this.getPaint().setStyle(Style.STROKE);
-		this.getPaint().setStrokeWidth(2.0f);
+		this.getPaint().setStrokeWidth(10.0f);
 		generatePosition();
 	}
 	

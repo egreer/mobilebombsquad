@@ -3,11 +3,13 @@ package com.google.code.mobilebombsquad;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class MobileBombSquad extends Activity {
 	private boolean confirming;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
-	//Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+	Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -207,6 +209,7 @@ public class MobileBombSquad extends Activity {
 		//explosion.draw(new Canvas());
 		bombTimer.cancel();
 		clock.setText("Boom");
+		vibrator.vibrate(5000);
 		view.drawExplosion();
 		//show game over screen + retry?
 		//finish();
