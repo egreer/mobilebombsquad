@@ -127,7 +127,7 @@ public class MobileBombSquad extends Activity {
 		updateScoreText();
 		scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
 		scoreText.setTextSize(30);
-		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 10 , 5 , PlayableSurfaceView.OFFSETY, 0);
+		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 40 , 5 , PlayableSurfaceView.OFFSETY, 0);
 		
 		layout.addView(view);
 		layout.addView(clock);
@@ -234,6 +234,7 @@ public class MobileBombSquad extends Activity {
 					score += bombTimer.millisUntilFinished / 1000;
 					clock.setTextColor(players.get(currentPlayer).touchpointColor);
 					scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
+					updateScoreText();
 					startTurn();
 				}
 		} else if (safeToMove){
