@@ -43,7 +43,8 @@ public class BombTimer {
 	
 	//@Override
 	public void onTimerFinish() {
-        clock.setText("Boom");
+        //clock.setText("Boom");
+		clock.setText("");
         clock.invalidate();
         exploder.explosion();
 	}

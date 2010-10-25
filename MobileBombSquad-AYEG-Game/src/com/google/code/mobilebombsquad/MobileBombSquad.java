@@ -211,13 +211,13 @@ public class MobileBombSquad extends Activity {
 		vibrator.vibrate(2000);
 		manager.unregisterListener(listener);
 		bombTimer.cancel();
-		clock.setText("Boom");
+		//clock.setText("Boom");
 		view.drawExplosion();
-		view.bubble.setVisible(false, false);
-		view.circle.setVisible(false, false);
+		//view.bubble.setVisible(false, false);
+		//view.circle.setVisible(false, false);
 		view.disableTouchPoints(players.get(currentPlayer).touchpointColor);
 		view.disableTouchPoints(players.get(nextPlayer()).touchpointColor);
-		view.invalidate();
+		//view.invalidate();
 		//show game over screen + retry?
 		//finish();
 	}
