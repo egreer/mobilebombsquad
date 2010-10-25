@@ -43,8 +43,8 @@ Once the bubble enters the circle the player must hold it there until the next t
 point appears. 
 
 The second player must hold the touch point, when the confirmation "OK" is heard the 
-first player may release his finger and the timer will begin for the second player 
-to attempt to get the bubble into the circle.   
+first player may release his finger and the timer will begin and the second player must
+touch the newly generated touchpoint and attempt to get the bubble into the circle.   
 
 Play continues until any of these conditions are triggered:
 	A player releases the touch point during the transfer
@@ -72,3 +72,11 @@ which our research has not revealed a good answer as to why it is happening.
 
 Despite the smoothing on the ball there is a tendency for the ball to jump 
 out of the circle on transfer so be careful!
+
+Touch points were not staying selected upon our screen changes so we made it 
+so that the player has to re-adjust their touch.
+
+There is code for handling the movement of fingers on the screen so that the 
+touch points could be moved off of a little without it releasing the touchpoint
+but it limited our game to one iteration through because it thought there was 
+a released touchpoint. So that is commented out in PlayableSurfaceView    

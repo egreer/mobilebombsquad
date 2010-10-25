@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -272,9 +271,6 @@ public class MobileBombSquad extends Activity {
 		safeToPass = true;
 		//sound
 		releaseSignal.start();
-		//vibrate??
-		Toast signalreleasetoast = Toast.makeText(this, "Okay to release Player " + currentPlayer, Toast.LENGTH_SHORT);
-		//signalreleasetoast.show();
 	}
 	
 	/** 
