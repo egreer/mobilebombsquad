@@ -110,8 +110,29 @@ public class PlayableSurfaceView extends View {
 								point.setSelected(true);
 								((MobileBombSquad) this.getContext()).touchPointPressed();
 							}						
+						} else{
+							if (point.isSelected()){
+								int contained = 0;
+								int hisX;
+								int hisY;
+								for (int h = 0 ; h < event.getHistorySize() ; h++){
+									hisX  =(int) event.getHistoricalX(i, event.getHistorySize()-h);
+									hisY = (int) event.getHistoricalY(i, event.getHistorySize()-h);
+									
+									if (point.contains(hisX, hisY) && point.isSelected()){
+										contained++;
+									}
+								}
+								
+								if ( 3 < event.getHistorySize() && contained < (event.getHistorySize() / 2 ) ){
+									point.setSelected(false);
+									((MobileBombSquad) this.getContext()).touchPointReleased();	
+								}
+							}
 						}
-					} else if (point.contains(x, y)) {  
+					}
+					
+					if (point.contains(x, y)) {  
 						if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
 							point.setSelected(true);
 							((MobileBombSquad) this.getContext()).touchPointPressed();

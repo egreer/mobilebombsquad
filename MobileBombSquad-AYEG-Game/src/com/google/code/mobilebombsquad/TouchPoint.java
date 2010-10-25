@@ -27,7 +27,7 @@ public class TouchPoint extends ShapeDrawable{
 	}
 	
 	public TouchPoint(int color) {
-		this(30, color);
+		this(35, color);
 	}
 	
 	public TouchPoint(double radius, int color) {

@@ -61,7 +61,7 @@ public class MobileBombSquad extends Activity {
 		layout.addView(clock);
 		setContentView(layout);
 
-		confirmTimer =  new CountDownTimer(5000, 1000) {
+		confirmTimer =  new CountDownTimer(3000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 				//do nothing
