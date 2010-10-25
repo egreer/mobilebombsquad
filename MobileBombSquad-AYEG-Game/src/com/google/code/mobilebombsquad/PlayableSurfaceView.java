@@ -4,12 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
-import android.media.MediaPlayer;
-import android.os.CountDownTimer;
-import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -26,9 +22,10 @@ public class PlayableSurfaceView extends View {
 	TargetCircle circle;
 
 	ArrayList<TouchPoint> touchpoints = new ArrayList<TouchPoint>();
-
+	
 	boolean explosion;
 	
+		
 	public PlayableSurfaceView(Context context, Player player) {
 		super(context);
 		
@@ -64,13 +61,22 @@ public class PlayableSurfaceView extends View {
 			point.draw(canvas);
 		}
 	}
-
-	void addNewTouchPoint(int color) {
+	
+	void addTouchPoint(int color){
 		touchpoints.add(new TouchPoint(color));
 	}
+
+	void enableTouchPoint(int color) {
+		//touchpoints.add(new TouchPoint(color));//
+		for (TouchPoint point : touchpoints) {
+			if (point.getColor() == color) {
+				point.setVisible(true,true);
+			}
+		}
+	}
 	
-	void removeTouchPoints(int color) {
-		ArrayList<TouchPoint> removable = new ArrayList<TouchPoint>();
+	void disableTouchPoints(int color) {
+		/*ArrayList<TouchPoint> removable = new ArrayList<TouchPoint>();
 		
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
@@ -78,7 +84,13 @@ public class PlayableSurfaceView extends View {
 			}
 		}
 		
-		touchpoints.removeAll(removable);
+		touchpoints.removeAll(removable);*/
+		
+		for (TouchPoint point : touchpoints) {
+			if (point.getColor() == color) {
+				point.setVisible(false, false);
+			}
+		}
 	}
 
 	public void changeBackgroundColor(int color) {
@@ -145,8 +157,6 @@ public class PlayableSurfaceView extends View {
 						t.show();
 						//tell MobileBombSquad a point and its color is unselected
 						//((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
-						t = Toast.makeText(this.getContext(), "set point to flase", Toast.LENGTH_SHORT);
-						t.show();
 						((MobileBombSquad) this.getContext()).touchPointReleased();
 						
 					}

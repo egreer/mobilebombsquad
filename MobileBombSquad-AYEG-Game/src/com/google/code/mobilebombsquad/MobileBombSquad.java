@@ -74,7 +74,7 @@ public class MobileBombSquad extends Activity {
 				//generate next player's stuff
 				//bombTimer.cancel();
 				for (int i = 0; i < numTouchPoints; i++) {
-					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
+					view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				}
 				confirming = true;
 				safeToMove = false;
@@ -110,7 +110,7 @@ public class MobileBombSquad extends Activity {
 		numTouchPoints = 1;
 		currentPlayer = 0;
 		safeToPass = false;
-		view.addNewTouchPoint(players.get(currentPlayer).getTouchpointColor());
+		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		
 	}
 	
@@ -164,7 +164,7 @@ public class MobileBombSquad extends Activity {
 					   view.checkBubbleCircle()) {
 					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
 					releasetoast.show();
-					view.removeTouchPoints(color);
+					view.disableTouchPoints(color);
 					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
