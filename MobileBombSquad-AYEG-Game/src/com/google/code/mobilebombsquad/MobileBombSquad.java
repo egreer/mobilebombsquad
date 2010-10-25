@@ -70,7 +70,9 @@ public class MobileBombSquad extends Activity {
 		
 		setContentView(R.layout.main);
 		Button button = (Button)findViewById(R.id.startbutton);
-		button.setPadding(160, 380, 0, 0);
+		button.setPadding(160, 380, 100, 100);
+		button.setWidth(40);
+		button.setHeight(20);
 		
 		
 		//layout = new RelativeLayout(this);
