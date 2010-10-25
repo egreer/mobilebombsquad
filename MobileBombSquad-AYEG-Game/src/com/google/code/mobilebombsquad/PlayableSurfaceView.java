@@ -43,7 +43,7 @@ public class PlayableSurfaceView extends View {
 
 	protected void onDraw(Canvas canvas) {
 		if (explosion) {
-			this.getContext().getResources().getDrawable(R.drawable.explode).draw(canvas);
+			this.getContext().getResources().getDrawable(R.drawable.explosionfordroid).draw(canvas);
 		} else {
 			playable.draw(canvas);
 			circle.draw(canvas);
