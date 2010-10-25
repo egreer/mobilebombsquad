@@ -163,7 +163,7 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
-	public void isBubbleInCircle(boolean yes) {
+	synchronized public void isBubbleInCircle(boolean yes) {
 		//once trigger bubble is in targetcircle
 		//pause timer
 		//pauseTimer(failTimer);
@@ -220,10 +220,12 @@ public class MobileBombSquad extends Activity {
 	void startTurn() {
 		bombTimer.cancel();
 		//change colors + randomize position of target circle
-		view.changePlayer(players.get(currentPlayer));
 		//start fail timer
 		bombTimer.start();
-		//play sound
+		
+		view.changePlayer(players.get(currentPlayer));
+		
+				//play sound
 	}
 	
 	@Override

@@ -17,14 +17,12 @@ public class BombTimer {
 	
 	public BombTimer(long millisInFuture, long countDownInterval, TextView clock, MobileBombSquad exploder) {
 		//super(millisInFuture, countDownInterval);
-		initialMillisInFuture = millisInFuture;
+		this.initialMillisInFuture = millisInFuture;
 		this.countDownInterval = countDownInterval;
 		this.clock = clock;
 		this.exploder = exploder;
 		
 		timer = generateTimer(millisInFuture, countDownInterval);
-		Toast t = Toast.makeText(exploder, "Made A Timer", Toast.LENGTH_SHORT);
-		t.show();
 	}
 
 	public CountDownTimer generateTimer(long millisInFuture, long countDownInterval) {
@@ -55,11 +53,11 @@ public class BombTimer {
 		this.millisUntilFinished = millisUntilFinished;
 		clock.setText("" + millisUntilFinished / 1000);
         clock.invalidate();
-
 	}
 	
 	public void start() {
 		timer.cancel();
+		millisUntilFinished = initialMillisInFuture;
 		timer = generateTimer(initialMillisInFuture, countDownInterval);
 		timer.start();
 	}
@@ -79,6 +77,7 @@ public class BombTimer {
 	
 	public void resume() {
 		paused = false;
+		timer.cancel();
 		timer = generateTimer(millisUntilFinished, countDownInterval);
 		timer.start();
 	}
