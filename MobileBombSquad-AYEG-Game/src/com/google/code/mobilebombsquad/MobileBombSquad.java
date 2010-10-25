@@ -185,8 +185,7 @@ public class MobileBombSquad extends Activity {
 				explosion();
 			} else if (!view.isThisPointSelected(currentColor) &&
 					   view.checkBubbleCircle()) {
-					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
-					//releasetoast.show();
+
 					view.disableTouchPoints(currentColor);
 					view.invalidate();
 					currentPlayer = nextPlayer();
