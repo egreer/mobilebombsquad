@@ -278,7 +278,7 @@ public class MobileBombSquad extends Activity {
 		//finish();
 		//RetryDialog dialog = new RetryDialog(this, createAlertDialog());
 		try {
-			wait(500);
+			wait(2100);
 		} catch (InterruptedException e) {
 			
 		}
