@@ -67,9 +67,6 @@ public class PlayableSurfaceView extends View {
 	
 	void addTouchPoint(int color){
 		TouchPoint t = new TouchPoint(color);
-		while (isItOverlapping(t)) {
-			t = new TouchPoint(color);
-		}
 		t.setVisible(false, false);
 		touchpoints.add(t);
 	}
@@ -157,8 +154,10 @@ public class PlayableSurfaceView extends View {
 	
 	boolean isItOverlapping(TouchPoint point) {
 		for (TouchPoint tp : touchpoints) {
-			if (tp.overlaps(point)) {
-				return true;
+			if (point.isVisible()) {	
+				if (point.overlaps(tp)) {
+					return true;
+				}
 			}
 		}
 		return false;
