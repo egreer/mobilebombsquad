@@ -54,8 +54,8 @@ public class MobileBombSquad extends Activity {
 	MediaPlayer releaseSignal;
 	Vibrator vibrator;
 	
-	private int highScore = 0;
-	private int score = 0;
+	private long highScore = 0;
+	private long score = 0;
 	private int passes = 0;
 	
 	/*
@@ -216,6 +216,7 @@ public class MobileBombSquad extends Activity {
 					safeToMove = true;
 					confirming = false;
 					passes++; // A successful Pass
+					score += bombTimer.millisUntilFinished; 
 					startTurn();
 				}
 		} else if (safeToMove){
@@ -283,6 +284,7 @@ public class MobileBombSquad extends Activity {
 	 * Failure of the End Game conditions, and displays an explosion. 
 	 */
 	public void explosion() {
+		highScore = Math.max(score, highScore);
 		//play explosion
 		//MediaPlayer exploder = MediaPlayer.create(this, R.raw.explosion);
 		MediaPlayer exploder = MediaPlayer.create(this, R.raw.terryexplosion);
@@ -299,7 +301,9 @@ public class MobileBombSquad extends Activity {
 		//show game over screen + retry?
 		//finish();
 		//RetryDialog dialog = new RetryDialog(this, createAlertDialog());
-		
+		Toast scoreText = Toast.makeText(this, "Passes: " + passes + " Score: " + score + " High Score: " + highScore, Toast.LENGTH_LONG);
+		scoreText.show();
+
 		new CountDownTimer(2000, 1000) {
 
 			@Override
@@ -315,6 +319,7 @@ public class MobileBombSquad extends Activity {
 			}
 			
 		}.start();
+		
 	}
 	
 	/**
