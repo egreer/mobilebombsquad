@@ -127,7 +127,7 @@ public class MobileBombSquad extends Activity {
 		updateScoreText();
 		scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
 		scoreText.setTextSize(30);
-		clock.setPadding(PlayableSurfaceView.OFFSETY - 10, 5 , PlayableSurfaceView.OFFSETY, 0);
+		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 10 , 5 , PlayableSurfaceView.OFFSETY, 0);
 		
 		layout.addView(view);
 		layout.addView(clock);
