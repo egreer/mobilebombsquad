@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
@@ -40,6 +41,10 @@ public class MobileBombSquad extends Activity {
 	private boolean confirming;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
+	MediaPlayer tpPress;
+	MediaPlayer confirmTick;
+	MediaPlayer confirmFinish;
+	MediaPlayer releaseSignal;
 	Vibrator vibrator;
 	
 	/*
@@ -66,7 +71,12 @@ public class MobileBombSquad extends Activity {
 		layout.addView(view);
 		layout.addView(clock);
 		setContentView(layout);
-
+		
+		confirmTick = MediaPlayer.create(this, R.raw.mkshort);
+		confirmFinish = MediaPlayer.create(this, R.raw.mklong);
+		//releaseSignal = MediaPlayer.create(this, R.raw.notify);
+		releaseSignal = MediaPlayer.create(this, R.raw.terryokay);
+		
 		confirmTimer =  new CountDownTimer(3000, 1000) {
 			/*
 			 * (non-Javadoc)
@@ -75,6 +85,7 @@ public class MobileBombSquad extends Activity {
 			public void onTick(long millisUntilFinished) {
 				//do nothing
 				//play tick sound
+				confirmTick.start();
 			}
 
 			/*
@@ -85,6 +96,7 @@ public class MobileBombSquad extends Activity {
 				view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				confirming = true;
 				safeToMove = false;
+				confirmFinish.start();
 				
 			}
 		};
@@ -103,6 +115,8 @@ public class MobileBombSquad extends Activity {
 		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
 		bombTimer.start();
+		
+		tpPress = MediaPlayer.create(this, R.raw.type);
 		
 		//show welcome screen
 		//hit start game
@@ -141,6 +155,7 @@ public class MobileBombSquad extends Activity {
 	 * This method is called whenever a TouchPoint is pressed
 	 */
 	public void touchPointPressed() {
+		tpPress.start();
 		if (view.isThisPointSelected(players.get(currentPlayer).getTouchpointColor()) &&
 			view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor()) && 
 			view.checkBubbleCircle() &&
@@ -160,11 +175,13 @@ public class MobileBombSquad extends Activity {
 			int nextColor = players.get(nextPlayer()).getTouchpointColor();
 			boolean nextPressed = view.isThisPointSelected(nextColor);
 			if (!nextPressed) {
+				Toast nextrelease = Toast.makeText(this, "Next player released the touch point", Toast.LENGTH_SHORT);
+				nextrelease.show();
 				explosion();
 			} else if (!view.isThisPointSelected(currentColor) &&
 					   view.checkBubbleCircle()) {
 					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
-					releasetoast.show();
+					//releasetoast.show();
 					view.disableTouchPoints(currentColor);
 					view.invalidate();
 					currentPlayer = nextPlayer();
@@ -177,6 +194,8 @@ public class MobileBombSquad extends Activity {
 		} else if (safeToMove){
 			
 		} else {
+			Toast released = Toast.makeText(this, "You released the touch point", Toast.LENGTH_SHORT);
+			released.show();
 			explosion();
 		}
 	}
@@ -201,7 +220,9 @@ public class MobileBombSquad extends Activity {
 				//confirming = true;
 			}
 		} else {
-			if (safeToPass && confirming) {
+			if ((safeToPass && confirming) || !safeToMove) {
+				Toast leftcircle = Toast.makeText(this, "The bubble left the circle", Toast.LENGTH_SHORT);
+				leftcircle.show();
 				explosion();
 			} else if (bombTimer.isPaused()) {
 				confirming = false;
@@ -218,9 +239,10 @@ public class MobileBombSquad extends Activity {
 	public void signalRelease() {
 		safeToPass = true;
 		//sound
+		releaseSignal.start();
 		//vibrate??
 		Toast signalreleasetoast = Toast.makeText(this, "Okay to release Player " + currentPlayer, Toast.LENGTH_SHORT);
-		signalreleasetoast.show();
+		//signalreleasetoast.show();
 	}
 	
 	/** 
@@ -235,6 +257,9 @@ public class MobileBombSquad extends Activity {
 	 */
 	public void explosion() {
 		//play explosion
+		//MediaPlayer exploder = MediaPlayer.create(this, R.raw.explosion);
+		MediaPlayer exploder = MediaPlayer.create(this, R.raw.terryexplosion);
+		exploder.start();
 		vibrator.vibrate(2000);
 		manager.unregisterListener(listener);
 		bombTimer.cancel();
@@ -244,7 +269,6 @@ public class MobileBombSquad extends Activity {
 		//view.circle.setVisible(false, false);
 		view.disableTouchPoints(players.get(currentPlayer).touchpointColor);
 		view.disableTouchPoints(players.get(nextPlayer()).touchpointColor);
-		//view.invalidate();
 		//show game over screen + retry?
 		//finish();
 	}

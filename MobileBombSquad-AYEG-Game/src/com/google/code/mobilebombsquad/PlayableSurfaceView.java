@@ -72,6 +72,7 @@ public class PlayableSurfaceView extends View {
 	 */
 	boolean checkBubbleCircle() {
 		return circle.getBounds().contains(bubble.getBounds());
+		//return circle.getBounds().intersect(bubble.getBounds());
 	}
 	
 	/**

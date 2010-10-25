@@ -12,7 +12,7 @@ import android.graphics.drawable.shapes.OvalShape;
 public class TouchPoint extends ShapeDrawable{
 
 	final static int NORM = 0xFF;
-	final static int SELECT = 0x15;
+	final static int SELECT = 0x55;
 	
 	int locX, locY;
 	int touchHeight, touchWidth;

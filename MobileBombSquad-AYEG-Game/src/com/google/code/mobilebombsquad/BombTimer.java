@@ -1,7 +1,9 @@
 package com.google.code.mobilebombsquad;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /** BombTimer is a specialized timer that can be paused or resumed. 
  * 
@@ -20,6 +22,8 @@ public class BombTimer {
 	
 	boolean paused = false;
 	
+	MediaPlayer click;
+	
 	/** Constructor
 	 * 
 	 * @param millisInFuture	How long the timer goes for
@@ -32,6 +36,7 @@ public class BombTimer {
 		this.countDownInterval = countDownInterval;
 		this.clock = clock;
 		this.exploder = exploder;
+		this.click = MediaPlayer.create(exploder, R.raw.click);
 		
 		timer = generateTimer(millisInFuture, countDownInterval);
 	}
@@ -72,6 +77,8 @@ public class BombTimer {
 	public void onTimerFinish() {
 		clock.setText("");
         clock.invalidate();
+        Toast expiredTimer = Toast.makeText(exploder, "The bubble left the circle", Toast.LENGTH_SHORT);
+		expiredTimer.show();
         exploder.explosion();
 	}
 
@@ -81,6 +88,7 @@ public class BombTimer {
 	 */
 	public void onTimerTick(long millisUntilFinished) {
 		this.millisUntilFinished = millisUntilFinished;
+		click.start();
 		clock.setText("" + millisUntilFinished / 1000);
         clock.invalidate();
 	}

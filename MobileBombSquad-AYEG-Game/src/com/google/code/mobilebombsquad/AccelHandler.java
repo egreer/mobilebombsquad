@@ -14,9 +14,7 @@ public class AccelHandler {
 
 	MobileBombSquad context;
 	PlayableSurfaceView view;
-	
-	MediaPlayer mp;
-		
+
 	boolean conditionMet = false;
 	
 	/** Constructor for the Accelerometer handler
@@ -27,8 +25,7 @@ public class AccelHandler {
 	public AccelHandler(Context context, PlayableSurfaceView view) {
 		this.context = (MobileBombSquad) context;
 		this.view = view;
-		
-		mp = MediaPlayer.create(context, R.raw.notify);		
+				
 	}
 	
 	/** Updates the bubble with the latest position from the accelerometer
@@ -52,8 +49,6 @@ public class AccelHandler {
 		
 		if (checkCondition()) {
 			if (!conditionMet) {
-				//vibrator.vibrate(75);
-				mp.start();
 				conditionMet = true;
 				context.isBubbleInCircle(conditionMet);
 			}
