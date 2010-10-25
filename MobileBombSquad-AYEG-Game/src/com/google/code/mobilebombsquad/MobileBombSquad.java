@@ -148,6 +148,9 @@ public class MobileBombSquad extends Activity {
 			view.checkBubbleCircle() &&
 			!releasable) {
 			
+			Toast signaltoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
+			signaltoast.show();
+			
 			signalRelease();
 			
 		}
@@ -161,6 +164,8 @@ public class MobileBombSquad extends Activity {
 				explosion();
 			} else if (view.allTouchPointsReleased(color) &&
 					   view.checkBubbleCircle()) {
+					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
+					releasetoast.show();
 					view.removeTouchPoints(color);
 					view.invalidate();
 					currentPlayer = nextPlayer();
@@ -198,7 +203,7 @@ public class MobileBombSquad extends Activity {
 		releasable = true;
 		//sound
 		//vibrate??
-		Toast signalreleasetoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
+		Toast signalreleasetoast = Toast.makeText(this, "Okay to release Player " + currentPlayer, Toast.LENGTH_SHORT);
 		signalreleasetoast.show();
 	}
 	
