@@ -132,7 +132,9 @@ public class MobileBombSquad extends Activity {
 				//bombTimer.start();
 				//bombTimer.pause();
 				//view.circle.generatePosition();
-				startTurn();
+				if (!releasable) {
+					startTurn();
+				}
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
 			}
@@ -191,6 +193,7 @@ public class MobileBombSquad extends Activity {
 		//explosion.draw(new Canvas());
 		view.drawExplosion();
 		//show game over screen + retry?
+		finish();
 	}
 	
 	void createPlayers() {
