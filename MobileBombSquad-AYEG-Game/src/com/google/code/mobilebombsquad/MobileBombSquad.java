@@ -27,7 +27,7 @@ public class MobileBombSquad extends Activity {
 	private RelativeLayout layout;
 	private PlayableSurfaceView view;
 	TextView clock;
-	BombTimer bombTimer;
+	static BombTimer bombTimer;
 	CountDownTimer confirmTimer;
 	private ArrayList<Player> players;
 	private int currentPlayer;
@@ -126,17 +126,17 @@ public class MobileBombSquad extends Activity {
 			view.checkBubbleCircle() &&
 			!safeToPass) {
 			
-			Toast signaltoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
+			/*Toast signaltoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
 			signaltoast.show();
-			
+			*/
 			signalRelease();
 			
 		}
 	}
 	
 	public void touchPointReleased() {
-		Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
-		t.show();
+		/*Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
+		t.show();*/
 		if (safeToPass) {
 			int color = players.get(currentPlayer).getTouchpointColor();
 			boolean nextPressed = view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor());

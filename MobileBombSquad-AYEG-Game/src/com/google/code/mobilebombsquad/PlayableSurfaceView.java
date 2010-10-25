@@ -8,7 +8,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 public class PlayableSurfaceView extends View {
 

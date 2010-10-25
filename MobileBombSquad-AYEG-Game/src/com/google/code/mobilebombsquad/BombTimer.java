@@ -2,6 +2,7 @@ package com.google.code.mobilebombsquad;
 
 import android.os.CountDownTimer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BombTimer {
 
@@ -22,7 +23,8 @@ public class BombTimer {
 		this.exploder = exploder;
 		
 		timer = generateTimer(millisInFuture, countDownInterval);
-	
+		Toast t = Toast.makeText(exploder, "Made A Timer", Toast.LENGTH_SHORT);
+		t.show();
 	}
 
 	public CountDownTimer generateTimer(long millisInFuture, long countDownInterval) {
