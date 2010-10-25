@@ -75,6 +75,7 @@ public class MobileBombSquad extends Activity {
 				for (int i = 0; i < numTouchPoints; i++) {
 					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				}
+				confirming = true;
 				
 			}
 		};
@@ -184,10 +185,10 @@ public class MobileBombSquad extends Activity {
 			if(!confirming && view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor())) {
 				bombTimer.pause();
 				confirmTimer.start();
-				confirming = true;
+				//confirming = true;
 			}
 		} else {
-			if (releasable || confirming) {
+			if (releasable && confirming) {
 				explosion();
 			} else if (bombTimer.isPaused()) {
 				confirming = false;
@@ -213,7 +214,8 @@ public class MobileBombSquad extends Activity {
 		//play explosion
 		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
 		//explosion.draw(new Canvas());
-		//view.drawExplosion();
+		bombTimer.cancel();
+		view.drawExplosion();
 		//show game over screen + retry?
 		//finish();
 	}
