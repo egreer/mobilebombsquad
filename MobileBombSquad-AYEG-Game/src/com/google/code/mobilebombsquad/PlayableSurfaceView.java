@@ -98,6 +98,13 @@ public class PlayableSurfaceView extends View {
 		touchpoints.add(t);
 	}
 
+	void resetTouchPoints() {
+		for (TouchPoint point : touchpoints) {
+			point.setSelected(false);
+			point.setVisible(false, false);
+		}
+	}
+	
 	/** Enables the TouchPoint of the specific color
 	 * 
 	 * @param color The color of the TouchPoint to enable
@@ -105,9 +112,9 @@ public class PlayableSurfaceView extends View {
 	void enableTouchPoint(int color) {
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
-				point.randomizePosition();
+				point.changePosition();
 				while (isItOverlapping(point)) {
-					point.randomizePosition();
+					point.changePosition();
 				}
 				point.setVisible(true,false);
 			}
@@ -147,7 +154,7 @@ public class PlayableSurfaceView extends View {
 
 			for (TouchPoint point : touchpoints) {
 				if (point.isVisible()) {
-					if (action == MotionEvent.ACTION_MOVE){
+					/*if (action == MotionEvent.ACTION_MOVE){
 						if (point.contains(x, y)){
 							if(!point.isSelected()){
 								point.setSelected(true);
@@ -173,7 +180,7 @@ public class PlayableSurfaceView extends View {
 								}
 							}
 						}
-					}
+					}*/
 					
 					if (point.contains(x, y)) {  
 						if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
@@ -196,9 +203,7 @@ public class PlayableSurfaceView extends View {
 	 * @param color
 	 * @return
 	 */
-	public boolean isThisPointSelected(int color) {
-		Toast.makeText(this.getContext(), "Number of Touchpoints" + touchpoints.size(), Toast.LENGTH_SHORT).show();
-		
+	public boolean isThisPointSelected(int color) {		
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
 				return point.isSelected();
@@ -207,8 +212,8 @@ public class PlayableSurfaceView extends View {
 		return false;
 	}
 	
-	public void drawExplosion() {
-		explosion = true;
+	public void shouldIExplode(boolean shouldI) {
+		explosion = shouldI;
 		this.invalidate();
 	}
 	
@@ -218,6 +223,11 @@ public class PlayableSurfaceView extends View {
 	 */
 	public void changePlayer(Player player) {
 		changeBackgroundColor(player.getBackgroundColor());
+		TouchPoint playerPoint = getTouchPoint(player.getTouchpointColor());
+		if (playerPoint != null) {
+			playerPoint.setSelected(false);
+			playerPoint.changePosition();
+		}
 		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		this.invalidate();
 	}
@@ -237,6 +247,15 @@ public class PlayableSurfaceView extends View {
 		}
 		return false;
 		
+	}
+	
+	public TouchPoint getTouchPoint(int color) {
+		for (TouchPoint point : touchpoints) {
+			if (point.getColor() == color) {
+				return point;
+			}
+		}
+		return null;
 	}
 	
 }

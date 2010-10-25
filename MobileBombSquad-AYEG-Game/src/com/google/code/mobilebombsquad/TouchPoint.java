@@ -73,6 +73,11 @@ public class TouchPoint extends ShapeDrawable{
 		locY = y > maxHeight ? maxHeight : y;
 	}
 
+	void changePosition() {
+		randomizePosition();
+		this.setBounds(locX, locY, locX + touchWidth, locY + touchHeight);
+	}
+	
 	/**
 	 * @return If the TouchPoint is selected.
 	 */

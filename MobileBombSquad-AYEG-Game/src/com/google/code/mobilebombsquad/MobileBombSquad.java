@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 /**
  * TODO: 
- * Smoothing
- * Animations?
  *  
  * @author Eric Greer
  * @author Andrew Yee
@@ -80,7 +78,9 @@ public class MobileBombSquad extends Activity {
 		releaseSignal = MediaPlayer.create(this, R.raw.terryokay);
 		starting = MediaPlayer.create(this, R.raw.terrygetserious);
 		exiting = MediaPlayer.create(this, R.raw.terryheyrookie);
-		retrying = MediaPlayer.create(this, R.raw.terrychaching);
+		retrying = MediaPlayer.create(this, R.raw.terryshallwe);
+		
+		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
 		createPlayers();
 		
@@ -92,40 +92,25 @@ public class MobileBombSquad extends Activity {
 		initializeGame();
 	}
 	
-	/**
-	 * Initializes the game variables
-	 */
 	public void initializeGame() {
-		score = 0;
-		passes = 0;
 		layout = new RelativeLayout(this);
 		view = new PlayableSurfaceView(this, players.get(0));
+
 		clock = new TextView(this);
-		scoreText = new TextView(this);
-		
-		currentPlayer = 0;
-		safeToMove = true;
-		safeToPass = false;
-		confirming = false;
-		for (Player play : players ){
-			view.addTouchPoint(play.getTouchpointColor());
-		}
-		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
-		
-		clock.setText("9");
-		clock.setTextColor(players.get(currentPlayer).touchpointColor);
 		clock.setTextSize(30);
 		clock.setPadding(PlayableSurfaceView.OFFSETX + 5, 5 , 0, 0);
 		
-		updateScoreText();
-		scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
+		scoreText = new TextView(this);
 		scoreText.setTextSize(30);
 		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 40 , 5 , PlayableSurfaceView.OFFSETY, 0);
-		
+
 		layout.addView(view);
 		layout.addView(clock);
 		layout.addView(scoreText);
-		setContentView(layout);
+		
+		for (Player play : players ){
+			view.addTouchPoint(play.getTouchpointColor());
+		}
 		
 		confirmTimer =  new CountDownTimer(3000, 1000) {
 			/*
@@ -151,12 +136,36 @@ public class MobileBombSquad extends Activity {
 			}
 		};
 		
+		handler = new AccelHandler(this, view);
+		listener = new AccelListener(handler); 
+		
 		bombTimer = new BombTimer(10000, 1000, clock, this);
 
+		retryGame();
+	}
+	
+	/**
+	 * Initializes the game variables
+	 */
+	public void retryGame() {
+		score = 0;
+		passes = 0;
+		currentPlayer = 0;
+		safeToMove = true;
+		safeToPass = false;
+		confirming = false;
 		
-		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		handler = new AccelHandler(this, view);
-		listener = new AccelListener(handler);            
+		view.resetTouchPoints();
+		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
+		view.changePlayer(players.get(currentPlayer));
+		clock.setText("9");
+		clock.setTextColor(players.get(currentPlayer).touchpointColor);
+		
+		updateScoreText();
+		scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);		
+		
+		setContentView(layout);		
+		view.shouldIExplode(false);           
 
 		Sensor mag = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 		Sensor accel = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -167,15 +176,6 @@ public class MobileBombSquad extends Activity {
 		bombTimer.start();
 		
 		
-	}
-	
-	public void gameLogic() {
-		//once pressed draw triggerbubble + targetcircle + start timer + clear other touchpoints
-		//once trigger bubble is in targetcircle, pause timer, start "confirm" timer
-		//once "confirm" timer is elapsed draw other color's touch point, stop "fail" timer
-		//switch "control" to other player (flip screen color)
-		////currentPlayer is switched when next player has touched all of their points and currentPlayer has released all his points
-		//repeat
 	}
 	
 	/** 
@@ -209,6 +209,7 @@ public class MobileBombSquad extends Activity {
 					   view.checkBubbleCircle()) {
 
 					view.disableTouchPoints(currentColor);
+					//view.enableTouchPoint(nextColor);
 					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
@@ -296,7 +297,8 @@ public class MobileBombSquad extends Activity {
 		manager.unregisterListener(listener);
 		bombTimer.cancel();
 		clock.setText("");
-		view.drawExplosion();
+		scoreText.setText("");
+		view.shouldIExplode(true);
 		//view.bubble.setVisible(false, false);
 		//view.circle.setVisible(false, false);
 		view.disableTouchPoints(players.get(currentPlayer).touchpointColor);
@@ -344,9 +346,11 @@ public class MobileBombSquad extends Activity {
 		bombTimer.cancel();
 		//change colors + randomize position of target circle
 		//start fail timer
-		bombTimer.start();
+		//view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
+		
 		
 		view.changePlayer(players.get(currentPlayer));
+		bombTimer.start();
 		//play sound
 	}
 	
@@ -357,7 +361,7 @@ public class MobileBombSquad extends Activity {
 	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	                retrying.start();
-	                initializeGame();
+	                retryGame();
 	           }
 	       })
 	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
