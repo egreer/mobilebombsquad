@@ -38,6 +38,7 @@ public class MobileBombSquad extends Activity {
 	private RelativeLayout layout;
 	private PlayableSurfaceView view;
 	TextView clock;
+	
 	static BombTimer bombTimer;
 	CountDownTimer confirmTimer;
 	private ArrayList<Player> players;
@@ -57,6 +58,8 @@ public class MobileBombSquad extends Activity {
 	private long highScore = 0;
 	private long score = 0;
 	private int passes = 0;
+	
+	TextView scoreText;
 	
 	/*
 	 * (non-Javadoc)
@@ -100,9 +103,11 @@ public class MobileBombSquad extends Activity {
 	 */
 	public void initializeGame() {
 		score = 0;
+		passes = 0;
 		layout = new RelativeLayout(this);
 		view = new PlayableSurfaceView(this, players.get(0));
 		clock = new TextView(this);
+		scoreText = new TextView(this);
 		
 		//numTouchPoints = 1;
 		currentPlayer = 0;
@@ -115,12 +120,22 @@ public class MobileBombSquad extends Activity {
 		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		
 		clock.setText("9");
-		clock.setTextColor(Color.BLUE);
+		clock.setTextColor(players.get(currentPlayer).touchpointColor);
 		clock.setTextSize(30);
 		clock.setPadding(PlayableSurfaceView.OFFSETX + 5, 5 , 0, 0);
+		
+		updateScoreText();
+		scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
+		scoreText.setTextSize(30);
+		clock.setPadding(PlayableSurfaceView.OFFSETY - 10, 5 , PlayableSurfaceView.OFFSETY, 0);
+		
 		layout.addView(view);
 		layout.addView(clock);
+		layout.addView(scoreText);
 		setContentView(layout);
+		
+		
+		
 		
 		confirmTick = MediaPlayer.create(this, R.raw.mkshort);
 		confirmFinish = MediaPlayer.create(this, R.raw.mklong);
@@ -216,7 +231,9 @@ public class MobileBombSquad extends Activity {
 					safeToMove = true;
 					confirming = false;
 					passes++; // A successful Pass
-					score += bombTimer.millisUntilFinished / 1000; 
+					score += bombTimer.millisUntilFinished / 1000;
+					clock.setTextColor(players.get(currentPlayer).touchpointColor);
+					scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
 					startTurn();
 				}
 		} else if (safeToMove){
@@ -371,6 +388,17 @@ public class MobileBombSquad extends Activity {
 		return this;
 	}
 	
+	/**
+	 * Updates the score text with the current value of score
+	 */
+	void updateScoreText(){
+		scoreText.setText("" + score);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreateDialog(int)
+	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
