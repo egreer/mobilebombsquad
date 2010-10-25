@@ -149,17 +149,10 @@ public class PlayableSurfaceView extends View {
 	public void changePlayer(Player player) {
 		changeBackgroundColor(player.getBackgroundColor());
 		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
-		while (isItOverlapping(circle)) {
-			circle.generatePosition();
-		}
 		this.invalidate();
 	}
 	
 	boolean isItOverlapping(TouchPoint point) {
-		if (point.getBounds().intersect(circle.getBounds())) {
-			return true;
-		}
-		
 		for (TouchPoint tp : touchpoints) {
 			if (tp.isVisible()) {	
 				if (point.overlaps(tp)) {
@@ -169,17 +162,6 @@ public class PlayableSurfaceView extends View {
 		}
 		return false;
 		
-	}
-	
-	boolean isItOverlapping(TargetCircle circle) {
-		for (TouchPoint tp: touchpoints) {
-			if (tp.isVisible()) {
-				if (circle.getBounds().intersect(tp.getBounds())) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	
 }
