@@ -33,7 +33,8 @@ public class MobileBombSquad extends Activity {
 	private int currentPlayer;
 	private int numTouchPoints; //correct amount per player
 	
-	private boolean releasable;
+	private boolean safeToPass;
+	private boolean safeToMove = true;
 	private boolean confirming = false;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
@@ -76,6 +77,7 @@ public class MobileBombSquad extends Activity {
 					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				}
 				confirming = true;
+				safeToMove = false;
 				
 			}
 		};
@@ -107,7 +109,7 @@ public class MobileBombSquad extends Activity {
 	public void initializeGame() {
 		numTouchPoints = 1;
 		currentPlayer = 0;
-		releasable = false;
+		safeToPass = false;
 		view.addNewTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		
 	}
@@ -140,7 +142,7 @@ public class MobileBombSquad extends Activity {
 		if (view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor()) &&
 			view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor()) && 
 			view.checkBubbleCircle() &&
-			!releasable) {
+			!safeToPass) {
 			
 			Toast signaltoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
 			signaltoast.show();
@@ -153,7 +155,7 @@ public class MobileBombSquad extends Activity {
 	public void touchPointReleased() {
 		Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
 		t.show();
-		if (releasable) {
+		if (safeToPass) {
 			int color = players.get(currentPlayer).getTouchpointColor();
 			boolean nextPressed = view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor());
 			if (!nextPressed) {
@@ -166,10 +168,13 @@ public class MobileBombSquad extends Activity {
 					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
-					releasable = false;
+					safeToPass = false;
+					safeToMove = true;
 					confirming = false;
 					startTurn();
 				}
+		} else if (safeToMove){
+			
 		} else {
 			explosion();
 		}
@@ -190,7 +195,7 @@ public class MobileBombSquad extends Activity {
 				//confirming = true;
 			}
 		} else {
-			if (releasable && confirming) {
+			if (safeToPass && confirming) {
 				explosion();
 			} else if (bombTimer.isPaused()) {
 				confirming = false;
@@ -201,7 +206,7 @@ public class MobileBombSquad extends Activity {
 	}
 	
 	public void signalRelease() {
-		releasable = true;
+		safeToPass = true;
 		//sound
 		//vibrate??
 		Toast signalreleasetoast = Toast.makeText(this, "Okay to release Player " + currentPlayer, Toast.LENGTH_SHORT);

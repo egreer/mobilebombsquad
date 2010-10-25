@@ -167,20 +167,14 @@ public class PlayableSurfaceView extends View {
 	public boolean allTouchPointsPressed(int color) {
 		boolean colorAvailable = false;
 		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color && !point.isSelected()) {
-				return false;
-			}
-			
 			if (point.getColor() == color) {
+				if (!point.isSelected()) {
+					return false;
+				}
 				colorAvailable = true;
 			}
 		}
 		
-		//if (!colorAvailable) {
-	//		return false;
-		//}
-		
-		//return true;
 		return colorAvailable;
 	}
 	
@@ -192,10 +186,10 @@ public class PlayableSurfaceView extends View {
 	public boolean allTouchPointsReleased(int color) {
 		boolean colorAvailable = false;
 		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color && point.isSelected()) {
-				return false;
-			}
 			if (point.getColor() == color) {
+				if (point.isSelected()) {
+					return false;
+				}
 				colorAvailable = true;
 			}
 		}
