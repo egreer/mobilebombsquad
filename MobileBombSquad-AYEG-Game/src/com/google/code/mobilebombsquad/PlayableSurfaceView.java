@@ -143,8 +143,8 @@ public class PlayableSurfaceView extends View {
 	 */
 	public boolean isThisPointSelected(int color) {
 		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color && point.isSelected()) {
-					return true;
+			if (point.getColor() == color) {
+				return point.isSelected();
 			}
 		}
 		return false;

@@ -31,11 +31,10 @@ public class MobileBombSquad extends Activity {
 	CountDownTimer confirmTimer;
 	private ArrayList<Player> players;
 	private int currentPlayer;
-	private int numTouchPoints; //correct amount per player
 	
 	private boolean safeToPass;
-	private boolean safeToMove = true;
-	private boolean confirming = false;
+	private boolean safeToMove;
+	private boolean confirming;
 	
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
 	//Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
@@ -47,7 +46,6 @@ public class MobileBombSquad extends Activity {
 		createPlayers();
 		
 		layout = new RelativeLayout(this);
-		//view = new PlayableSurfaceView(this, players.get(0).getBackgroundColor());
 		view = new PlayableSurfaceView(this, players.get(0));
 		clock = new TextView(this);
 		
@@ -69,11 +67,7 @@ public class MobileBombSquad extends Activity {
 			}
 
 			public void onFinish() {
-				//play confirm sound
-				//generate next player's stuff
-				//bombTimer.cancel();
 				view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
-				
 				confirming = true;
 				safeToMove = false;
 				
@@ -107,7 +101,9 @@ public class MobileBombSquad extends Activity {
 	public void initializeGame() {
 		//numTouchPoints = 1;
 		currentPlayer = 0;
+		safeToMove = true;
 		safeToPass = false;
+		confirming = false;
 		for (Player play : players ){
 			//view.addTouchPoint(players.get(currentPlayer).getTouchpointColor());
 			view.addTouchPoint(play.getTouchpointColor());
@@ -157,6 +153,7 @@ public class MobileBombSquad extends Activity {
 					safeToPass = false;
 					safeToMove = true;
 					confirming = false;
+					//bombTimer.cancel();
 					startTurn();
 				}
 		} else if (safeToMove){
@@ -208,6 +205,7 @@ public class MobileBombSquad extends Activity {
 		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
 		//explosion.draw(new Canvas());
 		bombTimer.cancel();
+		clock.setText("Boom");
 		view.drawExplosion();
 		//show game over screen + retry?
 		//finish();
