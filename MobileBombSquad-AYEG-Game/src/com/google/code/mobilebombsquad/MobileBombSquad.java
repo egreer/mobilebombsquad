@@ -3,7 +3,10 @@ package com.google.code.mobilebombsquad;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -24,6 +27,8 @@ import android.widget.Toast;
  * @author Andrew Yee
  */
 public class MobileBombSquad extends Activity {
+	static final int RETRY_DIALOG = 1; 
+	
 	/** Called when the activity is first created. */
 	private SensorManager manager;
 	private AccelListener listener;
@@ -271,6 +276,8 @@ public class MobileBombSquad extends Activity {
 		view.disableTouchPoints(players.get(nextPlayer()).touchpointColor);
 		//show game over screen + retry?
 		//finish();
+		//RetryDialog dialog = new RetryDialog(this, createAlertDialog());
+		showDialog(RETRY_DIALOG);
 	}
 	
 	/**
@@ -296,6 +303,44 @@ public class MobileBombSquad extends Activity {
 		
 		view.changePlayer(players.get(currentPlayer));
 		//play sound
+	}
+	
+	RetryDialog createRetryDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Do you want to retry?")
+	       .setCancelable(false)
+	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	                MediaPlayer.create(getThisContext(), R.raw.terrychaching);
+	           }
+	       })
+	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	                getThisContext().finish();
+	           }
+	       });
+		//RetryDialog alert = (RetryDialog) builder.create();
+		
+		return (RetryDialog) builder.create();
+	}
+	
+	Activity getThisContext() {
+		return this;
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		
+		switch(id) {
+			case RETRY_DIALOG:
+				dialog = createRetryDialog();
+				break;
+			default:
+				dialog = null;
+		}
+		
+		return dialog;
 	}
 	
 	/*
