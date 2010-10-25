@@ -7,11 +7,21 @@
     >
 <Button  
 	android:id="@+id/startbutton"
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
-	android:layout_x="160px"
-	android:layout_y="360px"
+	android:layout_height="60px"
+	android:layout_width="150px"
+	android:layout_x="5px"
+	android:layout_y="375px"
     android:text="@string/start_game"
     android:onClick="initialize"
     />
+    
+<Button  
+	android:id="@+id/quitbutton"
+	android:layout_height="60px"
+	android:layout_width="150px"
+	android:layout_x="165px"
+	android:layout_y="375px"
+    android:text="@string/quit_game"
+    android:onClick="quitgame"
+    />   
 </AbsoluteLayout>

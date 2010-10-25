@@ -53,6 +53,9 @@ public class MobileBombSquad extends Activity {
 	MediaPlayer confirmTick;
 	MediaPlayer confirmFinish;
 	MediaPlayer releaseSignal;
+	MediaPlayer starting;
+	MediaPlayer exiting;
+	MediaPlayer retrying;
 	Vibrator vibrator;
 	
 	private long highScore = 0;
@@ -68,33 +71,24 @@ public class MobileBombSquad extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		tpPress = MediaPlayer.create(this, R.raw.type);
+		confirmTick = MediaPlayer.create(this, R.raw.mkshort);
+		confirmFinish = MediaPlayer.create(this, R.raw.mklong);
+		//releaseSignal = MediaPlayer.create(this, R.raw.notify);
+		releaseSignal = MediaPlayer.create(this, R.raw.terryokay);
+		starting = MediaPlayer.create(this, R.raw.terrygetserious);
+		exiting = MediaPlayer.create(this, R.raw.terryheyrookie);
+		retrying = MediaPlayer.create(this, R.raw.terrychaching);
 		
 		createPlayers();
-
-		
-		//initializeGame();
 		
 		setContentView(R.layout.main);
-		//Button button = (Button)findViewById(R.id.startbutton);
-		//button.setPadding(160, 380, 0, 0);
-		//button.setWidth(40);
-		//button.setHeight(20);
-		
-		
-		//layout = new RelativeLayout(this);
-		//Drawable titlescn = getResources().get
-		
-		//show welcome screen
-		//hit start game
-		//initialization:
-		////show one color's touch point
-		//explosion();
-		//initializeGame();
-		//gameLogic();
 	}
 	
 	public void initialize(View view) {
+		starting.start();
 		initializeGame();
 	}
 	
@@ -109,7 +103,6 @@ public class MobileBombSquad extends Activity {
 		clock = new TextView(this);
 		scoreText = new TextView(this);
 		
-		//numTouchPoints = 1;
 		currentPlayer = 0;
 		safeToMove = true;
 		safeToPass = false;
@@ -133,14 +126,6 @@ public class MobileBombSquad extends Activity {
 		layout.addView(clock);
 		layout.addView(scoreText);
 		setContentView(layout);
-		
-		
-		
-		
-		confirmTick = MediaPlayer.create(this, R.raw.mkshort);
-		confirmFinish = MediaPlayer.create(this, R.raw.mklong);
-		//releaseSignal = MediaPlayer.create(this, R.raw.notify);
-		releaseSignal = MediaPlayer.create(this, R.raw.terryokay);
 		
 		confirmTimer =  new CountDownTimer(3000, 1000) {
 			/*
@@ -181,7 +166,7 @@ public class MobileBombSquad extends Activity {
 
 		bombTimer.start();
 		
-		tpPress = MediaPlayer.create(this, R.raw.type);
+		
 	}
 	
 	public void gameLogic() {
@@ -371,7 +356,7 @@ public class MobileBombSquad extends Activity {
 	       .setCancelable(false)
 	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
-	                MediaPlayer.create(getThisContext(), R.raw.terrychaching).start();
+	                retrying.start();
 	                initializeGame();
 	           }
 	       })
@@ -422,10 +407,14 @@ public class MobileBombSquad extends Activity {
 	 */
 	@Override
 	public void onDestroy(){
+		exiting.start();
 		super.onDestroy();
-		bombTimer.cancel();
-		confirmTimer.cancel();
-		manager.unregisterListener(listener);
-		//finish();
+		if (bombTimer != null) bombTimer.cancel();
+		if (confirmTimer != null) confirmTimer.cancel();
+		if (manager != null) manager.unregisterListener(listener);
+	}
+	
+	public void quitgame(View view) {
+		finish();
 	}
 }
