@@ -385,5 +385,6 @@ public class MobileBombSquad extends Activity {
 	public void onDestroy(){
 		super.onDestroy();
 		manager.unregisterListener(listener);
+		finish();
 	}
 }
