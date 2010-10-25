@@ -67,30 +67,26 @@ public class PlayableSurfaceView extends View {
 	
 	void addTouchPoint(int color){
 		TouchPoint t = new TouchPoint(color);
+		while (isItOverlapping(t)) {
+			t = new TouchPoint(color);
+		}
 		t.setVisible(false, false);
 		touchpoints.add(t);
 	}
 
 	void enableTouchPoint(int color) {
-		//touchpoints.add(new TouchPoint(color));//
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
-				point.setVisible(true,true);
+				point.randomizePosition();
+				while (isItOverlapping(point)) {
+					point.randomizePosition();
+				}
+				point.setVisible(true,false);
 			}
 		}
 	}
 	
 	void disableTouchPoints(int color) {
-		/*ArrayList<TouchPoint> removable = new ArrayList<TouchPoint>();
-		
-		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color) {
-				removable.add(point);
-			}
-		}
-		
-		touchpoints.removeAll(removable);*/
-		
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
 				point.setVisible(false, false);
@@ -100,7 +96,6 @@ public class PlayableSurfaceView extends View {
 
 	public void changeBackgroundColor(int color) {
 		playable.getPaint().setColor(color);
-		//playable.invalidateSelf();
 	}
 	
 	public boolean onTouchEvent(MotionEvent event) {
@@ -149,24 +144,6 @@ public class PlayableSurfaceView extends View {
 		return false;
 	}
 	
-	/**
-	 * Assumes a touchpoint with that color is available
-	 * @param color
-	 * @return
-	 */
-	public boolean allTouchPointsReleased(int color) {
-		boolean colorAvailable = false;
-		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color) {
-				if (point.isSelected()) {
-					return false;
-				}
-				colorAvailable = true;
-			}
-		}
-		return colorAvailable;
-	}
-	
 	public void drawExplosion() {
 		explosion = true;
 		this.invalidate();
@@ -174,10 +151,19 @@ public class PlayableSurfaceView extends View {
 	
 	public void changePlayer(Player player) {
 		changeBackgroundColor(player.getBackgroundColor());
-		//circle.changeColor(player.getTargetcircleColor());
-		//circle.generatePosition();
 		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		this.invalidate();
+	}
+	
+	boolean isItOverlapping(TouchPoint point) {
+		for (TouchPoint tp : touchpoints) {
+			if (tp.overlaps(point)) {
+				return true;
+			}
+		}
+		return false;
+		
+		
 	}
 	
 }

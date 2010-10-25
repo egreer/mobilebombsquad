@@ -138,15 +138,16 @@ public class MobileBombSquad extends Activity {
 		/*Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
 		t.show();*/
 		if (safeToPass) {
-			int color = players.get(currentPlayer).getTouchpointColor();
-			boolean nextPressed = view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor());
+			int currentColor = players.get(currentPlayer).getTouchpointColor();
+			int nextColor = players.get(nextPlayer()).getTouchpointColor();
+			boolean nextPressed = view.isThisPointSelected(nextColor);
 			if (!nextPressed) {
 				explosion();
-			} else if (!view.isThisPointSelected(color) &&
+			} else if (!view.isThisPointSelected(currentColor) &&
 					   view.checkBubbleCircle()) {
 					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
 					releasetoast.show();
-					view.disableTouchPoints(color);
+					view.disableTouchPoints(currentColor);
 					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer

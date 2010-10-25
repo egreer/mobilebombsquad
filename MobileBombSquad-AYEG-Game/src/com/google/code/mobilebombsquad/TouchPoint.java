@@ -76,4 +76,8 @@ public class TouchPoint extends ShapeDrawable{
 	boolean contains(int x, int y) {
 		return this.getBounds().contains(x, y);
 	}
+	
+	boolean overlaps(TouchPoint point) {
+		return this.getBounds().contains(point.getBounds());
+	}
 }
