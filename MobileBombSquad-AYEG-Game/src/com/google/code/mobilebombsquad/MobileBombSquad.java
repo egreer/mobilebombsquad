@@ -18,6 +18,7 @@ import android.widget.DigitalClock;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /*TODO: 
  * Smoothing
@@ -158,17 +159,15 @@ public class MobileBombSquad extends Activity {
 			boolean nextPressed = view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor());
 			if (!nextPressed) {
 				explosion();
-			}
-			if (view.allTouchPointsReleased(color) &&
-				view.checkBubbleCircle() &&
-				nextPressed) {
-					releasable = false;
+			} else if (view.allTouchPointsReleased(color) &&
+					   view.checkBubbleCircle()) {
 					view.removeTouchPoints(color);
 					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
+					releasable = false;
 					startTurn();
-			}
+				}
 		} else {
 			explosion();
 		}
@@ -199,6 +198,8 @@ public class MobileBombSquad extends Activity {
 		releasable = true;
 		//sound
 		//vibrate??
+		Toast signalreleasetoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
+		signalreleasetoast.show();
 	}
 	
 	public int nextPlayer() {
