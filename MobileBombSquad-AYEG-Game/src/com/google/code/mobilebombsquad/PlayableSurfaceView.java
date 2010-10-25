@@ -46,12 +46,12 @@ public class PlayableSurfaceView extends View {
 	protected void onDraw(Canvas canvas) {
 		if (explosion) {
 			this.getContext().getResources().getDrawable(R.drawable.explode).draw(canvas);
-			return;
+		} else {
+			playable.draw(canvas);
+			circle.draw(canvas);
+			bubble.draw(canvas);
+			drawTouchPoints(canvas);
 		}
-		playable.draw(canvas);
-		circle.draw(canvas);
-		bubble.draw(canvas);
-		drawTouchPoints(canvas);
 	}
 	
 	boolean checkBubbleCircle() {
@@ -139,11 +139,16 @@ public class PlayableSurfaceView extends View {
 						//tell MobileBombSquad a point and its color is selected
 						//((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
 						((MobileBombSquad) this.getContext()).touchPointPressed();
-					} else if (action == MotionEvent.ACTION_UP | action == MotionEvent.ACTION_POINTER_UP) {
+					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+						Toast t = Toast.makeText(this.getContext(), "setting point to false", Toast.LENGTH_SHORT);
 						point.setSelected(false);
+						t.show();
 						//tell MobileBombSquad a point and its color is unselected
 						//((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
+						t = Toast.makeText(this.getContext(), "set point to flase", Toast.LENGTH_SHORT);
+						t.show();
 						((MobileBombSquad) this.getContext()).touchPointReleased();
+						
 					}
 				}
 				

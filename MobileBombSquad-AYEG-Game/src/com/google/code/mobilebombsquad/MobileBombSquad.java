@@ -151,6 +151,8 @@ public class MobileBombSquad extends Activity {
 	}
 	
 	public void touchPointReleased() {
+		Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
+		t.show();
 		if (releasable) {
 			int color = players.get(currentPlayer).getTouchpointColor();
 			boolean nextPressed = view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor());
