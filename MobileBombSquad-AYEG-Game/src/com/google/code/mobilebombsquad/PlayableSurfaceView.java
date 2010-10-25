@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.view.MotionEvent;
@@ -43,7 +44,9 @@ public class PlayableSurfaceView extends View {
 
 	protected void onDraw(Canvas canvas) {
 		if (explosion) {
-			this.getContext().getResources().getDrawable(R.drawable.explosionfordroid).draw(canvas);
+			Drawable explode = this.getContext().getResources().getDrawable(R.drawable.explosionfordroid);
+			explode.setBounds(0, 0, explode.getIntrinsicWidth(), explode.getIntrinsicHeight());
+			explode.draw(canvas);
 		} else {
 			playable.draw(canvas);
 			circle.draw(canvas);
