@@ -277,12 +277,22 @@ public class MobileBombSquad extends Activity {
 		//show game over screen + retry?
 		//finish();
 		//RetryDialog dialog = new RetryDialog(this, createAlertDialog());
-		try {
-			wait(2100);
-		} catch (InterruptedException e) {
+		
+		new CountDownTimer(2000, 1000) {
+
+			@Override
+			public void onFinish() {
+				showDialog(RETRY_DIALOG);
+				
+			}
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+				// TODO Auto-generated method stub
+				
+			}
 			
-		}
-		showDialog(RETRY_DIALOG);
+		}.start();
 	}
 	
 	/**
