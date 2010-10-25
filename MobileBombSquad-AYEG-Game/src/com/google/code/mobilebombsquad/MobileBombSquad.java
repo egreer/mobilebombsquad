@@ -72,9 +72,8 @@ public class MobileBombSquad extends Activity {
 				//play confirm sound
 				//generate next player's stuff
 				//bombTimer.cancel();
-				for (int i = 0; i < numTouchPoints; i++) {
-					view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
-				}
+				view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
+				
 				confirming = true;
 				safeToMove = false;
 				

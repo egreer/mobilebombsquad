@@ -125,9 +125,7 @@ public class PlayableSurfaceView extends View {
 							point.setSelected(true);
 							((MobileBombSquad) this.getContext()).touchPointPressed();
 						} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
-							Toast t = Toast.makeText(this.getContext(), "setting point to false", Toast.LENGTH_SHORT);
 							point.setSelected(false);
-							t.show();
 							((MobileBombSquad) this.getContext()).touchPointReleased();
 							
 						}
