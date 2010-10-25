@@ -167,7 +167,7 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
-	synchronized public void isBubbleInCircle(boolean yes) {
+	public void isBubbleInCircle(boolean yes) {
 		//once trigger bubble is in targetcircle
 		//pause timer
 		//pauseTimer(failTimer);
@@ -208,10 +208,16 @@ public class MobileBombSquad extends Activity {
 		//play explosion
 		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
 		//explosion.draw(new Canvas());
+		vibrator.vibrate(2000);
+		manager.unregisterListener(listener);
 		bombTimer.cancel();
 		clock.setText("Boom");
-		vibrator.vibrate(5000);
 		view.drawExplosion();
+		view.bubble.setVisible(false, false);
+		view.circle.setVisible(false, false);
+		view.disableTouchPoints(players.get(currentPlayer).touchpointColor);
+		view.disableTouchPoints(players.get(nextPlayer()).touchpointColor);
+		view.invalidate();
 		//show game over screen + retry?
 		//finish();
 	}

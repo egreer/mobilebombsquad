@@ -2,7 +2,6 @@ package com.google.code.mobilebombsquad;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.os.Vibrator;
 
 public class AccelHandler {
 
@@ -10,17 +9,14 @@ public class AccelHandler {
 	PlayableSurfaceView view;
 	
 	MediaPlayer mp;
-	Vibrator vibrator;
-	
+		
 	boolean conditionMet = false;
 	
 	public AccelHandler(Context context, PlayableSurfaceView view) {
 		this.context = (MobileBombSquad) context;
 		this.view = view;
 		
-		mp = MediaPlayer.create(context, R.raw.notify);
-		vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-		
+		mp = MediaPlayer.create(context, R.raw.notify);		
 	}
 	
 	void updateBubble(float x, float y, float z) {
