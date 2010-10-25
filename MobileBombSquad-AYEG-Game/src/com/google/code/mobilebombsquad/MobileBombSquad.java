@@ -220,6 +220,7 @@ public class MobileBombSquad extends Activity {
 	}
 	
 	void startTurn() {
+		bombTimer.cancel();
 		//change colors + randomize position of target circle
 		view.changePlayer(players.get(currentPlayer));
 		//start fail timer
