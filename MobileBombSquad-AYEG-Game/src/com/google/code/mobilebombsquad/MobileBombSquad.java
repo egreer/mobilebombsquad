@@ -153,9 +153,13 @@ public class MobileBombSquad extends Activity {
 	public void touchPointReleased() {
 		if (releasable) {
 			int color = players.get(currentPlayer).getTouchpointColor();
+			boolean nextPressed = view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor());
+			if (!nextPressed) {
+				explosion();
+			}
 			if (view.allTouchPointsReleased(color) &&
 				view.checkBubbleCircle() &&
-				view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor())) {
+				nextPressed) {
 					releasable = false;
 					view.removeTouchPoints(color);
 					view.invalidate();
@@ -203,9 +207,9 @@ public class MobileBombSquad extends Activity {
 		//play explosion
 		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
 		//explosion.draw(new Canvas());
-		view.drawExplosion();
+		//view.drawExplosion();
 		//show game over screen + retry?
-		finish();
+		//finish();
 	}
 	
 	void createPlayers() {

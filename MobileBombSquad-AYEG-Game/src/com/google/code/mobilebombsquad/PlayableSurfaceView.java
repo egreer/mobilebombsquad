@@ -119,12 +119,23 @@ public class PlayableSurfaceView extends View {
 	 * @return
 	 */
 	public boolean allTouchPointsPressed(int color) {
+		boolean colorAvailable = false;
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color && !point.isSelected()) {
 				return false;
 			}
+			
+			if (point.getColor() == color) {
+				colorAvailable = true;
+			}
 		}
-		return true;
+		
+		//if (!colorAvailable) {
+	//		return false;
+		//}
+		
+		//return true;
+		return colorAvailable;
 	}
 	
 	/**
@@ -133,12 +144,16 @@ public class PlayableSurfaceView extends View {
 	 * @return
 	 */
 	public boolean allTouchPointsReleased(int color) {
+		boolean colorAvailable = false;
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color && point.isSelected()) {
 				return false;
 			}
+			if (point.getColor() == color) {
+				colorAvailable = true;
+			}
 		}
-		return true;
+		return colorAvailable;
 	}
 	
 	public void drawExplosion() {
