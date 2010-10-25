@@ -1,6 +1,7 @@
 package com.google.code.mobilebombsquad;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
@@ -78,6 +79,6 @@ public class TouchPoint extends ShapeDrawable{
 	}
 	
 	boolean overlaps(TouchPoint point) {
-		return this.getBounds().contains(point.getBounds());
+		return this.getBounds().intersect(point.getBounds());
 	}
 }

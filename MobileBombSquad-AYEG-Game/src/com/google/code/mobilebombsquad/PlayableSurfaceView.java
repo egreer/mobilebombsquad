@@ -154,7 +154,7 @@ public class PlayableSurfaceView extends View {
 	
 	boolean isItOverlapping(TouchPoint point) {
 		for (TouchPoint tp : touchpoints) {
-			if (point.isVisible()) {	
+			if (tp.isVisible()) {	
 				if (point.overlaps(tp)) {
 					return true;
 				}
