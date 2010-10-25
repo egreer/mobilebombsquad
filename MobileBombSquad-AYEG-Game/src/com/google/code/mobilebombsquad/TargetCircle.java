@@ -26,7 +26,7 @@ public class TargetCircle extends ShapeDrawable{
 		circle.resize(circleWidth, circleHeight);
 		
 		this.getPaint().setColor(color);
-		this.getPaint().setStyle(Style.FILL_AND_STROKE);
+		this.getPaint().setStyle(Style.STROKE);
 		generatePosition();
 	}
 	
