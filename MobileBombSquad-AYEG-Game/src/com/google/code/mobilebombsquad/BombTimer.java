@@ -77,7 +77,7 @@ public class BombTimer {
 	public void onTimerFinish() {
 		clock.setText("");
         clock.invalidate();
-        Toast expiredTimer = Toast.makeText(exploder, "The bubble left the circle", Toast.LENGTH_SHORT);
+        Toast expiredTimer = Toast.makeText(exploder, "Time expired", Toast.LENGTH_SHORT);
 		expiredTimer.show();
         exploder.explosion();
 	}
