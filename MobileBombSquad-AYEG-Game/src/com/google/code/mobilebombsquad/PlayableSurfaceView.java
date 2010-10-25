@@ -59,7 +59,7 @@ public class PlayableSurfaceView extends View {
 		drawTouchPoints(canvas);
 		if (explosion) {
 			Drawable explode = this.getContext().getResources().getDrawable(R.drawable.explosionfordroid);
-			explode.setBounds(0, 0, explode.getIntrinsicWidth(), explode.getIntrinsicHeight());
+			explode.setBounds(OFFSETX, OFFSETY, OFFSETX+explode.getIntrinsicWidth(), OFFSETY+explode.getIntrinsicHeight());
 			explode.draw(canvas);
 		}
 	}
