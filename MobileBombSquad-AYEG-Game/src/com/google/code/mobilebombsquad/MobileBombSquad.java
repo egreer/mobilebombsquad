@@ -277,6 +277,11 @@ public class MobileBombSquad extends Activity {
 		//show game over screen + retry?
 		//finish();
 		//RetryDialog dialog = new RetryDialog(this, createAlertDialog());
+		try {
+			wait(500);
+		} catch (InterruptedException e) {
+			
+		}
 		showDialog(RETRY_DIALOG);
 	}
 	
@@ -334,6 +339,7 @@ public class MobileBombSquad extends Activity {
 		
 		switch(id) {
 			case RETRY_DIALOG:
+				MediaPlayer.create(this, R.raw.terryareyouokay).start();
 				dialog = createRetryDialog();
 				break;
 			default:
