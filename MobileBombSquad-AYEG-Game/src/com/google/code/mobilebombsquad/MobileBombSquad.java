@@ -99,7 +99,7 @@ public class MobileBombSquad extends Activity {
 	 * Initializes the game variables
 	 */
 	public void initializeGame() {
-		
+		score = 0;
 		layout = new RelativeLayout(this);
 		view = new PlayableSurfaceView(this, players.get(0));
 		clock = new TextView(this);
