@@ -18,7 +18,9 @@ The whole game is contained in project  MobileBombSquad-AYEG-Game
 --------------------------
 GAME DESCRIPTION
 --------------------------
-
+Welcome to Mobile Bomb Squad, a challenging game of skill and stability. 
+In this game you will work together to achieve the highest score while 
+interacting with the Android Phone.
 --------------------------
 RUNNING THE GAME
 --------------------------
@@ -61,3 +63,12 @@ Andrew:
 Eric: 
 	Accelerometer
 	Documentation
+
+--------------------------
+SPECIAL FEATURES
+--------------------------
+Occasionally the game will crash with an "ANR keyDispatchingTimedOut error", 
+which our research has not revealed a good answer as to why it is happening.
+
+Despite the smoothing on the ball there is a tendency for the ball to jump 
+out of the circle on transfer so be careful!
