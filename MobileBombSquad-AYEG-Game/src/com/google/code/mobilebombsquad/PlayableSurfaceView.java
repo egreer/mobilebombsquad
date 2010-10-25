@@ -43,7 +43,7 @@ public class PlayableSurfaceView extends View {
 	}
 
 	protected void onDraw(Canvas canvas) {
-		if (explosion) {
+		/*if (explosion) {
 			Drawable explode = this.getContext().getResources().getDrawable(R.drawable.explosionfordroid);
 			explode.setBounds(0, 0, explode.getIntrinsicWidth(), explode.getIntrinsicHeight());
 			explode.draw(canvas);
@@ -52,6 +52,15 @@ public class PlayableSurfaceView extends View {
 			circle.draw(canvas);
 			bubble.draw(canvas);
 			drawTouchPoints(canvas);
+		}*/
+		playable.draw(canvas);
+		circle.draw(canvas);
+		bubble.draw(canvas);
+		drawTouchPoints(canvas);
+		if (explosion) {
+			Drawable explode = this.getContext().getResources().getDrawable(R.drawable.explosionfordroid);
+			explode.setBounds(0, 0, explode.getIntrinsicWidth(), explode.getIntrinsicHeight());
+			explode.draw(canvas);
 		}
 	}
 	
