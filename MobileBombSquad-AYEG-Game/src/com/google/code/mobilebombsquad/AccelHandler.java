@@ -3,6 +3,13 @@ package com.google.code.mobilebombsquad;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+/** Accelerometer Handler is responsible for updating the GUI 
+ * with data obtained from the accelerometer
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee
+ *
+ */
 public class AccelHandler {
 
 	MobileBombSquad context;
@@ -12,6 +19,11 @@ public class AccelHandler {
 		
 	boolean conditionMet = false;
 	
+	/** Constructor for the Accelerometer handler
+	 * 
+	 * @param context	MobileBombSquad
+	 * @param view		The PlayableSurfaceView
+	 */
 	public AccelHandler(Context context, PlayableSurfaceView view) {
 		this.context = (MobileBombSquad) context;
 		this.view = view;
@@ -19,6 +31,12 @@ public class AccelHandler {
 		mp = MediaPlayer.create(context, R.raw.notify);		
 	}
 	
+	/** Updates the bubble with the latest position from the accelerometer
+	 * 
+	 * @param x		The new x coordinate
+	 * @param y		The new y coordinate
+	 * @param z		The new z coordinate
+	 */
 	void updateBubble(float x, float y, float z) {
 		int height = view.getHeight();
 		int width = view.getWidth();
@@ -45,6 +63,10 @@ public class AccelHandler {
 		}
 	}
 	
+	/** Checks to see if the bubble is in the circle
+	 * 
+	 * @return True if bubble is in circle, false otherwise
+	 */
 	boolean checkCondition() {
 		return view.checkBubbleCircle();
 	}

@@ -177,6 +177,7 @@ public class MobileBombSquad extends Activity {
 		
 		if (yes){
 			if(!confirming && view.isThisPointSelected(players.get(currentPlayer).getTouchpointColor())) {
+				view.circle.changeColor(Color.GREEN);
 				bombTimer.pause();
 				confirmTimer.start();
 				//confirming = true;
@@ -188,6 +189,7 @@ public class MobileBombSquad extends Activity {
 				confirming = false;
 				confirmTimer.cancel();
 				bombTimer.resume();
+				view.circle.changeColor(players.get(currentPlayer).getTargetcircleColor());
 			}
 		}
 	}
@@ -211,7 +213,7 @@ public class MobileBombSquad extends Activity {
 		vibrator.vibrate(2000);
 		manager.unregisterListener(listener);
 		bombTimer.cancel();
-		//clock.setText("Boom");
+		clock.setText("");
 		view.drawExplosion();
 		//view.bubble.setVisible(false, false);
 		//view.circle.setVisible(false, false);

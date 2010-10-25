@@ -1,20 +1,31 @@
 package com.google.code.mobilebombsquad;
 
+import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
+/** The drawable green trigger bubble 
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee
+ */
 public class TriggerBubble extends ShapeDrawable{
 
-	final static int COLOR = 0xFF00FF00;
-	
 	int locX, locY;
 	int bubbleWidth, bubbleHeight;
 	static OvalShape bubble = new OvalShape();
 	
+	/** Default constructor with 12.5 px radius
+	 * 
+	 */
 	public TriggerBubble() {
 		this(12.5);
 	}
 	
+	/** The constructor for a trigger bubble with a specific. 
+	 * 
+	 * @param radius	The radius of the bubble to create
+	 */
 	public TriggerBubble(double radius) {
 		super(bubble);
 	
@@ -24,15 +35,21 @@ public class TriggerBubble extends ShapeDrawable{
 		bubble.resize(bubbleWidth, bubbleHeight);
 		
 		
-		this.getPaint().setColor(COLOR);		
+		this.getPaint().setColor(Color.GREEN);		
 		initializePosition();
 		updateBounds();
 	}
 	
+	/**
+	 * 
+	 */
 	void updateBounds() {
 		this.setBounds(locX, locY, locX+bubbleWidth, locY+bubbleHeight);
 	}
 	
+	/**
+	 * 
+	 */
 	void initializePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
 		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - bubbleHeight;
@@ -42,6 +59,11 @@ public class TriggerBubble extends ShapeDrawable{
 		locY = y > maxHeight ? maxHeight : y;
 	}
 	
+	/**
+	 * 
+	 * @param locX
+	 * @param locY
+	 */
 	void updatePosition(int locX, int locY) {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
 		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - bubbleHeight;
