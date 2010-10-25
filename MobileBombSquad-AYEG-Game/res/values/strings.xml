@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, MobileBombSquad!</string>
     <string name="app_name">Mobile Bomb Squad</string>
+	<string name="start_game">Start Game</string>
 </resources>

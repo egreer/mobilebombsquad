@@ -14,6 +14,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,9 +66,15 @@ public class MobileBombSquad extends Activity {
 		createPlayers();
 
 		
-		initializeGame();
+		//initializeGame();
 		
-
+		setContentView(R.layout.main);
+		Button button = (Button)findViewById(R.id.startbutton);
+		button.setPadding(160, 380, 0, 0);
+		
+		
+		//layout = new RelativeLayout(this);
+		//Drawable titlescn = getResources().get
 		
 		//show welcome screen
 		//hit start game
@@ -75,6 +83,10 @@ public class MobileBombSquad extends Activity {
 		//explosion();
 		//initializeGame();
 		//gameLogic();
+	}
+	
+	public void initialize(View view) {
+		initializeGame();
 	}
 	
 	/**

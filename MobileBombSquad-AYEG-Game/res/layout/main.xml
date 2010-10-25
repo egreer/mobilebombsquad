@@ -3,10 +3,13 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/mbstitlescnterry"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
+<Button  
+	android:id="@+id/startbutton"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+    android:text="@string/start_game"
+    android:onClick="initialize"
     />
 </LinearLayout>
