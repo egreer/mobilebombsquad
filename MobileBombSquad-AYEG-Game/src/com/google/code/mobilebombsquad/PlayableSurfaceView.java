@@ -10,6 +10,11 @@ import android.graphics.drawable.shapes.RectShape;
 import android.view.MotionEvent;
 import android.view.View;
 
+/** The playable surface of the game
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee
+ */
 public class PlayableSurfaceView extends View {
 
 	final static int OFFSETX = 10;
@@ -27,12 +32,15 @@ public class PlayableSurfaceView extends View {
 	
 	boolean explosion;
 	
-		
+	/** Creates a playable surface view
+	 * 		
+	 * @param context	The context to draw on
+	 * @param player	The current player 
+	 */
 	public PlayableSurfaceView(Context context, Player player) {
 		super(context);
 		
 		playable = new ShapeDrawable(new RectShape());
-		//playable.getPaint().setColor(initialColor);
 		playable.getPaint().setColor(player.getBackgroundColor());
 		playable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
@@ -42,17 +50,11 @@ public class PlayableSurfaceView extends View {
 		explosion = false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see android.view.View#onDraw(android.graphics.Canvas)
+	 */
 	protected void onDraw(Canvas canvas) {
-		/*if (explosion) {
-			Drawable explode = this.getContext().getResources().getDrawable(R.drawable.explosionfordroid);
-			explode.setBounds(0, 0, explode.getIntrinsicWidth(), explode.getIntrinsicHeight());
-			explode.draw(canvas);
-		} else {
-			playable.draw(canvas);
-			circle.draw(canvas);
-			bubble.draw(canvas);
-			drawTouchPoints(canvas);
-		}*/
 		playable.draw(canvas);
 		circle.draw(canvas);
 		bubble.draw(canvas);
@@ -64,11 +66,18 @@ public class PlayableSurfaceView extends View {
 		}
 	}
 	
+	/** Check to see if the target circle contains the bubble
+	 * 
+	 * @return Whether the point is drawn in the bubble
+	 */
 	boolean checkBubbleCircle() {
 		return circle.getBounds().contains(bubble.getBounds());
 	}
 	
-	
+	/**
+	 *  Draws all the TouchPoints on the 
+	 * @param canvas	The canvas to draw the points on
+	 */
 	void drawTouchPoints(Canvas canvas) {
 		for (TouchPoint point : touchpoints) {
 			if (point.isVisible()) {
@@ -77,12 +86,20 @@ public class PlayableSurfaceView extends View {
 		}
 	}
 	
+	/** Adds a new touch point of the specified color
+	 * 
+	 * @param color	The color of the TouchPoint to add
+	 */
 	void addTouchPoint(int color){
 		TouchPoint t = new TouchPoint(color);
 		t.setVisible(false, false);
 		touchpoints.add(t);
 	}
 
+	/** Enables the TouchPoint of the specific color
+	 * 
+	 * @param color The color of the TouchPoint to enable
+	 */
 	void enableTouchPoint(int color) {
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
@@ -95,6 +112,10 @@ public class PlayableSurfaceView extends View {
 		}
 	}
 	
+	/** Disables the TouchPoint of the specific color  
+	 * 
+	 * @param The color of the TouchPoint to disable 
+	 */
 	void disableTouchPoints(int color) {
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
@@ -103,10 +124,18 @@ public class PlayableSurfaceView extends View {
 		}
 	}
 
+	/** Changes the background color
+	 * 
+	 * @param color	The color to set the background to
+	 */
 	public void changeBackgroundColor(int color) {
 		playable.getPaint().setColor(color);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
+	 */
 	public boolean onTouchEvent(MotionEvent event) {
 		for (int i=0; i<event.getPointerCount(); i++) {
 
@@ -179,12 +208,21 @@ public class PlayableSurfaceView extends View {
 		this.invalidate();
 	}
 	
+	/** The user changes the colors to the next player
+	 * 
+	 * @param player The next player
+	 */
 	public void changePlayer(Player player) {
 		changeBackgroundColor(player.getBackgroundColor());
 		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		this.invalidate();
 	}
 	
+	/** Checks if the TouchPoint overlaps any TouchPoint 
+	 * 
+	 * @param point	The point to check
+	 * @return		True if any TouchPoint has updated 
+	 */
 	boolean isItOverlapping(TouchPoint point) {
 		for (TouchPoint tp : touchpoints) {
 			if (tp.isVisible()) {	

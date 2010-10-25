@@ -1,10 +1,14 @@
 package com.google.code.mobilebombsquad;
 
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
+/**	The Drawable TouchPoints on the screen
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee	
+ */
 public class TouchPoint extends ShapeDrawable{
 
 	final static int NORM = 0xFF;
@@ -18,18 +22,33 @@ public class TouchPoint extends ShapeDrawable{
 	private boolean selected = false;
 	private int color;
 	
+	/**
+	 * @return	Returns the color of the point
+	 */
 	public int getColor() {
 		return color;
 	}
 
+	/** Default TouchPoint with Red
+	 * 
+	 */
 	public TouchPoint() {
 		this(Color.RED);
 	}
 	
+	/** Constructor for the TouchPoint
+	 * 
+	 * @param color		The color of the TouchPoint
+	 */
 	public TouchPoint(int color) {
 		this(35, color);
 	}
 	
+	/**	Constructor for the TouchPoint
+	 * 
+	 * @param radius	The radius of the TouchPoint
+	 * @param color		The color of the TouchPoint
+	 */
 	public TouchPoint(double radius, int color) {
 		super(circle);
 		this.color = color;
@@ -42,7 +61,7 @@ public class TouchPoint extends ShapeDrawable{
 		this.setBounds(locX, locY, locX + touchWidth, locY + touchHeight);
 	}
 
-	/** 
+	/** Randomizes the position the of the TouchPoint  
 	 * 
 	 */
 	void randomizePosition() {
@@ -54,10 +73,17 @@ public class TouchPoint extends ShapeDrawable{
 		locY = y > maxHeight ? maxHeight : y;
 	}
 
+	/**
+	 * @return If the TouchPoint is selected.
+	 */
 	boolean isSelected() {
 		return selected;
 	}
 	
+	/**	Sets whether the bubble is updated
+	 * 
+	 * @param newStatus		Boolean
+	 */
 	void setSelected(boolean newStatus) {
 		selected = newStatus;
 		

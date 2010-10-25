@@ -14,13 +14,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*TODO: 
+/**
+ * TODO: 
  * Smoothing
  * Animations?
  *  
- * 
+ * @author Eric Greer
+ * @author Andrew Yee
  */
-
 public class MobileBombSquad extends Activity {
 	/** Called when the activity is first created. */
 	private SensorManager manager;
@@ -41,6 +42,10 @@ public class MobileBombSquad extends Activity {
 	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
 	Vibrator vibrator;
 	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,12 +68,19 @@ public class MobileBombSquad extends Activity {
 		setContentView(layout);
 
 		confirmTimer =  new CountDownTimer(3000, 1000) {
-
+			/*
+			 * (non-Javadoc)
+			 * @see android.os.CountDownTimer#onTick(long)
+			 */
 			public void onTick(long millisUntilFinished) {
 				//do nothing
 				//play tick sound
 			}
 
+			/*
+			 * (non-Javadoc)
+			 * @see android.os.CountDownTimer#onFinish()
+			 */
 			public void onFinish() {
 				view.enableTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				confirming = true;
@@ -101,6 +113,9 @@ public class MobileBombSquad extends Activity {
 		//gameLogic();
 	}
 	
+	/**
+	 * Initializes the game variables
+	 */
 	public void initializeGame() {
 		//numTouchPoints = 1;
 		currentPlayer = 0;
@@ -108,7 +123,6 @@ public class MobileBombSquad extends Activity {
 		safeToPass = false;
 		confirming = false;
 		for (Player play : players ){
-			//view.addTouchPoint(players.get(currentPlayer).getTouchpointColor());
 			view.addTouchPoint(play.getTouchpointColor());
 		}
 		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
@@ -123,23 +137,24 @@ public class MobileBombSquad extends Activity {
 		//repeat
 	}
 	
+	/** 
+	 * This method is called whenever a TouchPoint is pressed
+	 */
 	public void touchPointPressed() {
 		if (view.isThisPointSelected(players.get(currentPlayer).getTouchpointColor()) &&
 			view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor()) && 
 			view.checkBubbleCircle() &&
 			!safeToPass) {
 			
-			/*Toast signaltoast = Toast.makeText(this, "Signaling release", Toast.LENGTH_SHORT);
-			signaltoast.show();
-			*/
 			signalRelease();
 			
 		}
 	}
 	
+	/**
+	 * Method is called whenever a touch point is released
+	 */
 	public void touchPointReleased() {
-		/*Toast t = Toast.makeText(this, "Point Released", Toast.LENGTH_SHORT);
-		t.show();*/
 		if (safeToPass) {
 			int currentColor = players.get(currentPlayer).getTouchpointColor();
 			int nextColor = players.get(nextPlayer()).getTouchpointColor();
@@ -157,7 +172,6 @@ public class MobileBombSquad extends Activity {
 					safeToPass = false;
 					safeToMove = true;
 					confirming = false;
-					//bombTimer.cancel();
 					startTurn();
 				}
 		} else if (safeToMove){
@@ -167,6 +181,10 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
+	/**
+	 * Pauses/resumes the bomb timer and Starts/cancels the confirm timer 
+	 * @param yes	Boolean True bubble is is circle, false bubble is not
+	 */
 	public void isBubbleInCircle(boolean yes) {
 		//once trigger bubble is in targetcircle
 		//pause timer
@@ -194,6 +212,9 @@ public class MobileBombSquad extends Activity {
 		}
 	}
 	
+	/**
+	 *  Signal's the release of the TouchPoints from the current user 
+	 */
 	public void signalRelease() {
 		safeToPass = true;
 		//sound
@@ -202,14 +223,18 @@ public class MobileBombSquad extends Activity {
 		signalreleasetoast.show();
 	}
 	
+	/** 
+	 * @return Returns the number of the next player
+	 */
 	public int nextPlayer() {
 		return (currentPlayer + 1) % players.size();
 	}
 	
+	/**
+	 * Failure of the End Game conditions, and displays an explosion. 
+	 */
 	public void explosion() {
 		//play explosion
-		//Drawable explosion = getResources().getDrawable(R.drawable.explode);
-		//explosion.draw(new Canvas());
 		vibrator.vibrate(2000);
 		manager.unregisterListener(listener);
 		bombTimer.cancel();
@@ -224,12 +249,21 @@ public class MobileBombSquad extends Activity {
 		//finish();
 	}
 	
+	/**
+	 * Creates the players of the game 
+	 */
 	void createPlayers() {
 		players = new ArrayList<Player>();
 		players.add(new Player(Color.RED, Color.WHITE, Color.BLACK));
 		players.add(new Player(Color.CYAN, Color.BLACK, Color.WHITE));
 	}
 	
+	/**
+	 *  Starts the turn by:
+	 *  	Disabling the BombTimer
+	 *  	Starting a new BombTimer
+	 *  	Changes the view of the current player 
+	 */
 	void startTurn() {
 		bombTimer.cancel();
 		//change colors + randomize position of target circle
@@ -237,10 +271,13 @@ public class MobileBombSquad extends Activity {
 		bombTimer.start();
 		
 		view.changePlayer(players.get(currentPlayer));
-		
-				//play sound
+		//play sound
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
 	@Override
 	public void onDestroy(){
 		super.onDestroy();

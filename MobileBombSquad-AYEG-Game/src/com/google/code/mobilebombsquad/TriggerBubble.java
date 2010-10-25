@@ -34,13 +34,12 @@ public class TriggerBubble extends ShapeDrawable{
 			
 		bubble.resize(bubbleWidth, bubbleHeight);
 		
-		
 		this.getPaint().setColor(Color.GREEN);		
 		initializePosition();
 		updateBounds();
 	}
 	
-	/**
+	/** Updates the bounds of the object   
 	 * 
 	 */
 	void updateBounds() {
@@ -48,7 +47,7 @@ public class TriggerBubble extends ShapeDrawable{
 	}
 	
 	/**
-	 * 
+	 * Initializes the position to a random location
 	 */
 	void initializePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;
@@ -59,10 +58,10 @@ public class TriggerBubble extends ShapeDrawable{
 		locY = y > maxHeight ? maxHeight : y;
 	}
 	
-	/**
+	/** Updates the position with a new location x and y 
 	 * 
-	 * @param locX
-	 * @param locY
+	 * @param locX	The x location 
+	 * @param locY	The y location
 	 */
 	void updatePosition(int locX, int locY) {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - bubbleWidth;

@@ -5,19 +5,30 @@ import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 
+/** The drawable TargetCircle  
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee
+ *
+ */
 public class TargetCircle extends ShapeDrawable{
 
-	//final static int COLOR = Color.MAGENTA;
-
-	
 	int locX, locY;
 	int circleWidth = 100, circleHeight = 100;
 	static OvalShape circle = new OvalShape();
-	
+
+	/**
+	 * Constructor for a target circle
+	 */
 	public TargetCircle() {
 		this(40, Color.MAGENTA);
 	}
 	
+	/** The TouchPoint circle 
+	 * 
+	 * @param radius	The radius of the TouchPoint
+	 * @param color		The color of the circle of the 
+	 */
 	public TargetCircle(double radius, int color) {
 		super(circle);
 		circleWidth = (int)(radius * 2);
@@ -31,11 +42,16 @@ public class TargetCircle extends ShapeDrawable{
 		generatePosition();
 	}
 	
-	
+	/** Updates the bounds of the circle
+	 * 
+	 */
 	void updateBounds() {
 		this.setBounds(locX,locY,locX+circleWidth,locY+circleHeight);
 	}
 	
+	/** Randomly generates the position
+	 * 
+	 */
 	void generatePosition() {
 		int maxWidth = PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - circleWidth;
 		int maxHeight = PlayableSurfaceView.HEIGHT + PlayableSurfaceView.OFFSETY - circleHeight;
@@ -46,6 +62,9 @@ public class TargetCircle extends ShapeDrawable{
 		updateBounds();
 	}
 	
+	/** Changes the color of the target circle 
+	 * @param color	The color of the Circle 
+	 */
 	void changeColor(int color) {
 		this.getPaint().setColor(color);
 	}
