@@ -325,7 +325,7 @@ public class MobileBombSquad extends Activity {
 	       .setCancelable(false)
 	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
-	                MediaPlayer.create(getThisContext(), R.raw.terrychaching);
+	                MediaPlayer.create(getThisContext(), R.raw.terrychaching).start();
 	           }
 	       })
 	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
