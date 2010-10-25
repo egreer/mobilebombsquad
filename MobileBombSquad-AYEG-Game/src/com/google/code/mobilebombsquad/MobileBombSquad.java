@@ -216,7 +216,7 @@ public class MobileBombSquad extends Activity {
 					safeToMove = true;
 					confirming = false;
 					passes++; // A successful Pass
-					score += bombTimer.millisUntilFinished; 
+					score += bombTimer.millisUntilFinished / 1000; 
 					startTurn();
 				}
 		} else if (safeToMove){
