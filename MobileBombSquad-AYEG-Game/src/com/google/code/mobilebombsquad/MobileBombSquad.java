@@ -62,12 +62,39 @@ public class MobileBombSquad extends Activity {
 		vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		
 		createPlayers();
+
+		
+		initializeGame();
+		
+
+		
+		//show welcome screen
+		//hit start game
+		//initialization:
+		////show one color's touch point
+		//explosion();
+		//initializeGame();
+		//gameLogic();
+	}
+	
+	/**
+	 * Initializes the game variables
+	 */
+	public void initializeGame() {
 		
 		layout = new RelativeLayout(this);
 		view = new PlayableSurfaceView(this, players.get(0));
 		clock = new TextView(this);
 		
-		initializeGame();
+		//numTouchPoints = 1;
+		currentPlayer = 0;
+		safeToMove = true;
+		safeToPass = false;
+		confirming = false;
+		for (Player play : players ){
+			view.addTouchPoint(play.getTouchpointColor());
+		}
+		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		
 		clock.setText("9");
 		clock.setTextColor(Color.BLUE);
@@ -122,29 +149,6 @@ public class MobileBombSquad extends Activity {
 		bombTimer.start();
 		
 		tpPress = MediaPlayer.create(this, R.raw.type);
-		
-		//show welcome screen
-		//hit start game
-		//initialization:
-		////show one color's touch point
-		//explosion();
-		//initializeGame();
-		//gameLogic();
-	}
-	
-	/**
-	 * Initializes the game variables
-	 */
-	public void initializeGame() {
-		//numTouchPoints = 1;
-		currentPlayer = 0;
-		safeToMove = true;
-		safeToPass = false;
-		confirming = false;
-		for (Player play : players ){
-			view.addTouchPoint(play.getTouchpointColor());
-		}
-		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 	}
 	
 	public void gameLogic() {
@@ -326,6 +330,7 @@ public class MobileBombSquad extends Activity {
 	       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {
 	                MediaPlayer.create(getThisContext(), R.raw.terrychaching).start();
+	                initializeGame();
 	           }
 	       })
 	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
