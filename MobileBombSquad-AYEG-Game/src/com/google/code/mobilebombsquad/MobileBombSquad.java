@@ -305,7 +305,7 @@ public class MobileBombSquad extends Activity {
 		//play sound
 	}
 	
-	RetryDialog createRetryDialog() {
+	AlertDialog createRetryDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("Do you want to retry?")
 	       .setCancelable(false)
@@ -321,7 +321,7 @@ public class MobileBombSquad extends Activity {
 	       });
 		//RetryDialog alert = (RetryDialog) builder.create();
 		
-		return (RetryDialog) builder.create();
+		return builder.create();
 	}
 	
 	Activity getThisContext() {
