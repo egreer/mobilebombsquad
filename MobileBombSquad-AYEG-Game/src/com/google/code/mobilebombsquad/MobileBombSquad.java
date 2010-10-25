@@ -59,7 +59,7 @@ public class MobileBombSquad extends Activity {
 		
 		initializeGame();
 		
-		clock.setText("4");
+		clock.setText("9");
 		clock.setTextColor(Color.BLUE);
 		clock.setTextSize(30);
 		clock.setPadding(PlayableSurfaceView.OFFSETX + 5, 5 , 0, 0);
@@ -98,6 +98,8 @@ public class MobileBombSquad extends Activity {
 		manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_FASTEST);
 		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
+		bombTimer.start();
+		
 		//show welcome screen
 		//hit start game
 		//initialization:
@@ -112,7 +114,7 @@ public class MobileBombSquad extends Activity {
 		currentPlayer = 0;
 		releasable = false;
 		view.addNewTouchPoint(players.get(currentPlayer).getTouchpointColor());
-		bombTimer.start();
+		
 	}
 	
 	public void gameLogic() {
