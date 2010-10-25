@@ -54,6 +54,10 @@ public class MobileBombSquad extends Activity {
 	MediaPlayer releaseSignal;
 	Vibrator vibrator;
 	
+	private int highScore = 0;
+	private int score = 0;
+	private int passes = 0;
+	
 	/*
 	 * (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -211,6 +215,7 @@ public class MobileBombSquad extends Activity {
 					safeToPass = false;
 					safeToMove = true;
 					confirming = false;
+					passes++; // A successful Pass
 					startTurn();
 				}
 		} else if (safeToMove){
