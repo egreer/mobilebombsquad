@@ -9,6 +9,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /** The playable surface of the game
  * 
@@ -196,6 +197,8 @@ public class PlayableSurfaceView extends View {
 	 * @return
 	 */
 	public boolean isThisPointSelected(int color) {
+		Toast.makeText(this.getContext(), "Number of Touchpoints" + touchpoints.size(), Toast.LENGTH_SHORT).show();
+		
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
 				return point.isSelected();
