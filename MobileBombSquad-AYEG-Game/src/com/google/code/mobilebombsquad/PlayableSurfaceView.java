@@ -63,7 +63,9 @@ public class PlayableSurfaceView extends View {
 	}
 	
 	void addTouchPoint(int color){
-		touchpoints.add(new TouchPoint(color));
+		TouchPoint t = new TouchPoint(color);
+		t.setVisible(false, false);
+		touchpoints.add(t);
 	}
 
 	void enableTouchPoint(int color) {

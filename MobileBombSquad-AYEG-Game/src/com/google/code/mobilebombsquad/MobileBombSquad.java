@@ -110,8 +110,11 @@ public class MobileBombSquad extends Activity {
 		numTouchPoints = 1;
 		currentPlayer = 0;
 		safeToPass = false;
+		for (Player play : players ){
+			//view.addTouchPoint(players.get(currentPlayer).getTouchpointColor());
+			view.addTouchPoint(play.getTouchpointColor());
+		}
 		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
-		
 	}
 	
 	public void gameLogic() {
