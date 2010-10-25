@@ -46,7 +46,6 @@ public class MobileBombSquad extends Activity {
 		
 		createPlayers();
 		
-		
 		layout = new RelativeLayout(this);
 		//view = new PlayableSurfaceView(this, players.get(0).getBackgroundColor());
 		view = new PlayableSurfaceView(this, players.get(0));
@@ -107,7 +106,7 @@ public class MobileBombSquad extends Activity {
 	}
 	
 	public void initializeGame() {
-		numTouchPoints = 1;
+		//numTouchPoints = 1;
 		currentPlayer = 0;
 		safeToPass = false;
 		for (Player play : players ){
@@ -127,23 +126,8 @@ public class MobileBombSquad extends Activity {
 	}
 	
 	public void touchPointPressed() {
-		//if (view.allTouchPointsPressed(color)) {
-			//start condition
-			/*if (color == players.get(currentPlayer).getTouchpointColor()) {
-				//start timer/game
-				//startTurn();
-				//view.bubble.
-				//bombTimer.start();
-				//bombTimer.pause();
-				//view.circle.generatePosition();
-				//if (!releasable) {
-				//	startTurn();
-				//}
-			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
-				signalRelease();
-			}*/
-		if (view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor()) &&
-			view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor()) && 
+		if (view.isThisPointSelected(players.get(currentPlayer).getTouchpointColor()) &&
+			view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor()) && 
 			view.checkBubbleCircle() &&
 			!safeToPass) {
 			
@@ -160,10 +144,10 @@ public class MobileBombSquad extends Activity {
 		t.show();
 		if (safeToPass) {
 			int color = players.get(currentPlayer).getTouchpointColor();
-			boolean nextPressed = view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor());
+			boolean nextPressed = view.isThisPointSelected(players.get(nextPlayer()).getTouchpointColor());
 			if (!nextPressed) {
 				explosion();
-			} else if (view.allTouchPointsReleased(color) &&
+			} else if (!view.isThisPointSelected(color) &&
 					   view.checkBubbleCircle()) {
 					Toast releasetoast = Toast.makeText(this, "Releasing player " + currentPlayer, Toast.LENGTH_SHORT);
 					releasetoast.show();
@@ -192,7 +176,7 @@ public class MobileBombSquad extends Activity {
 		//confirmTimer.start();
 		
 		if (yes){
-			if(!confirming && view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor())) {
+			if(!confirming && view.isThisPointSelected(players.get(currentPlayer).getTouchpointColor())) {
 				bombTimer.pause();
 				confirmTimer.start();
 				//confirming = true;

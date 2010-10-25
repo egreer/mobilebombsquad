@@ -17,6 +17,8 @@ public class PlayableSurfaceView extends View {
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
 	
+	int circlesize = 40;
+	
 	private ShapeDrawable playable;
 	TriggerBubble bubble;
 	TargetCircle circle;
@@ -35,7 +37,7 @@ public class PlayableSurfaceView extends View {
 		playable.setBounds(OFFSETX, OFFSETY, OFFSETX + WIDTH, OFFSETY + HEIGHT);
 		
 		bubble = new TriggerBubble();
-		circle = new TargetCircle(40, player.getTargetcircleColor());
+		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		
 		explosion = false;
 	}
@@ -58,7 +60,9 @@ public class PlayableSurfaceView extends View {
 	
 	void drawTouchPoints(Canvas canvas) {
 		for (TouchPoint point : touchpoints) {
-			point.draw(canvas);
+			if (point.isVisible()) {
+				point.draw(canvas);
+			}
 		}
 	}
 	
@@ -107,67 +111,30 @@ public class PlayableSurfaceView extends View {
 			int x = (int) event.getX(i);
 			int y = (int) event.getY(i); 
 
-			//if (action == MotionEvent.ACTION_DOWN) {
 			for (TouchPoint point : touchpoints) {
-				if (action == MotionEvent.ACTION_MOVE){
-					if (point.contains(x, y)){
-						if(!point.isSelected()){
+				if (point.isVisible()) {
+					if (action == MotionEvent.ACTION_MOVE){
+						if (point.contains(x, y)){
+							if(!point.isSelected()){
+								point.setSelected(true);
+								((MobileBombSquad) this.getContext()).touchPointPressed();
+							}						
+						}
+					} else if (point.contains(x, y)) {  
+						if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
 							point.setSelected(true);
 							((MobileBombSquad) this.getContext()).touchPointPressed();
-						}
-					//}else{
-						/*Toast ate = Toast.makeText(this.getContext(), "Move doesn't contain point", Toast.LENGTH_SHORT);
-						ate.show();
-						boolean contained = false; 
-						//for (int h = 0 ; h < event.getHistorySize() ; h++){
-						//for (int h = event.getHistorySize() ; h >= 0 ; h--){
-						int minimum = (int) Math.min(5,event.getHistorySize());
-						for (int h = 0; h < minimum; h++) {
-							
-							int hisX  = (int) event.getHistoricalX(i, event.getHistorySize()-h);
-							int hisY = (int) event.getHistoricalY(i, event.getHistorySize()-h);
-							
-							if (point.contains(hisX, hisY) && point.isSelected()){
-								point.setSelected(false);
-								((MobileBombSquad) this.getContext()).touchPointReleased();
-								//contained = true;
-								//if ( h <= /*event.getHistorySize() - 5){
-									//contained = false;
-									break;
-								//}
-							}
-						}
-						
-						if (contained && point.isSelected()){
+						} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+							Toast t = Toast.makeText(this.getContext(), "setting point to false", Toast.LENGTH_SHORT);
 							point.setSelected(false);
-							((MobileBombSquad) this.getContext()).touchPointReleased();	
-						}*/
-						
+							t.show();
+							((MobileBombSquad) this.getContext()).touchPointReleased();
+							
+						}
 					}
-				}
-				
-				else if (point.contains(x, y)) {
-					//point.setSelected(true); //Uncomment to do multitouch more then 3 points implements a toggle that  
-					if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
-						point.setSelected(true);
-						//tell MobileBombSquad a point and its color is selected
-						//((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
-						((MobileBombSquad) this.getContext()).touchPointPressed();
-					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
-						Toast t = Toast.makeText(this.getContext(), "setting point to false", Toast.LENGTH_SHORT);
-						point.setSelected(false);
-						t.show();
-						//tell MobileBombSquad a point and its color is unselected
-						//((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
-						((MobileBombSquad) this.getContext()).touchPointReleased();
-						
-					}
-				}
-				
-				
 				}
 			}
-		
+		}
 		return true;
 	}
 	
@@ -176,18 +143,13 @@ public class PlayableSurfaceView extends View {
 	 * @param color
 	 * @return
 	 */
-	public boolean allTouchPointsPressed(int color) {
-		boolean colorAvailable = false;
+	public boolean isThisPointSelected(int color) {
 		for (TouchPoint point : touchpoints) {
-			if (point.getColor() == color) {
-				if (!point.isSelected()) {
-					return false;
-				}
-				colorAvailable = true;
+			if (point.getColor() == color && point.isSelected()) {
+					return true;
 			}
 		}
-		
-		return colorAvailable;
+		return false;
 	}
 	
 	/**
@@ -215,8 +177,9 @@ public class PlayableSurfaceView extends View {
 	
 	public void changePlayer(Player player) {
 		changeBackgroundColor(player.getBackgroundColor());
-		circle.changeColor(player.getTargetcircleColor());
-		circle.generatePosition();
+		//circle.changeColor(player.getTargetcircleColor());
+		//circle.generatePosition();
+		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		this.invalidate();
 	}
 	
