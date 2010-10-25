@@ -99,11 +99,13 @@ public class PlayableSurfaceView extends View {
 					if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_POINTER_DOWN) {
 						point.setSelected(true);
 						//tell MobileBombSquad a point and its color is selected
-						((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
-					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP || action == MotionEvent.ACTION_MOVE) {
+						//((MobileBombSquad) this.getContext()).touchPointPressed(point.getColor());
+						((MobileBombSquad) this.getContext()).touchPointPressed();
+					} else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
 						point.setSelected(false);
 						//tell MobileBombSquad a point and its color is unselected
-						((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
+						//((MobileBombSquad) this.getContext()).touchPointReleased(point.getColor());
+						((MobileBombSquad) this.getContext()).touchPointReleased();
 					}
 				}
 			}

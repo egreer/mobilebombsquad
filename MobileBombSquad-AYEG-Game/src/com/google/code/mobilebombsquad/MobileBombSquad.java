@@ -77,6 +77,7 @@ public class MobileBombSquad extends Activity {
 			public void onFinish() {
 				//play confirm sound
 				//generate next player's stuff
+				bombTimer.cancel();
 				for (int i = 0; i < numTouchPoints; i++) {
 					view.addNewTouchPoint(players.get(nextPlayer()).getTouchpointColor());
 				}
@@ -84,7 +85,7 @@ public class MobileBombSquad extends Activity {
 			}
 		};
 		
-		bombTimer = new BombTimer(5000, 1000, clock, this);
+		bombTimer = new BombTimer(10000, 1000, clock, this);
 
 		
 		manager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -111,6 +112,7 @@ public class MobileBombSquad extends Activity {
 		currentPlayer = 0;
 		releasable = false;
 		view.addNewTouchPoint(players.get(currentPlayer).getTouchpointColor());
+		bombTimer.start();
 	}
 	
 	public void gameLogic() {
@@ -122,33 +124,41 @@ public class MobileBombSquad extends Activity {
 		//repeat
 	}
 	
-	public void touchPointPressed(int color) {
-		if (view.allTouchPointsPressed(color)) {
+	public void touchPointPressed() {
+		//if (view.allTouchPointsPressed(color)) {
 			//start condition
-			if (color == players.get(currentPlayer).getTouchpointColor()) {
+			/*if (color == players.get(currentPlayer).getTouchpointColor()) {
 				//start timer/game
 				//startTurn();
 				//view.bubble.
 				//bombTimer.start();
 				//bombTimer.pause();
 				//view.circle.generatePosition();
-				if (!releasable) {
-					startTurn();
-				}
+				//if (!releasable) {
+				//	startTurn();
+				//}
 			} else if (color == players.get(nextPlayer()).getTouchpointColor()) {
 				signalRelease();
-			}
+			}*/
+		if (view.allTouchPointsPressed(players.get(currentPlayer).getTouchpointColor()) &&
+			view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor()) && 
+			view.checkBubbleCircle() &&
+			!releasable) {
+			
+			signalRelease();
+			
 		}
 	}
 	
-	public void touchPointReleased(int color) {
+	public void touchPointReleased() {
 		if (releasable) {
-			if (view.allTouchPointsReleased(color) && 
-				(color == players.get(currentPlayer).getTouchpointColor()) &&
+			int color = players.get(currentPlayer).getTouchpointColor();
+			if (view.allTouchPointsReleased(color) &&
 				view.checkBubbleCircle() &&
 				view.allTouchPointsPressed(players.get(nextPlayer()).getTouchpointColor())) {
 					releasable = false;
 					view.removeTouchPoints(color);
+					view.invalidate();
 					currentPlayer = nextPlayer();
 					//start turn for currentPlayer
 					startTurn();
@@ -170,7 +180,9 @@ public class MobileBombSquad extends Activity {
 			bombTimer.pause();
 			confirmTimer.start();
 		} else {
-			if (bombTimer.isPaused()) {
+			if (releasable) {
+				explosion();
+			} else if (bombTimer.isPaused()) {
 				confirmTimer.cancel();
 				bombTimer.resume();
 			}
