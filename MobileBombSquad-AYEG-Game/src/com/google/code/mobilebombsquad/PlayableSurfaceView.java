@@ -74,11 +74,11 @@ public class PlayableSurfaceView extends View {
 	void enableTouchPoint(int color) {
 		for (TouchPoint point : touchpoints) {
 			if (point.getColor() == color) {
-				//point.randomizePosition();
-				point.setVisible(true,false);
+				point.randomizePosition();
 				while (isItOverlapping(point)) {
 					point.randomizePosition();
 				}
+				point.setVisible(true,false);
 			}
 		}
 	}
