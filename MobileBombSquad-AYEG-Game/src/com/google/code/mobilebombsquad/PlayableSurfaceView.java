@@ -22,7 +22,7 @@ public class PlayableSurfaceView extends View {
 	final static int WIDTH = 300;
 	final static int HEIGHT = 500;
 	
-	int circlesize = 40;
+	int circlesize = 60;
 	
 	private ShapeDrawable playable;
 	TriggerBubble bubble;
@@ -220,12 +220,15 @@ public class PlayableSurfaceView extends View {
 	 * 
 	 * @param player The next player
 	 */
-	public void changePlayer(Player player) {
+	public void changePlayer(Player player, int passes) {
 		changeBackgroundColor(player.getBackgroundColor());
 		TouchPoint playerPoint = getTouchPoint(player.getTouchpointColor());
 		if (playerPoint != null) {
 			playerPoint.setSelected(false);
 			playerPoint.changePosition();
+		}
+		if (circlesize >= 10 && passes % 5 == 0 && passes != 0) {
+			circlesize -= 5;
 		}
 		circle = new TargetCircle(circlesize, player.getTargetcircleColor());
 		this.invalidate();
@@ -257,4 +260,9 @@ public class PlayableSurfaceView extends View {
 		return null;
 	}
 	
+	public void decrementTouchPointSizes() {
+		for (TouchPoint point : touchpoints) {
+			point.decrementSize();
+		}
+	}
 }

@@ -45,7 +45,6 @@ public class MobileBombSquad extends Activity {
 	private boolean safeToMove;
 	private boolean confirming;
 	
-	//MediaPlayer mp = MediaPlayer.create(this, R.raw.notify);
 	MediaPlayer tpPress;
 	MediaPlayer confirmTick;
 	MediaPlayer confirmFinish;
@@ -58,6 +57,8 @@ public class MobileBombSquad extends Activity {
 	private long highScore = 0;
 	private long score = 0;
 	private int passes = 0;
+	
+	private int difficulty = 1;
 	
 	TextView scoreText;
 	
@@ -84,6 +85,7 @@ public class MobileBombSquad extends Activity {
 		createPlayers();
 		
 		setContentView(R.layout.main);
+		MediaPlayer.create(this, R.raw.terryburnknuckle).start();
 	}
 	
 	public void initialize(View view) {
@@ -101,7 +103,7 @@ public class MobileBombSquad extends Activity {
 		
 		scoreText = new TextView(this);
 		scoreText.setTextSize(30);
-		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 40 , 5 , PlayableSurfaceView.OFFSETY, 0);
+		scoreText.setPadding(PlayableSurfaceView.WIDTH + PlayableSurfaceView.OFFSETX - 75 , 5 , PlayableSurfaceView.OFFSETY, 0);
 
 		layout.addView(view);
 		layout.addView(clock);
@@ -137,8 +139,6 @@ public class MobileBombSquad extends Activity {
 		
 		handler = new AccelHandler(this, view);
 		listener = new AccelListener(handler); 
-		
-		bombTimer = new BombTimer(10000, 1000, clock, this);
 
 		retryGame();
 	}
@@ -150,14 +150,15 @@ public class MobileBombSquad extends Activity {
 		score = 0;
 		passes = 0;
 		currentPlayer = 0;
+		difficulty = 1;
 		safeToMove = true;
 		safeToPass = false;
 		confirming = false;
 		
 		view.resetTouchPoints();
 		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
-		view.changePlayer(players.get(currentPlayer));
-		clock.setText("9");
+		view.changePlayer(players.get(currentPlayer), passes);
+		//clock.setText("5");
 		clock.setTextColor(players.get(currentPlayer).touchpointColor);
 		
 		updateScoreText();
@@ -172,6 +173,7 @@ public class MobileBombSquad extends Activity {
 		manager.registerListener(listener, mag, SensorManager.SENSOR_DELAY_FASTEST);
 		manager.registerListener(listener, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
+		bombTimer = new BombTimer(11000, 1000, clock, this);
 		bombTimer.start();
 		
 		
@@ -216,10 +218,15 @@ public class MobileBombSquad extends Activity {
 					safeToMove = true;
 					confirming = false;
 					passes++; // A successful Pass
-					score += bombTimer.millisUntilFinished / 1000;
+					
+					score += bombTimer.millisUntilFinished / 1000 * difficulty;
 					clock.setTextColor(players.get(currentPlayer).touchpointColor);
 					scoreText.setTextColor(players.get(nextPlayer()).touchpointColor);
 					updateScoreText();
+					if (passes % 5 == 0 && difficulty < 10) {
+						difficulty++;
+						view.decrementTouchPointSizes();
+					}
 					startTurn();
 				}
 		} else if (safeToMove){
@@ -345,7 +352,11 @@ public class MobileBombSquad extends Activity {
 		//view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		
 		
-		view.changePlayer(players.get(currentPlayer));
+		view.changePlayer(players.get(currentPlayer), passes);
+		int newtime = 12 - difficulty;
+		clock.setText("" + newtime);
+		//bombTimer = new BombTimer(11000 - (difficulty * 1000), 1000, clock, this);
+		bombTimer = new BombTimer(1000*newtime, 1000, clock, this);
 		bombTimer.start();
 		//play sound
 	}
@@ -416,5 +427,9 @@ public class MobileBombSquad extends Activity {
 	
 	public void quitgame(View view) {
 		finish();
+	}
+	
+	public int getDifficulty() {
+		return difficulty;
 	}
 }

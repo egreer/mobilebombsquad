@@ -15,6 +15,7 @@ public class TouchPoint extends ShapeDrawable{
 	final static int SELECT = 0x55;
 	
 	int locX, locY;
+	double radius;
 	int touchHeight, touchWidth;
 	
 	static OvalShape circle = new OvalShape();
@@ -41,7 +42,7 @@ public class TouchPoint extends ShapeDrawable{
 	 * @param color		The color of the TouchPoint
 	 */
 	public TouchPoint(int color) {
-		this(35, color);
+		this(60, color);
 	}
 	
 	/**	Constructor for the TouchPoint
@@ -52,6 +53,7 @@ public class TouchPoint extends ShapeDrawable{
 	public TouchPoint(double radius, int color) {
 		super(circle);
 		this.color = color;
+		this.radius = radius;
 		touchWidth = (int)(radius * 2);
 		touchHeight = (int)(radius * 2);
 				
@@ -111,5 +113,13 @@ public class TouchPoint extends ShapeDrawable{
 	
 	boolean overlaps(TouchPoint point) {
 		return this.getBounds().intersect(point.getBounds());
+	}
+	
+	void decrementSize() {
+		radius -= 5.0;
+		touchWidth = (int)(radius * 2);
+		touchHeight = (int)(radius * 2);
+		
+		circle.resize(touchWidth, touchHeight);
 	}
 }
