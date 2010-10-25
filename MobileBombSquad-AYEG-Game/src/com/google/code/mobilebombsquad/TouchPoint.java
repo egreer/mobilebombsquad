@@ -122,4 +122,12 @@ public class TouchPoint extends ShapeDrawable{
 		
 		circle.resize(touchWidth, touchHeight);
 	}
+	
+	void resetSize() {
+		radius = 60.0;
+		touchWidth = (int)(radius * 2);
+		touchHeight = (int)(radius * 2);
+		
+		circle.resize(touchWidth, touchHeight);
+	}
 }

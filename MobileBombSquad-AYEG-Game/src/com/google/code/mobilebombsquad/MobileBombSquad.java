@@ -155,7 +155,7 @@ public class MobileBombSquad extends Activity {
 		safeToPass = false;
 		confirming = false;
 		
-		view.resetTouchPoints();
+		view.resetEverything();
 		view.enableTouchPoint(players.get(currentPlayer).getTouchpointColor());
 		view.changePlayer(players.get(currentPlayer), passes);
 		//clock.setText("5");

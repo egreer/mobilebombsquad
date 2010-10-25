@@ -97,8 +97,10 @@ public class PlayableSurfaceView extends View {
 		touchpoints.add(t);
 	}
 
-	void resetTouchPoints() {
+	void resetEverything() {
 		for (TouchPoint point : touchpoints) {
+			circlesize = 60;
+			point.resetSize();
 			point.setSelected(false);
 			point.setVisible(false, false);
 		}
