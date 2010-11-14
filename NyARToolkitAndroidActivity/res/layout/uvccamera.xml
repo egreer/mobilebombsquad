@@ -1,0 +1,27 @@
+<!-- LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+</LinearLayout-->
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/uvccamera"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+ <FrameLayout android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_alignParentLeft="true"
+  android:layout_centerVertical="true"
+  android:layout_marginLeft="64dp">
+   <jp.androidgroup.nyartoolkit.view.GLSurfaceView
+            android:id="@+id/UVC_GL_view"
+            android:layout_width="352dp"
+            android:layout_height="288dp"
+            android:keepScreenOn="true"
+            />
+   <SurfaceView
+            android:id="@+id/UVC_camera_preview"
+            android:layout_width="352dp"
+            android:layout_height="288dp"
+            />
+ </FrameLayout>
+</RelativeLayout >
+
+	        
+

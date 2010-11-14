@@ -1,0 +1,21 @@
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+   <jp.androidgroup.nyartoolkit.view.GLSurfaceView
+            android:id="@+id/HT03A_GL_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:keepScreenOn="true"
+            />
+   <SurfaceView
+	        android:id="@+id/HT03A_camera_preview"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        />
+	        
+</RelativeLayout >
+
+	        
+

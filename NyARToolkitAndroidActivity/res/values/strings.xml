@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">NyARToolkitAndroid</string>
+
+    <string name="camera_name">jp.androidgroup.nyartoolkit.hardware.HT03ACamera</string>
+    <string name="server_addr">192.168.24.31</string>
+    <string name="server_port">9889</string>
+
+    <string name="camera_tossing">Deleting\u2026</string>
+    <string name="camera_keeping">Keeping\u2026</string>
+
+<string name="hello">Hello World, NyARToolkitForAndroid</string>
+</resources>
