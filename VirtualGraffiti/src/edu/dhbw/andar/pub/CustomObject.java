@@ -3,13 +3,8 @@ package edu.dhbw.andar.pub;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
-import javax.microedition.khronos.opengles.GL10Ext;
-
-import android.opengl.GLU;
-import android.opengl.GLUtils;
 
 import edu.dhbw.andar.ARObject;
-import edu.dhbw.andar.AndARRenderer;
 import edu.dhbw.andar.util.GraphicsUtil;
 
 /**

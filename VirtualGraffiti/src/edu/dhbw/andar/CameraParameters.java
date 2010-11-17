@@ -23,16 +23,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import edu.dhbw.andar.exceptions.AndARRuntimeException;
-import edu.dhbw.andar.util.GraphicsUtil;
-import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
-
-import android.hardware.Camera;
 import android.graphics.PixelFormat;
+import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
-import android.os.Build;
 import android.util.Log;
+import edu.dhbw.andar.exceptions.AndARRuntimeException;
+import edu.dhbw.andar.util.GraphicsUtil;
 
 /**
  * Only the newer versions of the SDK support querying the available preview

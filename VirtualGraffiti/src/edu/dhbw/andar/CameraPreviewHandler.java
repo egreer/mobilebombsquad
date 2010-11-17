@@ -34,7 +34,6 @@ import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
-import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.exceptions.AndARRuntimeException;
 import edu.dhbw.andar.interfaces.MarkerVisibilityListener;
 import edu.dhbw.andar.interfaces.PreviewFrameSink;

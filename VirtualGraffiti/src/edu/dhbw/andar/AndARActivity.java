@@ -19,35 +19,16 @@
  */
 package edu.dhbw.andar;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.Date;
-import java.util.List;
-
-
-import edu.dhbw.andar.exceptions.AndARException;
-import edu.dhbw.andar.exceptions.AndARRuntimeException;
-import edu.dhbw.andar.interfaces.OpenGLRenderer;
-import edu.dhbw.andar.pub.CustomActivity;
-import edu.dhbw.andar.util.GraphicsUtil;
-import edu.dhbw.andar.util.IO;
-import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.PixelFormat;
-import android.graphics.Bitmap.CompressFormat;
 import android.hardware.Camera;
-import android.hardware.Camera.Parameters;
-import android.hardware.Camera.Size;
 import android.opengl.GLSurfaceView;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.view.SurfaceHolder;
@@ -56,7 +37,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.SurfaceHolder.Callback;
 import android.widget.FrameLayout;
-import android.widget.Toast;
+import edu.dhbw.andar.exceptions.AndARRuntimeException;
+import edu.dhbw.andar.interfaces.OpenGLRenderer;
+import edu.dhbw.andar.util.IO;
 
 public abstract class AndARActivity extends Activity implements Callback, UncaughtExceptionHandler{
 	private GLSurfaceView glSurfaceView;
