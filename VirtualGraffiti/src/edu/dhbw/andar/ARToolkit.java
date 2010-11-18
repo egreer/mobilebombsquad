@@ -69,6 +69,7 @@ public class ARToolkit {
 	private File baseFolder;
 	
 	
+	
 	public ARToolkit(Resources res, File baseFile) {
 		artoolkit_init();
 		this.baseFolder = baseFile;
@@ -242,6 +243,7 @@ public class ARToolkit {
 				Log.i("MarkerInfo", "going to draw opengl stuff now");
 			for (ARObject obj : arobjects) {
 				if(obj.isVisible())
+					
 					obj.draw(gl);
 			}
 		}

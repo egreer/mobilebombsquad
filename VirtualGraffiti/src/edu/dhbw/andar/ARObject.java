@@ -130,9 +130,9 @@ public abstract class ARObject {
 	 * @param gl
 	 */
 	public synchronized void draw(GL10 gl) {
-		if(!initialized) {
+		if(!isInitialized()) {
 			init(gl);
-			initialized = true;
+			setInitialized(true);
 		}
 		if(glCameraMatrixBuffer != null) {
 			glMatrixBuffer.put(glMatrix);
@@ -150,6 +150,20 @@ public abstract class ARObject {
 		}
 	}
 	
-	public abstract void init(GL10 gl); 
-	
+	public abstract void init(GL10 gl);
+
+
+
+
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
+	}
+
+	public boolean isInitialized() {
+		return initialized;
+	} 
+
+	public float[] getGlMatrix() {
+		return glMatrix;
+	}
 }

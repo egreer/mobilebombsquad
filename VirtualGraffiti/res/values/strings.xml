@@ -7,4 +7,6 @@
 <string name="takescreenshot">Take a screenshot.</string>
 <string name="screenshotsaved">Screenshot saved!</string>
 <string name="screenshotfailed">Failed to save screenshot: </string>
+<string name="layercreatesuccess">Layer created!</string>
+<string name="layercreatefailure">Layer not created!</string>
 </resources>

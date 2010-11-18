@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -33,14 +35,19 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	
 	private final int MENU_SCREENSHOT = 0;
 
+	private static int layerID = 1;
+	
 	CustomObject someObject;
 	ARToolkit artoolkit;
+	List<Layer> layers;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
 		super.setNonARRenderer(renderer);//or might be omited
+		layers = new LinkedList<Layer>();
 		try {
 			artoolkit = super.getArtoolkit();
 			someObject = new CustomObject
@@ -69,6 +76,18 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		Log.e("AndAR EXCEPTION", ex.getMessage());
 		finish();
 	}	
+	
+	/**
+	 * Creates and adds a new Layer
+	 * 
+	 * @return
+	 */
+	public Layer addLayer() {
+		Layer newLayer = new Layer(layerID);
+		layers.add(newLayer);
+		layerID++;
+		return newLayer;
+	}
 	
 	
 	/* (non-Javadoc)
