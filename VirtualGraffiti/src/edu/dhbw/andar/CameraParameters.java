@@ -113,7 +113,12 @@ public class CameraParameters {
 				}
 			}
 		}
-
+		
+		//EGREER
+		/*Parameters params = camera.getParameters();
+		params.setSceneMode(Parameters.SCENE_MODE_SPORTS);
+		camera.setParameters(params);*/
+		
 		// now set the pixel format of the preview frames:
 		if (getSupportedPreviewFormats != null) {
 			Parameters params = camera.getParameters();

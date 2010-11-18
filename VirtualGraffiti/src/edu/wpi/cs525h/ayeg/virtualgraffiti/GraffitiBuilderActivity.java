@@ -53,9 +53,30 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			someObject = new CustomObject
 				("test", "patt.hiro", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);
-			someObject = new CustomObject
+			
+			/*someObject = new CustomObject
 			("test", "android.patt", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);
+			artoolkit.registerARObject(someObject);*/
+
+			someObject = new CustomObject
+			("test", "toolmarker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+			
+			someObject = new CustomObject
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+
+			
+			someObject = new CustomObject
+			("test", "circles marker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+
+			
+			someObject = new CustomObject
+			("test", "sweepmarker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+
+			
 			//someObject = new CustomObject
 			//("test", "barcode.patt", 80.0, new double[]{0,0});
 			//artoolkit.registerARObject(someObject);
