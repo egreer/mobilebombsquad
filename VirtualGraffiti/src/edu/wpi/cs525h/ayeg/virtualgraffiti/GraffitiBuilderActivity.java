@@ -48,7 +48,8 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
+		//CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
+		GraffitiRenderer renderer = new GraffitiRenderer(this);
 		super.setNonARRenderer(renderer);//or might be omited
 		layers = new LinkedList<Layer>();
 		try {
