@@ -29,6 +29,7 @@ public class GraffitiRenderer implements OpenGLRenderer {
 	public final void draw(GL10 gl) {
 		List<Layer> layers = builder.getLayers();
 		
+		//TODO HERE 
 		for (Layer layer : layers) {
 			layer.draw(gl);
 		}

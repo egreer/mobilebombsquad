@@ -175,6 +175,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		if(customRenderer != null)
 			customRenderer.draw(gl);
 		
+		//markerInfo.draw(gl);
+		
 		//take a screenshot, if desired
 		if(takeScreenshot) {
 			//http://www.anddev.org/how_to_get_opengl_screenshot__useful_programing_hint-t829.html

@@ -90,9 +90,10 @@ public class GraffitiObject extends ARObject {
 	
 		    gl.glColor4f(0, 1.0f, 0, 1.0f);
 		    gl.glTranslatef( 0.0f, 0.0f, 12.5f );
-	    
+    
 		}
 		
+
 	    object.draw(gl);
 	}
 	

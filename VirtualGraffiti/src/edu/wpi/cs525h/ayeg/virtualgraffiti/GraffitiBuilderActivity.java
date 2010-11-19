@@ -27,6 +27,7 @@ import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.pub.CustomObject;
 import edu.dhbw.andar.pub.CustomRenderer;
+import edu.dhbw.andar.pub.SimpleBox;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
 
 /**
@@ -45,7 +46,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 
 	private static int layerID = 1;
 	
-	CustomObject someObject;
+	GraffitiObject someObject;
 	ARToolkit artoolkit;
 	List<Layer> layers;
 	
@@ -72,8 +73,8 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			artoolkit.registerARObject(someObject);	
 			*/
 
-			someObject = new CustomObject
-			("test", "sweepmarker16.pat", 80.0, new double[]{0,0});
+			someObject = new GraffitiObject
+			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new SimpleBox());
 			artoolkit.registerARObject(someObject);	
 
 
@@ -81,8 +82,8 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			("test", "circles marker16.pat", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);	
 */
-			someObject = new CustomObject
-			("test", "shapemarker16.pat", 80.0, new double[]{0,0});
+			someObject = new GraffitiObject
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new SimpleBox());
 			artoolkit.registerARObject(someObject);	
 			
 			
@@ -135,7 +136,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		
 		//Change Shape
 		menu.add(0, MENU_CHANGE_SHAPE, 1, re.getText(R.string.changeshape))
-		.setIcon(R.drawable.screenshoticon);
+		.setIcon(android.R.drawable.ic_menu_gallery);
 
 		//Screen Shot
 		menu.add(0, MENU_SCREENSHOT, 2, re.getText(R.string.takescreenshot))
@@ -143,19 +144,19 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		
 		//Save
 		menu.add(0, MENU_SAVE, 3, re.getText(R.string.save))
-		.setIcon(R.drawable.screenshoticon);
+		.setIcon(android.R.drawable.ic_menu_save);
 		
 		//Change Color
 		menu.add(0, MENU_CHANGE_COLOR, 4, re.getText(R.string.changecolor))
-		.setIcon(R.drawable.screenshoticon);
+		.setIcon(android.R.drawable.ic_menu_save);
 		
 		//Export
 		menu.add(0, MENU_EXPORT, 5, re.getText(R.string.exportdrawing))
-		.setIcon(R.drawable.screenshoticon);
+		.setIcon(android.R.drawable.ic_menu_set_as);
 				
 		//Reorganize
 		menu.add(0, MENU_REORGANIZE, 6, re.getText(R.string.reorganize))
-		.setIcon(R.drawable.screenshoticon);
+		.setIcon(android.R.drawable.ic_menu_edit);
 		
 		
 		return true;
@@ -204,6 +205,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
+			try{
 			Layer newLayer = new Layer(layerID);
 			
 			Vector<ARObject> objects = artoolkit.getArobjects();
@@ -221,7 +223,9 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			
 			addLayer(newLayer);
 			layerID++;
-			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			return null;
 		}
 		
@@ -230,7 +234,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatesuccess), Toast.LENGTH_SHORT ).show();
 			else
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatefailure)+errorMsg, Toast.LENGTH_SHORT ).show();
-		}
+		};
 		
 	}
 
