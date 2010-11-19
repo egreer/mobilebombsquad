@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
@@ -36,11 +35,15 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
 public class GraffitiBuilderActivity extends AndARActivity {
 	
 	private final int MENU_SCREENSHOT = 0;
+	private final int MENU_SAVE = 1;
+	private final int MENU_EXPORT = 2;
+	private final int MENU_CHANGE_SHAPE = 3;
+	private final int MENU_CHANGE_COLOR = 4;
+	private final int MENU_REORGANIZE = 5;
 
 	private static int layerID = 1;
 	
 	CustomObject someObject;
-	//GraffitiARToolkit artoolkit;
 	ARToolkit artoolkit;
 	List<Layer> layers;
 	
@@ -54,9 +57,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		layers = new LinkedList<Layer>();
 		try {
 			artoolkit = super.getArtoolkit();
-			//artoolkit.setBuilder(this);
-			//artoolkit = new GraffitiARToolkit(super.getArtoolkit());
-			someObject = new CustomObject
+/*			someObject = new CustomObject
 				("test", "patt.hiro", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);
 			
@@ -64,23 +65,25 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			("test", "android.patt", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);*/
 
-			someObject = new CustomObject
+		/*	someObject = new CustomObject
 			("test", "toolmarker16.pat", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);	
-			
-			someObject = new CustomObject
-			("test", "shapemarker16.pat", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);	
+			*/
 
-			
-			someObject = new CustomObject
-			("test", "circles marker16.pat", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);	
-
-			
 			someObject = new CustomObject
 			("test", "sweepmarker16.pat", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);	
+
+
+	/*		someObject = new CustomObject
+			("test", "circles marker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+*/
+			someObject = new CustomObject
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(someObject);	
+			
+			
 
 			
 			//someObject = new CustomObject
@@ -105,18 +108,18 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	}	
 	
 	/**
-	 * Adds a new Layer
+	 * Creates and adds a new Layer
 	 * 
 	 * @return
 	 */
-	public Layer addLayer(Layer newLayer) {
-		//Layer newLayer = new Layer(layerID);
+	public Layer addLayer() {
+		Layer newLayer = new Layer(layerID);
 		layers.add(newLayer);
-		//layerID++;
+		layerID++;
 		return newLayer;
 	}
 	
-	public List<Layer> getLayers() {
+	public List<Layer> getLayers(){
 		return layers;
 	}
 	
@@ -125,9 +128,34 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {		
-		menu.add(0, MENU_SCREENSHOT, 0, getResources().getText(R.string.takescreenshot))
+	public boolean onCreateOptionsMenu(Menu menu) {
+		Resources re = getResources();
+		
+		//Change Shape
+		menu.add(0, MENU_CHANGE_SHAPE, 1, re.getText(R.string.changeshape))
 		.setIcon(R.drawable.screenshoticon);
+
+		//Screen Shot
+		menu.add(0, MENU_SCREENSHOT, 2, re.getText(R.string.takescreenshot))
+		.setIcon(R.drawable.screenshoticon);
+		
+		//Save
+		menu.add(0, MENU_SAVE, 3, re.getText(R.string.save))
+		.setIcon(R.drawable.screenshoticon);
+		
+		//Change Color
+		menu.add(0, MENU_CHANGE_COLOR, 4, re.getText(R.string.changecolor))
+		.setIcon(R.drawable.screenshoticon);
+		
+		//Export
+		menu.add(0, MENU_EXPORT, 5, re.getText(R.string.exportdrawing))
+		.setIcon(R.drawable.screenshoticon);
+				
+		//Reorganize
+		menu.add(0, MENU_REORGANIZE, 6, re.getText(R.string.reorganize))
+		.setIcon(R.drawable.screenshoticon);
+		
+		
 		return true;
 	}
 	
@@ -147,44 +175,24 @@ public class GraffitiBuilderActivity extends AndARActivity {
 				e.printStackTrace();
 			}
 		}*/
+		//Handles the Menu Actions 
 		switch(item.getItemId()) {
-		case MENU_SCREENSHOT:
-			new TakeAsyncScreenshot().execute();
-			break;
+			case MENU_SCREENSHOT:
+				new TakeAsyncScreenshot().execute();
+				break;
+			case MENU_CHANGE_COLOR:
+				break;
+			case MENU_CHANGE_SHAPE:
+				break;
+			case MENU_EXPORT:
+				break;
+			case MENU_REORGANIZE:
+				break;
+			case MENU_SAVE:
+				break;
 		}
+			
 		return true;
-	}
-	
-	class SaveNewLayer extends AsyncTask<Void, Void, Void> {
-
-		private String errorMsg = null;
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			Layer newLayer = new Layer(layerID);
-			
-			Vector<ARObject> objects = artoolkit.getArobjects();
-			//LinkedList<GraffitiObject> gObjects = new LinkedList<GraffitiObject>();
-			for (ARObject obj : objects) {
-				GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
-				//gObj.setSaved(true);
-				gObj.saveGLMatrix();
-				newLayer.add(gObj);
-			}
-			
-			addLayer(newLayer);
-			layerID++;
-			
-			return null;
-		}
-		
-		protected void onPostExecute(Void result) {
-			if(errorMsg == null)
-				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatesuccess), Toast.LENGTH_SHORT ).show();
-			else
-				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatefailure)+errorMsg, Toast.LENGTH_SHORT ).show();
-		}
-		
 	}
 	
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {
