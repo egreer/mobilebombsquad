@@ -166,4 +166,34 @@ public abstract class ARObject {
 	public float[] getGlMatrix() {
 		return glMatrix;
 	}
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public void setPatternName(String patternName) {
+		this.patternName = patternName;
+	}
+
+
+
+
+	public void setMarkerWidth(double markerWidth) {
+		this.markerWidth = markerWidth;
+	}
+	
+	
 }

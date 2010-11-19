@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
@@ -38,6 +40,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	private static int layerID = 1;
 	
 	CustomObject someObject;
+	//GraffitiARToolkit artoolkit;
 	ARToolkit artoolkit;
 	List<Layer> layers;
 	
@@ -50,6 +53,8 @@ public class GraffitiBuilderActivity extends AndARActivity {
 		layers = new LinkedList<Layer>();
 		try {
 			artoolkit = super.getArtoolkit();
+			//artoolkit.setBuilder(this);
+			//artoolkit = new GraffitiARToolkit(super.getArtoolkit());
 			someObject = new CustomObject
 				("test", "patt.hiro", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);
@@ -99,15 +104,19 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	}	
 	
 	/**
-	 * Creates and adds a new Layer
+	 * Adds a new Layer
 	 * 
 	 * @return
 	 */
-	public Layer addLayer() {
-		Layer newLayer = new Layer(layerID);
+	public Layer addLayer(Layer newLayer) {
+		//Layer newLayer = new Layer(layerID);
 		layers.add(newLayer);
-		layerID++;
+		//layerID++;
 		return newLayer;
+	}
+	
+	public List<Layer> getLayers() {
+		return layers;
 	}
 	
 	
@@ -143,6 +152,38 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			break;
 		}
 		return true;
+	}
+	
+	class SaveNewLayer extends AsyncTask<Void, Void, Void> {
+
+		private String errorMsg = null;
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			Layer newLayer = new Layer(layerID);
+			
+			Vector<ARObject> objects = artoolkit.getArobjects();
+			//LinkedList<GraffitiObject> gObjects = new LinkedList<GraffitiObject>();
+			for (ARObject obj : objects) {
+				GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
+				//gObj.setSaved(true);
+				gObj.saveGLMatrix();
+				newLayer.add(gObj);
+			}
+			
+			addLayer(newLayer);
+			layerID++;
+			
+			return null;
+		}
+		
+		protected void onPostExecute(Void result) {
+			if(errorMsg == null)
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatesuccess), Toast.LENGTH_SHORT ).show();
+			else
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatefailure)+errorMsg, Toast.LENGTH_SHORT ).show();
+		}
+		
 	}
 	
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {

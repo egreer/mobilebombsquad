@@ -37,6 +37,24 @@ public class GraffitiObject extends ARObject {
 		
 	}
 	
+	public GraffitiObject(String name, String patternName, double markerWidth, double[] markerCenter, int color, GLObject object) {
+		//super(name, patternName, markerWidth, markerCenter);
+		this(name, patternName, markerWidth, markerCenter, object);
+		this.color = color;
+		/*this.object = object;
+		
+		float   mat_ambientf[]     = {0f, 1.0f, 0f, 1.0f};
+		float   mat_flashf[]       = {0f, 1.0f, 0f, 1.0f};
+		float   mat_diffusef[]       = {0f, 1.0f, 0f, 1.0f};
+		float   mat_flash_shinyf[] = {50.0f};
+		
+		mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
+		mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
+		mat_flash_shiny = GraphicsUtil.makeFloatBuffer(mat_flash_shinyf);
+		mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
+		*/
+	}
+	
 	/**
 	 * Everything drawn here will be drawn directly onto the marker,
 	 * as the corresponding translation matrix will already be applied.
@@ -96,7 +114,15 @@ public class GraffitiObject extends ARObject {
 	}
 	
 	public void saveGLMatrix() {
-		System.arraycopy(getGlMatrix(), 0, savedGLMatrix, 0, getGlMatrix().length);
+		if (!saved) {
+			System.arraycopy(getGlMatrix(), 0, savedGLMatrix, 0, getGlMatrix().length);
+			savedGLMatrixBuffer = GraphicsUtil.makeFloatBuffer(savedGLMatrix);
+			saved = true;
+		}
+	}
+	
+	public GraffitiObject generateCopy() {
+		return new GraffitiObject(getName(), getPatternName(), getMarkerWidth(), getCenter(), color, object);
 	}
 	
 	@Override

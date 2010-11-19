@@ -243,7 +243,6 @@ public class ARToolkit {
 				Log.i("MarkerInfo", "going to draw opengl stuff now");
 			for (ARObject obj : arobjects) {
 				if(obj.isVisible())
-					
 					obj.draw(gl);
 			}
 		}
@@ -260,8 +259,7 @@ public class ARToolkit {
 		}
 	}
 	
-	
-	
+
 	/** 
 	 * @param visListener listener to add to the registered listeners.
 	 * @deprecated Use addVisibilityListener instead.
@@ -276,7 +274,10 @@ public class ARToolkit {
 		visListeners.add(markerVisibilityListener);		
 	}
 
-
+	/** Added for CS525H Virtual Graffiti **/
+	public Vector<ARObject> getArobjects() {
+		return arobjects;
+	}
 
 	class DetectMarkerWorker extends Thread {
 		private byte[] curFrame;
