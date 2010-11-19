@@ -125,6 +125,15 @@ public class GraffitiObject extends ARObject {
 		return new GraffitiObject(getName(), getPatternName(), getMarkerWidth(), getCenter(), color, object);
 	}
 	
+	public GraffitiObject(ARObject obj) {
+		//this(obj.getName(), obj.getPatternName(), obj.getMarkerWidth(), obj.getCenter(), obj.color, obj.object);
+		super(obj.getName(), obj.getPatternName(), obj.getMarkerWidth(), obj.getCenter());
+		if (obj.getClass().toString().equals("GraffitiObject")) {
+			this.color = ((GraffitiObject)obj).color;
+			this.object = ((GraffitiObject)obj).object;
+		}
+	}
+	
 	@Override
 	public void init(GL10 gl) {
 		// TODO Auto-generated method stub
