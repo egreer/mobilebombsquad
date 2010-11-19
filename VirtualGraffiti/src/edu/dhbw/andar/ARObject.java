@@ -167,7 +167,9 @@ public abstract class ARObject {
 		return glMatrix;
 	}
 
-
+	public void setGLMatrix(float[] newMatrix) {
+		System.arraycopy(newMatrix, 0, glMatrix, 0, newMatrix.length);
+	}
 
 
 	public String getName() {

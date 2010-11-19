@@ -209,11 +209,14 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			Vector<ARObject> objects = artoolkit.getArobjects();
 			//LinkedList<GraffitiObject> gObjects = new LinkedList<GraffitiObject>();
 			for (ARObject obj : objects) {
-				//GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
-				GraffitiObject gObj = new GraffitiObject(obj);
-				//gObj.setSaved(true);
-				gObj.saveGLMatrix();
-				newLayer.add(gObj);
+				//if (obj.getId() != 0) {
+					//GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
+					GraffitiObject gObj = new GraffitiObject(obj);
+					//gObj.setSaved(true);
+					gObj.saveGLMatrix();
+					newLayer.add(gObj);
+				//}
+				
 			}
 			
 			addLayer(newLayer);

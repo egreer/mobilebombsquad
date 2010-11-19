@@ -131,6 +131,7 @@ public class GraffitiObject extends ARObject {
 		if (obj.getClass().toString().equals("GraffitiObject")) {
 			this.color = ((GraffitiObject)obj).color;
 			this.object = ((GraffitiObject)obj).object;
+			setGLMatrix(obj.getGlMatrix());
 		}
 	}
 	
