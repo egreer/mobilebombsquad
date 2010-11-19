@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
@@ -112,10 +114,10 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	 * 
 	 * @return
 	 */
-	public Layer addLayer() {
-		Layer newLayer = new Layer(layerID);
+	public Layer addLayer(Layer newLayer) {
+		//Layer newLayer = new Layer(layerID);
 		layers.add(newLayer);
-		layerID++;
+		//layerID++;
 		return newLayer;
 	}
 	
@@ -189,11 +191,46 @@ public class GraffitiBuilderActivity extends AndARActivity {
 			case MENU_REORGANIZE:
 				break;
 			case MENU_SAVE:
+				new SaveNewLayer().execute();
 				break;
 		}
 			
 		return true;
 	}
+	
+	class SaveNewLayer extends AsyncTask<Void, Void, Void> {
+
+		private String errorMsg = null;
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			Layer newLayer = new Layer(layerID);
+			
+			Vector<ARObject> objects = artoolkit.getArobjects();
+			//LinkedList<GraffitiObject> gObjects = new LinkedList<GraffitiObject>();
+			for (ARObject obj : objects) {
+				GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
+				//gObj.setSaved(true);
+				gObj.saveGLMatrix();
+				newLayer.add(gObj);
+			}
+			
+			addLayer(newLayer);
+			layerID++;
+			
+			return null;
+		}
+		
+		protected void onPostExecute(Void result) {
+			if(errorMsg == null)
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatesuccess), Toast.LENGTH_SHORT ).show();
+			else
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatefailure)+errorMsg, Toast.LENGTH_SHORT ).show();
+		}
+		
+	}
+
+	
 	
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {
 		
