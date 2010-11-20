@@ -14,4 +14,7 @@
 <string name="reorganize">Reorganize</string>
 <string name="exportdrawing">Export Drawing</string>
 <string name="save">Save Layer</string>
+<string name="settings_bg_color_confirm">Confirm Color</string>
+<string name="settings_default_color_confirm">Default color</string>
+<string name="settings_bg_color_dialog">Pick a Color</string>
 </resources>

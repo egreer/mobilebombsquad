@@ -8,13 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,17 +21,15 @@ import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
-import edu.dhbw.andar.pub.CustomObject;
-import edu.dhbw.andar.pub.CustomRenderer;
 import edu.dhbw.andar.pub.SimpleBox;
-import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
 
 /**
  * Example of an application that makes use of the AndAR toolkit.
  * @author Tobi
  *
  */
-public class GraffitiBuilderActivity extends AndARActivity {
+public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener{
 	
 	private final int MENU_SCREENSHOT = 0;
 	private final int MENU_SAVE = 1;
@@ -43,7 +37,11 @@ public class GraffitiBuilderActivity extends AndARActivity {
 	private final int MENU_CHANGE_SHAPE = 3;
 	private final int MENU_CHANGE_COLOR = 4;
 	private final int MENU_REORGANIZE = 5;
-
+	private final String SETTING_SHAPE_COLOR_KEY = "20";
+	
+	private int SETTING_SHAPE_COLOR = 0x00000000;
+	private int SETTING_SHAPE_COLOR_DEFAULT = 0x00FFFFFF;
+	
 	private static int layerID = 1;
 	
 	GraffitiObject someObject;
@@ -184,6 +182,7 @@ public class GraffitiBuilderActivity extends AndARActivity {
 				new TakeAsyncScreenshot().execute();
 				break;
 			case MENU_CHANGE_COLOR:
+				new ColorPickerDialog(this, this, SETTING_SHAPE_COLOR_KEY, SETTING_SHAPE_COLOR, SETTING_SHAPE_COLOR_DEFAULT).show();
 				break;
 			case MENU_CHANGE_SHAPE:
 				break;
@@ -270,6 +269,18 @@ public class GraffitiBuilderActivity extends AndARActivity {
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.screenshotfailed)+errorMsg, Toast.LENGTH_SHORT ).show();
 		};
 		
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener#colorChanged(java.lang.String, int)
+	 */
+	@Override
+	public void colorChanged(String key, int color) {
+		// TODO Auto-generated method stub
+		SETTING_SHAPE_COLOR = color;
+		Toast.makeText(this, "Color: " + SETTING_SHAPE_COLOR, Toast.LENGTH_LONG).show();
 	}
 	
 	
