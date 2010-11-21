@@ -143,6 +143,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 			gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR);
 			gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 			frameEnqueued = false;
+			
 		}
 		
 		gl.glColor4f(1, 1, 1, 1f);	
@@ -159,9 +160,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 
-		if(customRenderer != null)
+		if(customRenderer != null) {
 			customRenderer.setupEnv(gl);
-		else {
+		} else {
 			gl.glEnable(GL10.GL_LIGHTING);
 			gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_AMBIENT, ambientLightBuffer);
 			gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_DIFFUSE, diffuseLightBuffer);
@@ -172,10 +173,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		
 		markerInfo.draw(gl);
 		
-		if(customRenderer != null)
+		if(customRenderer != null) {
 			customRenderer.draw(gl);
-		
-		//markerInfo.draw(gl);
+		}
 		
 		//take a screenshot, if desired
 		if(takeScreenshot) {
@@ -227,6 +227,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		markerInfo.setScreenSize(width, height);
 		screenHeight = height;
 		screenWidth = width;
+		
 	}
 	
 	/**
