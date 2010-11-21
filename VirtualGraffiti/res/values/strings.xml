@@ -17,4 +17,7 @@
 <string name="settings_bg_color_confirm">Confirm Color</string>
 <string name="settings_default_color_confirm">Default color</string>
 <string name="settings_bg_color_dialog">Pick a Color</string>
+<string name="settings_bg_shape_dialog">Pick the Shape</string>
+<string name="settings_bg_shape_cancel">Cancel Shape</string>
+<string name="settings_cancel">Cancel</string>
 </resources>

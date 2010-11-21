@@ -23,13 +23,14 @@ import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.pub.SimpleBox;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
 
 /**
  * Example of an application that makes use of the AndAR toolkit.
  * @author Tobi
  *
  */
-public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener{
+public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener{
 	
 	private final int MENU_SCREENSHOT = 0;
 	private final int MENU_SAVE = 1;
@@ -41,6 +42,8 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	
 	private int SETTING_SHAPE_COLOR = 0x00000000;
 	private int SETTING_SHAPE_COLOR_DEFAULT = 0x00FFFFFF;
+	
+	private Shape SETTING_SHAPE = Shape.CUBE;
 	
 	private static int layerID = 1;
 	
@@ -185,6 +188,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 				new ColorPickerDialog(this, this, SETTING_SHAPE_COLOR_KEY, SETTING_SHAPE_COLOR, SETTING_SHAPE_COLOR_DEFAULT).show();
 				break;
 			case MENU_CHANGE_SHAPE:
+				new ShapePickerDialog(this, this, SETTING_SHAPE).show();
 				break;
 			case MENU_EXPORT:
 				break;
@@ -198,10 +202,18 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		return true;
 	}
 	
+	/**
+	 * Saves a layer with the shape in place
+	 *
+	 */
 	class SaveNewLayer extends AsyncTask<Void, Void, Void> {
 
 		private String errorMsg = null;
-		
+	
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected Void doInBackground(Void... params) {
 			try{
@@ -238,7 +250,8 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	}
 
 	
-	
+	/** Takes a screen shot of the Model and the surrounding background
+	 */
 	class TakeAsyncScreenshot extends AsyncTask<Void, Void, Void> {
 		
 		private String errorMsg = null;
@@ -278,9 +291,20 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	 */
 	@Override
 	public void colorChanged(String key, int color) {
-		// TODO Auto-generated method stub
+		// TODO Implement actual code
 		SETTING_SHAPE_COLOR = color;
 		Toast.makeText(this, "Color: " + SETTING_SHAPE_COLOR, Toast.LENGTH_LONG).show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener#shapeChanged(java.lang.String, edu.wpi.cs525h.ayeg.virtualgraffiti.Shape)
+	 */
+	@Override
+	public void shapeChanged(Shape shape) {
+		// TODO Implement actual code
+		SETTING_SHAPE = shape;
+		Toast.makeText(this, "Shape: " + SETTING_SHAPE.name(), Toast.LENGTH_LONG).show();
 	}
 	
 	
