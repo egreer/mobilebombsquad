@@ -49,7 +49,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	
 	GraffitiObject someObject;
 	ARToolkit artoolkit;
-	List<Layer> layers;
+	List<Layer> layers = new LinkedList<Layer>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		//CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
 		GraffitiRenderer renderer = new GraffitiRenderer(this);
 		super.setNonARRenderer(renderer);//or might be omited
-		layers = new LinkedList<Layer>();
+		//layers = new LinkedList<Layer>();
 		try {
 			artoolkit = super.getArtoolkit();
 /*			someObject = new CustomObject
@@ -218,24 +218,19 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		protected Void doInBackground(Void... params) {
 			try{
 			Layer newLayer = new Layer(layerID);
-			
 			Vector<ARObject> objects = artoolkit.getArobjects();
-			//LinkedList<GraffitiObject> gObjects = new LinkedList<GraffitiObject>();
 			for (ARObject obj : objects) {
-				//if (obj.getId() != 0) {
-					//GraffitiObject gObj = ((GraffitiObject) obj).generateCopy();
-					GraffitiObject gObj = new GraffitiObject(obj);
-					//gObj.setSaved(true);
-					gObj.saveGLMatrix();
-					newLayer.add(gObj);
-				//}
-				
+				GraffitiObject gObj = new GraffitiObject(obj);
+				gObj.saveGLMatrix();
+				newLayer.add(gObj);				
 			}
 			
 			addLayer(newLayer);
 			layerID++;
 			} catch(Exception e) {
 				e.printStackTrace();
+				//errorMsg = " Exception! ";
+				errorMsg = e.getMessage();
 			}
 			return null;
 		}

@@ -21,7 +21,10 @@ public class Layer {
 	
 	public void draw(GL10 gl) {
 		for (GraffitiObject obj : graffitiObjects) {
-			obj.draw(gl);
+			if (obj.isSaved()) {
+				obj.draw(gl);
+			}
+			
 		}
 	}
 }

@@ -62,10 +62,10 @@ public class GraffitiObject extends ARObject {
 	@Override
 	public final void draw(GL10 gl) {
 		if (saved) {
-			if(!isInitialized()) {
+			/*if(!isInitialized()) {
 				init(gl);
 				setInitialized(true);
-			}
+			}*/
 			if(glCameraMatrixBuffer != null) {
 				savedGLMatrixBuffer.put(savedGLMatrix);
 				savedGLMatrixBuffer.position(0);
@@ -115,11 +115,12 @@ public class GraffitiObject extends ARObject {
 	}
 	
 	public void saveGLMatrix() {
-		if (!saved) {
-			System.arraycopy(getGlMatrix(), 0, savedGLMatrix, 0, getGlMatrix().length);
+		//if (!saved) {
+			//System.arraycopy(getGlMatrix(), 0, savedGLMatrix, 0, getGlMatrix().length);
+			savedGLMatrix = getGlMatrix();
 			savedGLMatrixBuffer = GraphicsUtil.makeFloatBuffer(savedGLMatrix);
 			saved = true;
-		}
+		//}
 	}
 	
 	public GraffitiObject generateCopy() {
@@ -127,13 +128,10 @@ public class GraffitiObject extends ARObject {
 	}
 	
 	public GraffitiObject(ARObject obj) {
-		//this(obj.getName(), obj.getPatternName(), obj.getMarkerWidth(), obj.getCenter(), obj.color, obj.object);
 		super(obj.getName(), obj.getPatternName(), obj.getMarkerWidth(), obj.getCenter());
-		if (obj.getClass().toString().equals("GraffitiObject")) {
-			this.color = ((GraffitiObject)obj).color;
-			this.object = ((GraffitiObject)obj).object;
-			setGLMatrix(obj.getGlMatrix());
-		}
+		this.color = ((GraffitiObject)obj).color;
+		this.object = ((GraffitiObject)obj).object;
+		setGLMatrix(obj.getGlMatrix());
 	}
 	
 	@Override
