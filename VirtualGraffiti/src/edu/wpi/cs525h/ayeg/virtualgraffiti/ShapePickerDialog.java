@@ -77,7 +77,7 @@ public class ShapePickerDialog extends Dialog {
 			}	
 			
 			
-			confirm = new Button(this.getContext());
+/*			confirm = new Button(this.getContext());
 			
 			confirm.setText(res.getString(R.string.settings_bg_shape_cancel));
 			confirm.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class ShapePickerDialog extends Dialog {
 	             }
 	         });
 
-			this.addView(confirm);
+			this.addView(confirm);*/
 		}
 	}
 
