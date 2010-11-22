@@ -60,7 +60,7 @@ public class GraffitiRenderer implements OpenGLRenderer {
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_NORMALIZE);
-		gl.glEnable(GL10.GL_COLOR_MATERIAL);
+		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
 	}
 	
 }
