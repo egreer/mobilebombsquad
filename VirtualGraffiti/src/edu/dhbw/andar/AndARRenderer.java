@@ -168,9 +168,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		//} else {
+		} else {
 			//gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-			//gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
 			//gl.glEnable(GL10.GL_BLEND);
 		    //gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		}
@@ -211,12 +211,12 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	                   int pb=(pix>>16)&0xff; 
 	                   int pr=(pix<<16)&0x00ff0000; 
 	                   int pix1=(pix&0xff00ff00) | pr | pb;
-	                   /*if (pix1 == 0xff06000c) {
-	                	   pix1 = 0x0106000d;
-	                   }*/
-	                   if (pix1 == 0xff000000) {
+	                   if (pix1 == 0xff57415E) {
 	                	   pix1 = 0x00000000;
-	                   }
+	                   }  /*8288476*/
+	                   /*if (pix1 == 0xff000000) {
+	                	   pix1 = 0x00000000;
+	                   }*/
 	                   picture[(screenHeight-i-1)*screenWidth+j]=pix1; 
 	              } 
 	         }  
