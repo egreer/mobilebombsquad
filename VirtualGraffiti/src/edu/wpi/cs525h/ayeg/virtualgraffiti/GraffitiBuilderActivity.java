@@ -3,7 +3,9 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -48,7 +50,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	
 	private static int layerID = 1;
 	
-	GraffitiObject someObject;
+	ArrayList<GraffitiObject> objects = new ArrayList<GraffitiObject>();
 	ARToolkit artoolkit;
 	List<Layer> layers = new LinkedList<Layer>();
 		
@@ -75,18 +77,18 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			artoolkit.registerARObject(someObject);	
 			*/
 
-			someObject = new GraffitiObject
-			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new SimpleBox());
-			artoolkit.registerARObject(someObject);	
+			objects.add(new GraffitiObject
+			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new SimpleBox()));
+			artoolkit.registerARObject(objects.get(0));	
 
 
 	/*		someObject = new CustomObject
 			("test", "circles marker16.pat", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(someObject);	
 */
-			someObject = new GraffitiObject
-			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid());
-			artoolkit.registerARObject(someObject);	
+			objects.add(new GraffitiObject
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid()));
+			artoolkit.registerARObject(objects.get(1));	
 			
 			
 
@@ -319,9 +321,15 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	 */
 	@Override
 	public void colorChanged(String key, int color) {
-		// TODO Implement actual code
 		SETTING_SHAPE_COLOR = color;
 		Toast.makeText(this, "Color: " + SETTING_SHAPE_COLOR, Toast.LENGTH_LONG).show();
+		
+		//Sets all the colors
+		Iterator<GraffitiObject> it = objects.iterator();
+		while(it.hasNext()){
+			GraffitiObject g = it.next();
+			g.setColor(color);
+		}
 	}
 
 	/*
@@ -330,9 +338,9 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	 */
 	@Override
 	public void shapeChanged(Shape shape) {
-		// TODO Implement actual code
 		SETTING_SHAPE = shape;
 		Toast.makeText(this, "Shape: " + SETTING_SHAPE.name(), Toast.LENGTH_LONG).show();
+		objects.get(1).setObject(SETTING_SHAPE.getObject());	
 	}
 	
 	
