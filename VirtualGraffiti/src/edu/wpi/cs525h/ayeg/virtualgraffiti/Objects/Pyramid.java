@@ -22,12 +22,12 @@ public class Pyramid implements GLObject {
 	//private ByteBuffer indexBuffer;    // Buffer for index-array
 	private FloatBuffer normals;
 	
-	/*	   private float[] vertices = { // 5 vertices of the pyramid in (x,y,z)
-		      -25.0f, -25.0f, -25.0f,  // 0. left-bottom-back
+		   /*private float[] vertices = { // 5 vertices of the pyramid in (x,y,z)
+		       25.0f,  25.0f, -25.0f,  // 0. left-bottom-back
 		       25.0f, -25.0f, -25.0f,  // 1. right-bottom-back
-		       25.0f, -25.0f,  25.0f,  // 2. right-bottom-front
-		      -25.0f, -25.0f,  25.0f,  // 3. left-bottom-front
-		       0.0f,  25.0f,  0.0f   // 4. top
+		      -25.0f,  25.0f, -25.0f,  // 2. right-bottom-front
+		      -25.0f, -25.0f, -25.0f,  // 3. left-bottom-front
+		        0.0f,   0.0f,  25.0f   // 4. top
 		   };*/
 
 
@@ -145,17 +145,17 @@ public class Pyramid implements GLObject {
 
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		//gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
 		//gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
 		
-		gl.glDrawArrays(GL10.GL_TRIANGLES, 0, vertices.length/3);
-		//gl.glDrawArrays(GL10.GL_TRIANGLES, 3, 3);
-		//gl.glDrawArrays(GL10.GL_TRIANGLES, 6, 3);
-		//gl.glDrawArrays(GL10.GL_TRIANGLES, 9, 3);
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 3);
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 3, 3);
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 6, 3);
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 9, 3);
 		//gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
 		//      gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
@@ -166,7 +166,7 @@ public class Pyramid implements GLObject {
 */
 		//gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-		//gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		//      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 	}
 

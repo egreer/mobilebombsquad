@@ -28,6 +28,7 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListe
 import edu.wpi.cs525h.ayeg.virtualgraffiti.LayerManager.OnLayersChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Sphere;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
 
 /**
@@ -89,7 +90,8 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			artoolkit.registerARObject(someObject);	
 */
 			objects.add(new GraffitiObject
-			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid()));
+			//("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid()));
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Sphere()));
 			artoolkit.registerARObject(objects.get(1));	
 			
 			
