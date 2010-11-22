@@ -170,7 +170,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		} else {
 			//gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-			gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
+			//gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
 			//gl.glEnable(GL10.GL_BLEND);
 		    //gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		}
