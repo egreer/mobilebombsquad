@@ -11,7 +11,7 @@
 <string name="layercreatefailure">Layer not created!</string>
 <string name="changecolor">Change Color</string>
 <string name="changeshape">Change Shape</string>
-<string name="reorganize">Reorganize</string>
+<string name="reorganize">Clear Layers</string>
 <string name="exportdrawing">Export Drawing</string>
 <string name="save">Save Layer</string>
 <string name="settings_bg_color_confirm">Confirm Color</string>

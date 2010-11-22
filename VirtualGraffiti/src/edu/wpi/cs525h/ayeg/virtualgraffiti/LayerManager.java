@@ -71,13 +71,7 @@ public class LayerManager extends Dialog{
 			super(context);
 			setAdapter(new LayerManagerAdapter(context,android.R.layout.simple_list_item_1, layers));
 			setOnTouchListener(new LayerTouchListener());
-		}
-		
-		@Override
-		public boolean onTouchEvent(MotionEvent ev){
-			return true;
-		}
-		
+		}	
 		
 	
 	}
@@ -87,7 +81,6 @@ public class LayerManager extends Dialog{
 	   	 public LayerManagerAdapter(Context context, int textViewResourceId,
 				List objects) {
 			super(context, textViewResourceId, objects);
-			
 		}
 	
 	  

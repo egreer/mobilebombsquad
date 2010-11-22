@@ -10,6 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -36,7 +41,7 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListe
  * @author Tobi
  *
  */
-public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener, OnLayersChangedListener{
+public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener, OnLayersChangedListener, OnClickListener{
 	
 	private final int MENU_SCREENSHOT = 0;
 	private final int MENU_SAVE = 1;
@@ -156,7 +161,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		
 		//Change Color
 		menu.add(0, MENU_CHANGE_COLOR, 4, re.getText(R.string.changecolor))
-		.setIcon(android.R.drawable.ic_menu_save);
+		.setIcon(android.R.drawable.ic_menu_edit);
 		
 		//Export
 		menu.add(0, MENU_EXPORT, 5, re.getText(R.string.exportdrawing))
@@ -164,7 +169,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 				
 		//Reorganize
 		menu.add(0, MENU_REORGANIZE, 6, re.getText(R.string.reorganize))
-		.setIcon(android.R.drawable.ic_menu_edit);
+		.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		
 		
 		return true;
@@ -201,7 +206,23 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 				new ExportPicture().execute();
 				break;
 			case MENU_REORGANIZE:
-				new LayerManager(this, this, layers).show();
+				//new LayerManager(this, this, layers).show();
+				new AlertDialog.Builder(this)
+			      .setMessage("Clear All Layers?")
+			      .setPositiveButton("Yes", this)
+			      .setNegativeButton("No", new OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						 Toast.makeText(getBaseContext(), "Canceled Layer Deletion", Toast.LENGTH_SHORT).show();
+					}
+				})
+			      .setOnCancelListener(new OnCancelListener() {
+			        public void onCancel(DialogInterface dialog) {
+			          Toast.makeText(getBaseContext(), "Canceled Layer Deletion", Toast.LENGTH_SHORT).show();
+			        }})
+			      .show();
+
 				break;
 			case MENU_SAVE:
 				new SaveNewLayer().execute();
@@ -350,11 +371,27 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		objects.get(1).setObject(SETTING_SHAPE.getObject());	
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.LayerManager.OnLayersChangedListener#layersChanged(java.util.ArrayList)
+	 */
 	@Override
 	public void layersChanged(ArrayList<Layer> layer) {
 		layers = layer;
 		Toast.makeText(this, "Layers changed", Toast.LENGTH_LONG).show();
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
+	 */
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		//Clears all layers
+		layers.clear();
+		Toast.makeText(this, "Layers Cleared", Toast.LENGTH_LONG).show();
+	}
+	
 	
 	
 }
