@@ -22,4 +22,8 @@
 <string name="settings_cancel">Cancel</string>
 <string name="picturesaved">Export successful!</string>
 <string name="picturefailed">Export failed!</string>
+<string name="build_mode">Build Mode</string>
+<string name="tag_mode">Tag Mode</string>
+<string name="quit_app">Quit App</string>
+<string name="buildername">Graffiti Builder</string>
 </resources>

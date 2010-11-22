@@ -1,31 +1,23 @@
 package edu.wpi.cs525h.ayeg.virtualgraffiti;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.location.GpsStatus.Listener;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
+/**	Would be used for layer organization but not used in version 0.1.
+ * 
+ * @author Eric Greer
+ * @author Andrew Yee
+ *
+ */
 public class LayerManager extends Dialog{
 
 	OnLayersChangedListener listener;
@@ -64,9 +56,15 @@ public class LayerManager extends Dialog{
         void layersChanged(ArrayList<Layer> layer);
     }
 
-	
+	/** The list view for these layers
+	 *
+	 */
 	public class LayerManagerView extends ListView{
-
+		
+		/**
+		 * @param context The context to draw this view
+		 * @param layers	The layers for this view
+		 */
 		public LayerManagerView(Context context, List<Layer> layers) {
 			super(context);
 			setAdapter(new LayerManagerAdapter(context,android.R.layout.simple_list_item_1, layers));
@@ -76,6 +74,11 @@ public class LayerManager extends Dialog{
 	
 	}
 	
+	/**
+	 * 
+	 * @author Eric Greer
+	 *
+	 */
 	public class LayerManagerAdapter extends ArrayAdapter<Layer>{
 		
 	   	 public LayerManagerAdapter(Context context, int textViewResourceId,

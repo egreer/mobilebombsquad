@@ -30,6 +30,7 @@ import edu.dhbw.andar.exceptions.AndARException;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.LayerManager.OnLayersChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Sphere;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
 
@@ -65,10 +66,15 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	 * (non-Javadoc)
 	 * @see edu.dhbw.andar.AndARActivity#onCreate(android.os.Bundle)
 	 */
+	public GraffitiBuilderActivity() {
+		super(true);
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		//startPreview();
 		//CustomRenderer renderer = new CustomRenderer();//optional, may be set to null
 		GraffitiRenderer renderer = new GraffitiRenderer(this);
 		super.setNonARRenderer(renderer);//or might be omited
@@ -81,12 +87,21 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			artoolkit.registerARObject(objects.get(0));	
 
 			objects.add(new GraffitiObject
-			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Sphere()));
+			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid()));
 			artoolkit.registerARObject(objects.get(1));	
-						
+
+			objects.add(new GraffitiObject
+					("test", "circlesmarker16.pat", 80.0, new double[]{0,0}, new Sphere()));
+					artoolkit.registerARObject(objects.get(2));	
+
+			objects.add(new GraffitiObject
+				("test", "patt.hiro", 80.0, new double[]{0,0}, new Cube()));
+			artoolkit.registerARObject(objects.get(3));
+			
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
-			System.out.println("");
+			//System.out.println("");
+			Log.e(this.toString(), "Something wrong happened D:");
 		}			
 	}
 
@@ -366,7 +381,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	public void shapeChanged(Shape shape) {
 		SETTING_SHAPE = shape;
 		Toast.makeText(this, "Shape: " + SETTING_SHAPE.name(), Toast.LENGTH_LONG).show();
-		objects.get(1).setObject(SETTING_SHAPE.getObject());	
+		objects.get(3).setObject(SETTING_SHAPE.getObject());	
 	}
 
 	/*
