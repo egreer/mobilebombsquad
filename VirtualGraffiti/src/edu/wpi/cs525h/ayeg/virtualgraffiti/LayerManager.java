@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -47,6 +48,7 @@ public class LayerManager extends Dialog{
     	//setContentView(new LayerManagerView(getContext(), layers));  
     	
         setContentView(new LayerManagerView(getContext(), layers));
+        setCanceledOnTouchOutside(true);
     }
 	
 	/**
@@ -68,7 +70,7 @@ public class LayerManager extends Dialog{
 		public LayerManagerView(Context context, List<Layer> layers) {
 			super(context);
 			setAdapter(new LayerManagerAdapter(context,android.R.layout.simple_list_item_1, layers));
-			setOnItemClickListener(new LayerClickListener());
+			setOnTouchListener(new LayerTouchListener());
 		}
 		
 		@Override
@@ -85,24 +87,22 @@ public class LayerManager extends Dialog{
 	   	 public LayerManagerAdapter(Context context, int textViewResourceId,
 				List objects) {
 			super(context, textViewResourceId, objects);
+			
 		}
+	
 	  
 	   	
 	}
 	
-	public class LayerClickListener implements OnItemClickListener{
+	public class LayerTouchListener implements OnTouchListener{
 
 
-		/*
-		 * (non-Javadoc)
-		 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
-		 */
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			Toast.makeText(getContext(), "Clicked on: " + arg2 + " " + arg3, Toast.LENGTH_SHORT).show();
-			
+		public boolean onTouch(View v, MotionEvent event) {
+			// TODO Auto-generated method stub
+			return false;
 		}
+		
 		
 	}
 	
