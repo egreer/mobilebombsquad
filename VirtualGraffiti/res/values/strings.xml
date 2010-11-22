@@ -20,4 +20,6 @@
 <string name="settings_bg_shape_dialog">Pick the Shape</string>
 <string name="settings_bg_shape_cancel">Cancel Shape</string>
 <string name="settings_cancel">Cancel</string>
+<string name="picturesaved">Export successful!</string>
+<string name="picturefailed">Export failed!</string>
 </resources>

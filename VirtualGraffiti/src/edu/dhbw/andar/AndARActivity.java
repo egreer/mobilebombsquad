@@ -279,6 +279,10 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 		return renderer.takeScreenshot();
 	}	
 	
+	public Bitmap savePicture() {
+		return renderer.savePicture();
+	}
+	
 	/**
 	 * 
 	 * @return the OpenGL surface.

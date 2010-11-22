@@ -96,6 +96,11 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	private OpenGLRenderer customRenderer;
 	private AndARActivity activity;
 	
+	private Bitmap picture;
+	private Object pictureMonitor = new Object();
+	private boolean savePicture = false;
+	private boolean pictureSaved = false;
+	
 	/**
 	 * mode, being either GL10.GL_RGB or GL10.GL_LUMINANCE
 	 */
@@ -146,7 +151,11 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 			
 		}
 		
-		gl.glColor4f(1, 1, 1, 1f);	
+		
+		//
+	     
+		if (!savePicture) {
+			gl.glColor4f(1, 1, 1, 1f);
 		//draw camera preview frame:
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -159,7 +168,14 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-
+		//} else {
+			//gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+			//gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//gl.glEnable(GL10.GL_BLEND);
+		    //gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		}
+		
+		//if(!savePicture) {
 		if(customRenderer != null) {
 			customRenderer.setupEnv(gl);
 		} else {
@@ -171,10 +187,47 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 			gl.glEnable(GL10.GL_LIGHT0);
 		}
 		
-		markerInfo.draw(gl);
+		if(!savePicture) {
+			markerInfo.draw(gl);
+		}
 		
 		if(customRenderer != null) {
 			customRenderer.draw(gl);
+		}
+		
+		if (savePicture) {
+			savePicture = false;
+			int[] tmp = new int[screenHeight*screenWidth];
+			int[] picture = new int[screenHeight*screenWidth];
+			Buffer screenshotBuffer = IntBuffer.wrap(tmp);
+			screenshotBuffer.position(0);
+			gl.glReadPixels(0,0,screenWidth,screenHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, screenshotBuffer); 
+			for(int i=0; i<screenHeight; i++) 
+	         {//remember, that OpenGL bitmap is incompatible with Android bitmap 
+	          //and so, some correction need.      
+	              for(int j=0; j<screenWidth; j++) 
+	              { 
+	                   int pix=tmp[i*screenWidth+j]; 
+	                   int pb=(pix>>16)&0xff; 
+	                   int pr=(pix<<16)&0x00ff0000; 
+	                   int pix1=(pix&0xff00ff00) | pr | pb;
+	                   /*if (pix1 == 0xff06000c) {
+	                	   pix1 = 0x0106000d;
+	                   }*/
+	                   if (pix1 == 0xff000000) {
+	                	   pix1 = 0x00000000;
+	                   }
+	                   picture[(screenHeight-i-1)*screenWidth+j]=pix1; 
+	              } 
+	         }  
+			//this.picture = Bitmap.createBitmap(picture, screenWidth, screenHeight, Config.RGB_565);
+			this.picture = Bitmap.createBitmap(picture, screenWidth, screenHeight, Config.ARGB_8888);
+			
+			pictureSaved = true;
+			//wake up the waiting method
+			synchronized (pictureMonitor) {
+				pictureMonitor.notifyAll();
+			}			
 		}
 		
 		//take a screenshot, if desired
@@ -198,7 +251,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	                   screenshot[(screenHeight-i-1)*screenWidth+j]=pix1; 
 	              } 
 	         }  
-			this.screenshot = Bitmap.createBitmap(screenshot, screenWidth, screenHeight, Config.RGB_565);
+			//this.screenshot = Bitmap.createBitmap(screenshot, screenWidth, screenHeight, Config.RGB_565);
+			this.screenshot = Bitmap.createBitmap(screenshot, screenWidth, screenHeight, Config.ARGB_8888);
 			
 			screenshotTaken = true;
 			//wake up the waiting method
@@ -260,7 +314,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		textureBuffer = makeFloatBuffer(textureCoords);
 
 		
-		//register unchaught exception handler
+		//register uncaught exception handler
 		Thread.currentThread().setUncaughtExceptionHandler(activity);
 		
 		markerInfo.initGL(gl);
@@ -363,6 +417,20 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		this.customRenderer = customRenderer;
 	}
 
+	public Bitmap savePicture() {
+		synchronized (pictureMonitor) {
+			pictureSaved = false;
+			savePicture = true;
+			while(!pictureSaved) {
+				//protect against spurios wakeups
+				try {
+					pictureMonitor.wait();
+				} catch (InterruptedException e) {}
+			}
+		}		
+		return picture;
+	}
+	
 	public Bitmap takeScreenshot() {
 		synchronized (screenshotMonitor) {
 			screenshotTaken = false;

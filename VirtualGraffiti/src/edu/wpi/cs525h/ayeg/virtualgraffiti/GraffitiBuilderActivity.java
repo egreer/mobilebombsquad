@@ -50,7 +50,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	GraffitiObject someObject;
 	ARToolkit artoolkit;
 	List<Layer> layers = new LinkedList<Layer>();
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
@@ -191,6 +191,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 				new ShapePickerDialog(this, this, SETTING_SHAPE).show();
 				break;
 			case MENU_EXPORT:
+				new ExportPicture().execute();
 				break;
 			case MENU_REORGANIZE:
 				break;
@@ -244,6 +245,37 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		
 	}
 
+	class ExportPicture extends AsyncTask<Void, Void, Void> {
+		private String errorMsg = null;
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Bitmap bm = savePicture();
+			FileOutputStream fos;
+			try {
+				fos = new FileOutputStream("/sdcard/dcim/ARPaintImage-"+new Date().getTime()+".png");
+				bm.compress(CompressFormat.PNG, 100, fos);
+				fos.flush();
+				fos.close();					
+			} catch (FileNotFoundException e) {
+				errorMsg = e.getMessage();
+				e.printStackTrace();
+			} catch (IOException e) {
+				errorMsg = e.getMessage();
+				e.printStackTrace();
+			}	
+			return null;
+		}
+		
+		protected void onPostExecute(Void result) {
+			if(errorMsg == null)
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.picturesaved), Toast.LENGTH_SHORT ).show();
+			else
+				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.picturefailed)+errorMsg, Toast.LENGTH_SHORT ).show();
+		};
+		
+	}
+	
 	
 	/** Takes a screen shot of the Model and the surrounding background
 	 */
@@ -256,7 +288,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			Bitmap bm = takeScreenshot();
 			FileOutputStream fos;
 			try {
-				fos = new FileOutputStream("/sdcard/AndARScreenshot"+new Date().getTime()+".png");
+				fos = new FileOutputStream("/sdcard/dcim/AndARScreenshot"+new Date().getTime()+".png");
 				bm.compress(CompressFormat.PNG, 100, fos);
 				fos.flush();
 				fos.close();					
