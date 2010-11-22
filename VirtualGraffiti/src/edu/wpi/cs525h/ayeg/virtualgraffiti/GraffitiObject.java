@@ -88,7 +88,7 @@ public class GraffitiObject extends ARObject {
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
 	
-		    gl.glColor4f(0, 1.0f, 0, 1.0f);
+		    gl.glColor4f(0, 0.0f, 0, 1.0f);
 		    gl.glTranslatef( 0.0f, 0.0f, 12.5f );
     
 		}

@@ -8,6 +8,7 @@
         		  android:screenOrientation="landscape" 
         		  android:name="edu.wpi.cs525h.ayeg.virtualgraffiti.GraffitiBuilderActivity" 
         		  android:noHistory="true"
+        		  android:theme="@style/Theme.GraffitiBuilderTheme"
         		   >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
