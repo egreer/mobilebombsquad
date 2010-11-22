@@ -5,7 +5,6 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import edu.dhbw.andar.util.GraphicsUtil;
-import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
 
 public class SimpleBox {
 	private FloatBuffer box;

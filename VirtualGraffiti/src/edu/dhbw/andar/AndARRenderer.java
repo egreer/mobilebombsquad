@@ -48,9 +48,14 @@ import android.util.Log;
 /**
  * Opens the camera and displays the output on a square (as a texture)
  * @author Tobias Domhan
+ * 
+ * Modified by
+ * @author Andrew Yee
+ * @author Eric Greer
  *
  */
 public class AndARRenderer implements Renderer, PreviewFrameSink{
+	@SuppressWarnings("unused")
 	private Resources res;
 	private boolean DEBUG = false;
 	private int textureName;
@@ -272,7 +277,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	}
 	
 
-	/* 
+	/*
+	 * (non-Javadoc)
 	 * @see android.opengl.GLSurfaceView.Renderer#onSurfaceChanged(javax.microedition.khronos.opengles.GL10, int, int)
 	 */
 	@Override
@@ -386,6 +392,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		textureBuffer= makeFloatBuffer(textureCoords);		
 	}
 	
+	/** Initializes the texture on the GL
+	 * @param gl	The GL to draw on
+	 */
 	private void initializeTexture (GL10 gl) {
 		byte[] frame;
 		switch(mode) {
@@ -422,10 +431,16 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 			isTextureInitialized = false;
 	}
 
+	/** Uses a different renderer over the AR Renderer
+	 * @param customRenderer	The renderer to use
+	 */
 	public void setNonARRenderer(OpenGLRenderer customRenderer) {
 		this.customRenderer = customRenderer;
 	}
 
+	/**
+	 * @return The BMP of the picture
+	 */
 	public Bitmap savePicture() {
 		synchronized (pictureMonitor) {
 			pictureSaved = false;
@@ -440,6 +455,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		return picture;
 	}
 	
+	/**
+	 * @return The BMP of the ScreenShot
+	 */
 	public Bitmap takeScreenshot() {
 		synchronized (screenshotMonitor) {
 			screenshotTaken = false;
@@ -465,14 +483,26 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
  */
 class LogWriter extends Writer {
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.io.Writer#close()
+	 */
     @Override public void close() {
         flushBuilder();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.io.Writer#flush()
+     */
     @Override public void flush() {
         flushBuilder();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.io.Writer#write(char[], int, int)
+     */
     @Override public void write(char[] buf, int offset, int count) {
         for(int i = 0; i < count; i++) {
             char c = buf[offset + i];
@@ -493,6 +523,5 @@ class LogWriter extends Writer {
     }
 
     private StringBuilder mBuilder = new StringBuilder();
-    
     
 }
