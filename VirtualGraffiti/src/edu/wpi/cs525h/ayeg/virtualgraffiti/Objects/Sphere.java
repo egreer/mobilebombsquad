@@ -47,15 +47,8 @@ public class Sphere implements GLObject {
 		triangleFanVertices = new float[fanVertexCount];
 		triangleFanNormals = new float[fanVertexCount];
 		
-		//float drho = (new Double(Math.PI).floatValue())/((float)stacks);
 		double drho = Math.PI / stacks;
-		//Float drhoF = new Float(drho);
 		double dtheta = 2.0 * Math.PI / slices;
-		//float dtheta = 2.0f * (new Double(Math.PI).floatValue())/((float)slices);
-		//Float dthetaF = new Float(dthetaF);
-		//float nsign = ??
-		
-		
 		
 		triangleFanVertices[0] = 0.0f;
 		triangleFanVertices[1] = 0.0f;
@@ -137,36 +130,21 @@ public class Sphere implements GLObject {
 	}
 	
 	@Override
-	public void draw(GL10 gl, int color) {
-		//gl.glFrontFace(GL10.GL_CCW);  // Front face in counter-clockwise orientation
-
+	public void draw(GL10 gl) {
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, fanVertices);
 		gl.glNormalPointer(GL10.GL_FLOAT, 0, fanNormals);
-		
-		//int fanVertexCount = 0;
-		//while (fanVertexCount < triangleFanVertices.length) {
-			gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, triangleFanVertices.length/3); 
-		//}
+		gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, triangleFanVertices.length/3); 
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, stripVertices);
 		gl.glNormalPointer(GL10.GL_FLOAT, 0, stripNormals);
-		
-		//int fanVertexCount = 0;
-		//while (fanVertexCount < triangleFanVertices.length) {
-			gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, triangleStripVertices.length/3);	
-			
-		/*gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 3);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 3, 3);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 6, 3);
-		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 9, 3);*/
+		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, triangleStripVertices.length/3);	
 		
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
-		//      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 	}
 
 	/*
