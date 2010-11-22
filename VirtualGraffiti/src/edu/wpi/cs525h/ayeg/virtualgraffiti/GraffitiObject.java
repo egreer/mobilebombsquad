@@ -15,8 +15,8 @@ public class GraffitiObject extends ARObject {
 	GLObject object;
 	boolean saved = false;
 	
-	//private FloatBuffer mat_flash;
-	//private FloatBuffer mat_ambient;
+	private FloatBuffer mat_flash;
+	private FloatBuffer mat_ambient;
 	private FloatBuffer mat_flash_shiny;
 	private FloatBuffer mat_diffuse;
 	
@@ -27,13 +27,13 @@ public class GraffitiObject extends ARObject {
 		super(name, patternName, markerWidth, markerCenter);
 		this.object = object;
 		
-		//float   mat_ambientf[]     = {0.2f, 0.2f, 0.2f, 1.0f};
-		//float   mat_flashf[]       = {0f, 0f, 0f, 1.0f};
-		float   mat_diffusef[]       = {0.8f, 0.8f, 0.8f, 1.0f};
+		float   mat_ambientf[]     = {0.3f, 0.3f, 0.3f, 1.0f};
+		float   mat_flashf[]       = {0.6f, 0.6f, 0.6f, 1.0f};
+		float   mat_diffusef[]       = {0.7f, 0.7f, 0.7f, 1.0f};
 		float   mat_flash_shinyf[] = {50.0f};
 		
-		//mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
-		//mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
+		mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
+		mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
 		mat_flash_shiny = GraphicsUtil.makeFloatBuffer(mat_flash_shinyf);
 		mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
 		
@@ -85,15 +85,13 @@ public class GraffitiObject extends ARObject {
 		} else {
 			super.draw(gl);
 		
-	/*		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR,mat_flash);
+			gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
+	
+			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR,mat_flash);
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);	
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
-	*/
 			
-			gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
-			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);
-			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);
 		}
 
 		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
