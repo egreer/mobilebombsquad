@@ -64,7 +64,7 @@ public class Sphere implements GLObject {
 			triangleFanVertices[counter++] = zD.floatValue() * radius;
 		}
 		
-		for (int i = 0; i < fanVertexCount; i += 3) {
+		/*for (int i = 0; i < fanVertexCount; i += 3) {
 			double x2 = new Float(triangleFanVertices[i] * triangleFanVertices[i]).doubleValue();
 			double y2 = new Float(triangleFanVertices[i+1] * triangleFanVertices[i+1]).doubleValue();
 			double z2 = new Float(triangleFanVertices[i+2] * triangleFanVertices[i+2]).doubleValue();
@@ -78,7 +78,9 @@ public class Sphere implements GLObject {
 			triangleFanNormals[i+1] = yN;
 			triangleFanNormals[i+2] = zN;
 			
-		}
+		}*/
+		
+		triangleFanNormals = normalize(triangleFanVertices);
 		
 	}
 	
@@ -111,7 +113,7 @@ public class Sphere implements GLObject {
 			}	
 		}
 		
-		for (int i = 0; i < stripVertexCount; i += 3) {
+		/*for (int i = 0; i < stripVertexCount; i += 3) {
 			double x2 = new Float(triangleStripVertices[i] * triangleStripVertices[i]).doubleValue();
 			double y2 = new Float(triangleStripVertices[i+1] * triangleStripVertices[i+1]).doubleValue();
 			double z2 = new Float(triangleStripVertices[i+2] * triangleStripVertices[i+2]).doubleValue();
@@ -125,8 +127,33 @@ public class Sphere implements GLObject {
 			triangleStripNormals[i+1] = yN;
 			triangleStripNormals[i+2] = zN;
 			
+		}*/
+		
+		triangleStripNormals = normalize(triangleStripVertices);
+		
+	}
+	
+	float[] normalize(float[] vertices) {
+		int vertexCount = vertices.length;
+		float[] normals = new float[vertexCount];
+		
+		for (int i = 0; i < vertexCount; i += 3) {
+			double x2 = new Float(vertices[i] * vertices[i]).doubleValue();
+			double y2 = new Float(vertices[i+1] * vertices[i+1]).doubleValue();
+			double z2 = new Float(vertices[i+2] * vertices[i+2]).doubleValue();
+			double mag = Math.sqrt(x2 + y2 + z2);
+			
+			float xN = new Double(x2/mag).floatValue();
+			float yN = new Double(y2/mag).floatValue();
+			float zN = new Double(z2/mag).floatValue();
+			
+			normals[i] = xN;
+			normals[i+1] = yN;
+			normals[i+2] = zN;
+			
 		}
 		
+		return normals;
 	}
 	
 	@Override
