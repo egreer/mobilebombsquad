@@ -32,12 +32,14 @@ public class Pyramid implements GLObject {
 
 	private float[] vertices = {
 			-25.0f, -25.0f, -25.0f,
+			25.0f, -25.0f, -25.0f,
+			0.0f, 0.0f, 25.0f, //Top
+			
+			-25.0f, -25.0f, -25.0f,
 			-25.0f,  25.0f, -25.0f,
 			0.0f, 0.0f, 25.0f,  //Top
 
-			-25.0f, -25.0f, -25.0f,
-			25.0f, -25.0f, -25.0f,
-			0.0f, 0.0f, 25.0f, //Top
+			
 
 			25.0f,  25.0f, -25.0f,
 			-25.0f,  25.0f, -25.0f,
@@ -57,13 +59,16 @@ public class Pyramid implements GLObject {
 
 	float normalsf[] =  {
 			
+			0.0f, -value2500and1250, value1250and2500,
+			0.0f, -value2500and1250, value1250and2500,
+			0.0f, -value2500and1250, value1250and2500,
+			
+			
 			value2500and1250, 0.0f, -value1250and2500,
 			value2500and1250, 0.0f, -value1250and2500,
 			value2500and1250, 0.0f, -value1250and2500,
 			
-			0.0f, -value2500and1250, value1250and2500,
-			0.0f, -value2500and1250, value1250and2500,
-			0.0f, -value2500and1250, value1250and2500,
+			
 			
 			0.0f, value2500and1250, -value1250and2500,
 			0.0f, value2500and1250, -value1250and2500,
@@ -130,7 +135,7 @@ public class Pyramid implements GLObject {
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
-		gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
+		//gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
 		
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 3);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 3, 3);
