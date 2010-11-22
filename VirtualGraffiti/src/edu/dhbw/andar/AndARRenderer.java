@@ -124,7 +124,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	 */
 	@Override
 	public final void onDrawFrame(GL10 gl) {
-		gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
+		//gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
+		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);		
 		
 		if(DEBUG)
