@@ -26,30 +26,47 @@ public class Pyramid implements GLObject {
 
 	private float[] vertices = {
 			//Back
-			-25.0f, -25.0f, -25.0f, //Back Left
+			/*-25.0f, -25.0f, -25.0f, //Back Left
 			25.0f, -25.0f, -25.0f, // Back Right
-			0.0f,  25.0f,  0.0f,		//Top
+			0.0f,  25.0f,  0.0f,		//Top*/
+			-25.0f, -25.0f, -25.0f,
+			-25.0f,  25.0f, -25.0f,
+			0.0f, 0.0f, 25.0f,  //Top
 
 			//Left
-			-25.0f, -25.0f,  25.0f, //Front left
+			/*-25.0f, -25.0f,  25.0f, //Front left
 			-25.0f, -25.0f, -25.0f, //Back Left
-			0.0f,  25.0f,  0.0f,		//Top
+			0.0f,  25.0f,  0.0f,		//Top*/
+			-25.0f, -25.0f, -25.0f,
+			25.0f, -25.0f, -25.0f,
+			0.0f, 0.0f, 25.0f, //Top
 
 			//Right
-			25.0f, -25.0f,  25.0f, //Front Right
+			/*25.0f, -25.0f,  25.0f, //Front Right
 			25.0f, -25.0f, -25.0f, // Back Right
-			0.0f,  25.0f,  0.0f,		//Top
+			0.0f,  25.0f,  0.0f,		//Top*/
+			25.0f,  25.0f, -25.0f,
+			-25.0f,  25.0f, -25.0f,
+			0.0f, 0.0f, 25.0f, //Top
 
 			//Front
-			-25.0f, -25.0f,  25.0f, //Front left
+			/*-25.0f, -25.0f,  25.0f, //Front left
 			25.0f, -25.0f,  25.0f, //Front Right
-			0.0f,  25.0f,  0.0f,		//Top
+			0.0f,  25.0f,  0.0f,		//Top*/
+			25.0f,  25.0f, -25.0f,
+			25.0f, -25.0f, -25.0f,
+			0.0f, 0.0f, 25.0f, //Top
 			
 			//Bottom
-			-25.0f, -25.0f,  25.0f, //Front left
+			/*-25.0f, -25.0f,  25.0f, //Front left
 			-25.0f, -25.0f, -25.0f, //Back Left
 			25.0f, -25.0f,  25.0f, //Front Right
-			25.0f, -25.0f, -25.0f, // Back Right
+			25.0f, -25.0f, -25.0f, // Back Right*/
+			
+			-25.0f, -25.0f, -25.0f,
+			-25.0f,  25.0f, -25.0f,
+			 25.0f, -25.0f, -25.0f,
+			 25.0f,  25.0f, -25.0f,
 	};
 
 	float normalsf[] =  {
