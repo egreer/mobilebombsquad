@@ -129,6 +129,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 		//gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);		
 		
+		
 		if(DEBUG)
 			gl = (GL10) GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, log);
 		setupDraw2D(gl);
