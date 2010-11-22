@@ -12,7 +12,7 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Sphere;
 public enum Shape {
 	SPHERE ("Sphere", R.drawable.sphere, new Sphere()),
 	CUBE ("Cube", R.drawable.cube, new Cube()),
-	PYARAMID ("Triangle", R.drawable.pyramid, new Pyramid());
+	PYRAMID ("Triangle", R.drawable.pyramid, new Pyramid());
 	
 	private String name; 
 	private int icon;
