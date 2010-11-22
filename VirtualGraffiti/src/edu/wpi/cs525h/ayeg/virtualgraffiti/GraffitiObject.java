@@ -15,10 +15,10 @@ public class GraffitiObject extends ARObject {
 	GLObject object;
 	boolean saved = false;
 	
-/*	private FloatBuffer mat_flash;
-	private FloatBuffer mat_ambient;
+	//private FloatBuffer mat_flash;
+	//private FloatBuffer mat_ambient;
 	private FloatBuffer mat_flash_shiny;
-	private FloatBuffer mat_diffuse;*/
+	private FloatBuffer mat_diffuse;
 	
 	private float[] savedGLMatrix = new float[16];
 	private FloatBuffer savedGLMatrixBuffer;
@@ -27,16 +27,16 @@ public class GraffitiObject extends ARObject {
 		super(name, patternName, markerWidth, markerCenter);
 		this.object = object;
 		
-		/*float   mat_ambientf[]     = {0.2f, 0.2f, 0.2f, 1.0f};
-		float   mat_flashf[]       = {0f, 0f, 0f, 1.0f};
+		//float   mat_ambientf[]     = {0.2f, 0.2f, 0.2f, 1.0f};
+		//float   mat_flashf[]       = {0f, 0f, 0f, 1.0f};
 		float   mat_diffusef[]       = {0.8f, 0.8f, 0.8f, 1.0f};
 		float   mat_flash_shinyf[] = {50.0f};
 		
-		mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
-		mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
+		//mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
+		//mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
 		mat_flash_shiny = GraphicsUtil.makeFloatBuffer(mat_flash_shinyf);
 		mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
-		*/
+		
 	}
 	
 	public GraffitiObject(String name, String patternName, double markerWidth, double[] markerCenter, int color, GLObject object) {
@@ -92,6 +92,8 @@ public class GraffitiObject extends ARObject {
 	*/
 			
 			gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
+			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);
+			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);
 		}
 
 		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
