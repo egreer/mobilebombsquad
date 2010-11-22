@@ -1,4 +1,4 @@
-Virtual Graffiti
+Graffiti Builder (Build mode of Virtual Graffiti)
 Eric Greer
 Andrew Yee
 
@@ -8,12 +8,12 @@ How To Install
 1) Download Project from SVN using path "http://mobilebombsquad.googlecode.com/svn/trunk/VirtualGraffiti mobilebombsquad-read-only" 
 	or import project from Archive using Eclipse's import functionality
 2) Run GraffitiBuilder as an Android project with a custom target of your Android 2.1+ device
-3) Success you may now launch the Virtual Graffiti Application  
+3) Success you may now launch the Graffiti Builder Application  
 
 ------------------------------
 How To Use
 ------------------------------
-1) Launch Virtual Graffiti by clicking on the Icon in your Android Menu
+1) Launch Graffiti Builder by clicking on the Icon in your Android Menu
 2) Arrange the Shape Marker (has a star on it) and the Block Marker {looks like a twisted 4} in front of the camera
 3) To save your current objects click the menu button on your phone and then hit "Save Layer", Two new objects will appear on their respective markers, and the other two will be saved on your screen
 4) To change the color of the objects click on the menu button and then click change color.
@@ -30,10 +30,9 @@ There are two ways to save your image. The first is as a screen shot and then se
 ------------------------------
 Team Member Primary Contributions
 ------------------------------
-Most of this Project was peer programmed. However there were some notable areas of expertise.
-
 Andrew -
 GL Objects
+Layer Creation
 Layer Preservation
 Layer Exporting
 Image Creation
