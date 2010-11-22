@@ -180,4 +180,13 @@ public class GraffitiObject extends ARObject {
 		mat_ambient_diffuse = GraphicsUtil.makeFloatBuffer(mat_ambient_diffusef);
 		
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return object.toString();
+	}
 }

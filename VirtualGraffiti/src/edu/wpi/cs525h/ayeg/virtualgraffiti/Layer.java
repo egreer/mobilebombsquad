@@ -9,7 +9,10 @@ public class Layer {
 
 	int layerID;
 	List<GraffitiObject> graffitiObjects;
+	String name;
 	
+
+
 	public Layer(int layerID) {
 		this.layerID = layerID;
 		graffitiObjects = new LinkedList<GraffitiObject>();
@@ -27,4 +30,37 @@ public class Layer {
 			
 		}
 	}
+
+	/**
+	 * @return The name of the layer
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/** Sets the name of the layer
+	 * 
+	 * @param name	The name to set to
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {	
+		String returner = layerID + ": ";
+		
+		if (name == null){
+			
+			for(GraffitiObject obj : graffitiObjects) returner += obj.toString() + " ";
+			
+		}else returner += name;
+		
+		return returner;
+	}
+	
 }

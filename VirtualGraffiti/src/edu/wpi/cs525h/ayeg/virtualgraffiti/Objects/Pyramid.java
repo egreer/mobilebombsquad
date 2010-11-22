@@ -150,5 +150,13 @@ public class Pyramid implements GLObject {
 		//      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Pyramid";
+	}
 }
 

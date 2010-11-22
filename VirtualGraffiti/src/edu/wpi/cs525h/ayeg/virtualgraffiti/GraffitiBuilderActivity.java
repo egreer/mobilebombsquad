@@ -25,6 +25,7 @@ import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.pub.SimpleBox;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.LayerManager.OnLayersChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
@@ -34,7 +35,7 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListe
  * @author Tobi
  *
  */
-public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener{
+public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener, OnLayersChangedListener{
 	
 	private final int MENU_SCREENSHOT = 0;
 	private final int MENU_SAVE = 1;
@@ -198,6 +199,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 				new ExportPicture().execute();
 				break;
 			case MENU_REORGANIZE:
+				new LayerManager(this, this, layers).show();
 				break;
 			case MENU_SAVE:
 				new SaveNewLayer().execute();
@@ -225,9 +227,11 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			Layer newLayer = new Layer(layerID);
 			Vector<ARObject> objects = artoolkit.getArobjects();
 			for (ARObject obj : objects) {
-				GraffitiObject gObj = new GraffitiObject(obj);
-				gObj.saveGLMatrix();
-				newLayer.add(gObj);				
+				if(obj.isVisible()){
+					GraffitiObject gObj = new GraffitiObject(obj);
+					gObj.saveGLMatrix();
+					newLayer.add(gObj);
+				}
 			}
 			
 			addLayer(newLayer);
@@ -342,6 +346,12 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		SETTING_SHAPE = shape;
 		Toast.makeText(this, "Shape: " + SETTING_SHAPE.name(), Toast.LENGTH_LONG).show();
 		objects.get(1).setObject(SETTING_SHAPE.getObject());	
+	}
+
+	@Override
+	public void layersChanged(ArrayList<Layer> layer) {
+		layers = layer;
+		Toast.makeText(this, "Layers changed", Toast.LENGTH_LONG).show();
 	}
 	
 	

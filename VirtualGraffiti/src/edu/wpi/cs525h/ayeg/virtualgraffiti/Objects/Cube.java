@@ -100,4 +100,13 @@ public class Cube implements GLObject {
 	    gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cube";
+	}
 }
