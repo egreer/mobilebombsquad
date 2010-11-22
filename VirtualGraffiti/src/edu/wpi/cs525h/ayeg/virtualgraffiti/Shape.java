@@ -2,11 +2,12 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti;
 
 import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.pub.SimpleBox;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
 
 public enum Shape {
-	SPHERE ("Sphere", R.drawable.sphere, new SimpleBox()),
-	CUBE ("Cube", R.drawable.cube, new SimpleBox()),
+	SPHERE ("Sphere", R.drawable.sphere, new Cube()),
+	CUBE ("Cube", R.drawable.cube, new Cube()),
 	PYARAMID ("Triangle", R.drawable.pyramid, new Pyramid());
 	
 	private String name; 

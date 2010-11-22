@@ -25,6 +25,7 @@ import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
 import edu.dhbw.andar.pub.SimpleBox;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
+import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
 
@@ -78,7 +79,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			*/
 
 			objects.add(new GraffitiObject
-			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new SimpleBox()));
+			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new Cube()));
 			artoolkit.registerARObject(objects.get(0));	
 
 

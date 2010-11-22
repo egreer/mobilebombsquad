@@ -5,6 +5,8 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.graphics.Color;
+
 import edu.dhbw.andar.util.GraphicsUtil;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
 
@@ -118,15 +120,17 @@ public class Pyramid implements GLObject {
 	}
 
 	// Draw the shape
-	public void draw(GL10 gl) {
+	public void draw(GL10 gl, int color) {
 		//gl.glFrontFace(GL10.GL_CCW);  // Front face in counter-clockwise orientation
 
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+		gl.glEnable(GL10.GL_COLOR_MATERIAL);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
+		gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
 		
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 3);
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 3, 3);
@@ -140,6 +144,7 @@ public class Pyramid implements GLObject {
 	/*	gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE,
 				indexBuffer);
 */
+		gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		//      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
