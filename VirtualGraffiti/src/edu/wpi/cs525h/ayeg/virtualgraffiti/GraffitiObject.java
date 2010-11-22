@@ -16,9 +16,10 @@ public class GraffitiObject extends ARObject {
 	boolean saved = false;
 	
 	private FloatBuffer mat_flash;
-	private FloatBuffer mat_ambient;
+	//private FloatBuffer mat_ambient;
 	private FloatBuffer mat_flash_shiny;
-	private FloatBuffer mat_diffuse;
+	//private FloatBuffer mat_diffuse;
+	private FloatBuffer mat_ambient_diffuse;
 	
 	private float[] savedGLMatrix = new float[16];
 	private FloatBuffer savedGLMatrixBuffer;
@@ -27,15 +28,18 @@ public class GraffitiObject extends ARObject {
 		super(name, patternName, markerWidth, markerCenter);
 		this.object = object;
 		
-		float   mat_ambientf[]     = {0.3f, 0.3f, 0.3f, 1.0f};
+		//float   mat_ambientf[]     = {0.3f, 0.3f, 0.3f, 1.0f};
 		float   mat_flashf[]       = {0.6f, 0.6f, 0.6f, 1.0f};
-		float   mat_diffusef[]       = {0.7f, 0.7f, 0.7f, 1.0f};
+		//float   mat_diffusef[]       = {0.7f, 0.7f, 0.7f, 1.0f};
 		float   mat_flash_shinyf[] = {50.0f};
+		float	mat_ambient_diffusef[] = {Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f};
 		
-		mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
+		//mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
 		mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
 		mat_flash_shiny = GraphicsUtil.makeFloatBuffer(mat_flash_shinyf);
-		mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
+		//mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
+		mat_ambient_diffuse = GraphicsUtil.makeFloatBuffer(mat_ambient_diffusef);
+		
 		
 	}
 	
@@ -90,8 +94,9 @@ public class GraffitiObject extends ARObject {
 	
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR,mat_flash);
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);	
-			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
-			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
+			//gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
+			//gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
+			//gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT_AND_DIFFUSE, mat_ambient_diffuse);
 			
 				
 		}
@@ -100,6 +105,8 @@ public class GraffitiObject extends ARObject {
 		//gl.glColor4f (Color.red(color)/255f, Color.green(color)/255f, Color.blue(color)/255f, Color.alpha(color)/255f);
 		//
 		
+		updateLighting();
+		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT_AND_DIFFUSE, mat_ambient_diffuse);
 		gl.glTranslatef( 0.0f, 0.0f, 12.5f );	
 
 	    object.draw(gl, color);
@@ -113,6 +120,7 @@ public class GraffitiObject extends ARObject {
 
 	public void setColor(int color) {
 		this.color = color;
+		//updateLighting();
 	}
 
 	public boolean isSaved() {
@@ -159,14 +167,17 @@ public class GraffitiObject extends ARObject {
 	}
 	
 	public void updateLighting(){
-		float   mat_ambientf[] = {Color.red(color)/255f, Color.green(color)/255f, Color.blue(color)/255f, Color.alpha(color)/255f};
-		float   mat_flashf[]   = {Color.red(color)/255f, Color.green(color)/255f, Color.blue(color)/255f, Color.alpha(color)/255f};
-		float   mat_diffusef[] = {Color.red(color)/255f, Color.green(color)/255f, Color.blue(color)/255f, Color.alpha(color)/255f};
-				
-		/*mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
-		mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
-		mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
-		*/
+		//float   mat_ambientf[]     = {0.3f, 0.3f, 0.3f, 1.0f};
+		//float   mat_flashf[]       = {0.6f, 0.6f, 0.6f, 1.0f};
+		//float   mat_diffusef[]       = {0.7f, 0.7f, 0.7f, 1.0f};
+		//float   mat_flash_shinyf[] = {50.0f};
+		float	mat_ambient_diffusef[] = {Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f};
+		
+		//mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
+		//mat_flash = GraphicsUtil.makeFloatBuffer(mat_flashf);
+		//mat_flash_shiny = GraphicsUtil.makeFloatBuffer(mat_flash_shinyf);
+		//mat_diffuse = GraphicsUtil.makeFloatBuffer(mat_diffusef);
+		mat_ambient_diffuse = GraphicsUtil.makeFloatBuffer(mat_ambient_diffusef);
 		
 	}
 }
