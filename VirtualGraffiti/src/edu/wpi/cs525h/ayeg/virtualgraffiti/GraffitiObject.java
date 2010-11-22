@@ -90,11 +90,13 @@ public class GraffitiObject extends ARObject {
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
 			gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
 	*/
+			
+			gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
 		}
 
 		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
 		//gl.glColor4f (Color.red(color)/255f, Color.green(color)/255f, Color.blue(color)/255f, Color.alpha(color)/255f);
-		gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
+		//
 		gl.glTranslatef( 0.0f, 0.0f, 12.5f );	
 
 	    object.draw(gl);
