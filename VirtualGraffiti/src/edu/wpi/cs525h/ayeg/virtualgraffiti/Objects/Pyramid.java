@@ -173,7 +173,7 @@ public class Pyramid implements GLObject {
 
 	// Draw the shape
 	public void draw(GL10 gl) {
-		gl.glFrontFace(GL10.GL_CCW);  // Front face in counter-clockwise orientation
+		//gl.glFrontFace(GL10.GL_CCW);  // Front face in counter-clockwise orientation
 
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
