@@ -82,13 +82,51 @@ public class Cube implements GLObject {
 		
 		
 	public final void draw(GL10 gl, int color) {	
+		
+		float[] colors = {
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+			Color.red(color)/255.0f, Color.green(color)/255.0f, Color.blue(color)/255.0f, Color.alpha(color)/255.0f,
+		};
+		
+		FloatBuffer colorBuffer = GraphicsUtil.makeFloatBuffer(colors);
+		
 	    gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+	    gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 	    //gl.glEnable(GL10.GL_COLOR_MATERIAL);
+	    gl.glShadeModel(GL10.GL_SMOOTH);
 		    
 	    gl.glVertexPointer(3, GL10.GL_FLOAT, 0, box);
 	    gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
-	    gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
+	    gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
+	    //gl.glColor4x(Color.red(color), Color.green(color), Color.blue(color), Color.alpha(color));
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
@@ -97,6 +135,7 @@ public class Cube implements GLObject {
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
 		    
 	    //gl.glDisable(GL10.GL_COLOR_MATERIAL);
+	    gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 	    gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 	}
