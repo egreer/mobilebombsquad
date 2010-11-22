@@ -84,7 +84,7 @@ public class Cube implements GLObject {
 	public final void draw(GL10 gl, int color) {	
 	    gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-	    gl.glEnable(GL10.GL_COLOR_MATERIAL);
+	    //gl.glEnable(GL10.GL_COLOR_MATERIAL);
 		    
 	    gl.glVertexPointer(3, GL10.GL_FLOAT, 0, box);
 	    gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
@@ -96,7 +96,7 @@ public class Cube implements GLObject {
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
 	    gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
 		    
-	    gl.glDisable(GL10.GL_COLOR_MATERIAL);
+	    //gl.glDisable(GL10.GL_COLOR_MATERIAL);
 	    gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 	}

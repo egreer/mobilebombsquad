@@ -11,7 +11,7 @@ import edu.dhbw.andar.util.GraphicsUtil;
 
 public class GraffitiObject extends ARObject {
 
-	int color;
+	int color = Color.RED;
 	GLObject object;
 	boolean saved = false;
 	

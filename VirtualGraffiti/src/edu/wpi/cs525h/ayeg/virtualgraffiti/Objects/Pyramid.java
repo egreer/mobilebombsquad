@@ -126,7 +126,7 @@ public class Pyramid implements GLObject {
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
-		gl.glEnable(GL10.GL_COLOR_MATERIAL);
+		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
 		
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
 		gl.glNormalPointer(GL10.GL_FLOAT,0, normals);
@@ -144,7 +144,7 @@ public class Pyramid implements GLObject {
 	/*	gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE,
 				indexBuffer);
 */
-		gl.glDisable(GL10.GL_COLOR_MATERIAL);
+		//gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
 		//      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
