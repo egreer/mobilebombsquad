@@ -125,7 +125,10 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	}
 	
 
-	/* (non-Javadoc)
+	/**
+	 * Modified for CS525H Virtual Graffiti
+	 *  
+	 *  (non-Javadoc)
 	 * @see android.opengl.GLSurfaceView.Renderer#onDrawFrame(javax.microedition.khronos.opengles.GL10)
 	 */
 	@Override
