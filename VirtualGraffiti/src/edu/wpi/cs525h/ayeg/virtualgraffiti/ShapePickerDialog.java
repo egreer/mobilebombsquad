@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 
-/** 
+/** This is the dialog for picking a shape 
+ * 
  * @author Eric Greer
+ * @author Andrew Yee
  *
  */
 public class ShapePickerDialog extends Dialog {
@@ -35,7 +37,9 @@ public class ShapePickerDialog extends Dialog {
     private OnShapeChangedListener mListener;
     private Shape mInitialShape;
 
-    
+    /** The View for the Shape Picker
+     * 
+     */
 	private static class ShapePickerView extends LinearLayout {
 		private Paint mPaint;
 		private Shape mCurrentShape;
@@ -45,6 +49,12 @@ public class ShapePickerDialog extends Dialog {
 		private int maxHeight = 20;
 		private int maxWidth = 20;
 		
+		/** Constructor for the shape view
+		 * 
+		 * @param c		The context to draw on
+		 * @param l		The listener to notify
+		 * @param shape	The shape currently selected
+		 */
 		ShapePickerView(Context c, OnShapeChangedListener l, Shape shape) {
 			super(c);
 			mListener = l;
@@ -76,20 +86,15 @@ public class ShapePickerDialog extends Dialog {
 				this.addView(i);
 			}	
 			
-			
-/*			confirm = new Button(this.getContext());
-			
-			confirm.setText(res.getString(R.string.settings_bg_shape_cancel));
-			confirm.setOnClickListener(new View.OnClickListener() {
-	             public void onClick(View v) {
-	            	 mListener.shapeChanged(mCurrentShape);
-	             }
-	         });
-
-			this.addView(confirm);*/
 		}
 	}
 
+	/** The dialog constructor
+	 * 
+	 * @param context	The context to draw on
+	 * @param listener   The listener to notify
+	 * @param initialShape The shape currently selected
+	 */
     public ShapePickerDialog(Context context, OnShapeChangedListener listener, Shape initialShape) {
         super(context);
 

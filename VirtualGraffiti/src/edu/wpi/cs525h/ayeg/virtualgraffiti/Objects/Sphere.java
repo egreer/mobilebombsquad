@@ -42,6 +42,9 @@ public class Sphere implements GLObject {
 		stripNormals = GraphicsUtil.makeFloatBuffer(triangleStripNormals);
 	}
 	
+	/**
+	 * Calculates the sphere's Fans
+	 */
 	void calculateSphereTriangleFan() {
 		int fanVertexCount = (slices + 2) * 3;
 		triangleFanVertices = new float[fanVertexCount];
@@ -64,26 +67,12 @@ public class Sphere implements GLObject {
 			triangleFanVertices[counter++] = zD.floatValue() * radius;
 		}
 		
-		/*for (int i = 0; i < fanVertexCount; i += 3) {
-			double x2 = new Float(triangleFanVertices[i] * triangleFanVertices[i]).doubleValue();
-			double y2 = new Float(triangleFanVertices[i+1] * triangleFanVertices[i+1]).doubleValue();
-			double z2 = new Float(triangleFanVertices[i+2] * triangleFanVertices[i+2]).doubleValue();
-			double mag = Math.sqrt(x2 + y2 + z2);
-			
-			float xN = new Double(x2/mag).floatValue();
-			float yN = new Double(y2/mag).floatValue();
-			float zN = new Double(z2/mag).floatValue();
-			
-			triangleFanNormals[i] = xN;
-			triangleFanNormals[i+1] = yN;
-			triangleFanNormals[i+2] = zN;
-			
-		}*/
-		
 		triangleFanNormals = normalize(triangleFanVertices);
 		
 	}
-	
+	/**
+	 *  Calculates the triangles for the sphere
+	 */
 	void calculateSphereTriangleStrips() {
 		int stripVertexCount = ((slices + 1) * 2 * stacks) * 3;
 		triangleStripVertices = new float[stripVertexCount];
@@ -113,22 +102,6 @@ public class Sphere implements GLObject {
 			}	
 		}
 		
-		/*for (int i = 0; i < stripVertexCount; i += 3) {
-			double x2 = new Float(triangleStripVertices[i] * triangleStripVertices[i]).doubleValue();
-			double y2 = new Float(triangleStripVertices[i+1] * triangleStripVertices[i+1]).doubleValue();
-			double z2 = new Float(triangleStripVertices[i+2] * triangleStripVertices[i+2]).doubleValue();
-			double mag = Math.sqrt(x2 + y2 + z2);
-			
-			float xN = new Double(x2/mag).floatValue();
-			float yN = new Double(y2/mag).floatValue();
-			float zN = new Double(z2/mag).floatValue();
-			
-			triangleStripNormals[i] = xN;
-			triangleStripNormals[i+1] = yN;
-			triangleStripNormals[i+2] = zN;
-			
-		}*/
-		
 		triangleStripNormals = normalize(triangleStripVertices);
 		
 	}
@@ -156,6 +129,10 @@ public class Sphere implements GLObject {
 		return normals;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject#draw(javax.microedition.khronos.opengles.GL10)
+	 */
 	@Override
 	public void draw(GL10 gl) {
 		// Enable arrays and define their buffers

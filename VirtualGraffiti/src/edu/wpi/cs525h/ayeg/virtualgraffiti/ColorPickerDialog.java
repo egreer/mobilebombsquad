@@ -17,7 +17,7 @@ import android.view.View;
  * @author Yougli
  * http://www.yougli.net/android/a-photoshop-like-color-picker-for-your-android-application/
  * 
- * Modified by Eric Greer
+ * Modified by Eric Greer & Andrew Yee
  *
  */
 public class ColorPickerDialog extends Dialog {
@@ -39,7 +39,9 @@ public class ColorPickerDialog extends Dialog {
     private int mInitialColor, mDefaultColor;
     private String mKey;
 
-    
+    /** The View for the color Picker
+     *`	TODO: Make this landscape
+     */
 	private static class ColorPickerView extends View {
 		private Paint mPaint;
 		private float mCurrentHue = 0;
@@ -49,6 +51,13 @@ public class ColorPickerDialog extends Dialog {
 		private int[] mMainColors = new int[65536];
 		private OnColorChangedListener mListener;
 
+		/** Constructor
+		 * 
+		 * @param c		The context to draw the view
+		 * @param l		The listener to notify about the color change
+		 * @param color		The RGBA Android color currently in use
+		 * @param defaultColor	The RGBA Android Color to set as default
+		 */
 		ColorPickerView(Context c, OnColorChangedListener l, int color, int defaultColor) {
 			super(c);
 			mListener = l;
@@ -101,7 +110,9 @@ public class ColorPickerDialog extends Dialog {
 			mPaint.setTextSize(12);
 		}
 
-		// Get the current selected color from the hue bar
+		/**
+		 * Get the current selected color from the hue bar
+		 */
 		private int getCurrentMainColor()
 		{
 			int translatedHue = 255-(int)(mCurrentHue*255/360);
@@ -145,7 +156,9 @@ public class ColorPickerDialog extends Dialog {
 			return Color.RED;
 		}
 
-		// Update the main field colors depending on the current selected hue
+		/**
+		 * Update the main field colors depending on the current selected hue
+		 */
 		private void updateMainColors()
 		{
 			int mainColor = getCurrentMainColor();
@@ -166,7 +179,11 @@ public class ColorPickerDialog extends Dialog {
 				}
 			}
 		}
-
+		
+		/*
+		 * (non-Javadoc)
+		 * @see android.view.View#onDraw(android.graphics.Canvas)
+		 */
 		@Override
 		protected void onDraw(Canvas canvas) {
 			int translatedHue = 255-(int)(mCurrentHue*255/360);
@@ -298,6 +315,14 @@ public class ColorPickerDialog extends Dialog {
 		}
 	}
 
+	/** The Constructor for the Dialog
+	 * 
+	 * @param context	The context to draw the dialog
+	 * @param listener	The listener to notify
+	 * @param key		The key of the color 
+	 * @param initialColor	The current RGBA Android initial color
+	 * @param defaultColor	The default RGBA Android color for
+	 */
     public ColorPickerDialog(Context context, OnColorChangedListener listener, String key, int initialColor, int defaultColor) {
         super(context);
 

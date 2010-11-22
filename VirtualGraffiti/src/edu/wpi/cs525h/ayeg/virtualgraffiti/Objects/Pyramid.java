@@ -1,11 +1,8 @@
 package edu.wpi.cs525h.ayeg.virtualgraffiti.Objects;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import javax.microedition.khronos.opengles.GL10;
 
-import android.graphics.Color;
+import javax.microedition.khronos.opengles.GL10;
 
 import edu.dhbw.andar.util.GraphicsUtil;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
@@ -67,13 +64,17 @@ public class Pyramid implements GLObject {
 		
 	};
 	
-	// Constructor - Set up the buffers
+	/** Constructor - Set up the buffers*/
 	public Pyramid() {
 		vertexBuffer = GraphicsUtil.makeFloatBuffer(vertices);
 		normals = GraphicsUtil.makeFloatBuffer(normalsf);
 	}
 
-	// Draw the shape
+	/*
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject#draw(javax.microedition.khronos.opengles.GL10)
+	 */
+	@Override
 	public void draw(GL10 gl) {
 		// Enable arrays and define their buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);

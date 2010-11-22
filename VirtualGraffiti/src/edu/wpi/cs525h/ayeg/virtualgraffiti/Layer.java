@@ -5,6 +5,12 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+/** A Layer is a collection of GL objects that have been saved to the screen
+ * 
+ * @author Andrew Yee
+ * @author Eric Greer
+ *
+ */
 public class Layer {
 
 	int layerID;
@@ -12,16 +18,26 @@ public class Layer {
 	String name;
 	
 
-
+	/** Constructor for a layer
+	 * 
+	 * @param layerID	THe ID number of the layer
+	 */
 	public Layer(int layerID) {
 		this.layerID = layerID;
 		graffitiObjects = new LinkedList<GraffitiObject>();
 	}
 	
+	/** 
+	 * @param obj	Adds the object to the layer
+	 */
 	public void add(GraffitiObject obj) {
 		graffitiObjects.add(obj);
 	}
 	
+	/** Draws the layer onto the gl
+	 * 
+	 * @param gl	The GL to draw onto 
+	 */
 	public void draw(GL10 gl) {
 		for (GraffitiObject obj : graffitiObjects) {
 			if (obj.isSaved()) {

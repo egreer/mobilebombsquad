@@ -8,6 +8,11 @@ import javax.microedition.khronos.opengles.GL10;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
 import edu.dhbw.andar.util.GraphicsUtil;
 
+/** A custom renderer for GL objects
+ * 
+ * @author Andrew Yee
+ * @author Eric Greer
+ */
 public class GraffitiRenderer implements OpenGLRenderer {
 
 	private float[] ambientlight1 = {.3f, .3f, .3f, 1f};
@@ -22,10 +27,18 @@ public class GraffitiRenderer implements OpenGLRenderer {
 	
 	GraffitiBuilderActivity builder;
 	
+	/** Constructor 
+	 * 
+	 * @param builder	The activity of the object
+	 */
 	public GraffitiRenderer (GraffitiBuilderActivity builder) {
 		this.builder = builder;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see edu.dhbw.andar.interfaces.OpenGLRenderer#draw(javax.microedition.khronos.opengles.GL10)
+	 */
 	@Override
 	public final void draw(GL10 gl) {
 		List<Layer> layers = builder.getLayers();
@@ -37,6 +50,9 @@ public class GraffitiRenderer implements OpenGLRenderer {
 	}
 
 
+	/**
+	 * Sets up the Environment
+	 */
 	public final void setupEnv(GL10 gl) {
 		gl.glEnable(GL10.GL_LIGHTING);
 		gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_AMBIENT, ambientLightBuffer1);
@@ -51,16 +67,15 @@ public class GraffitiRenderer implements OpenGLRenderer {
 		initGL(gl);
 	}
 	
+	/**
+	 * Initializes the GL for Drawing
+	 */
 	public final void initGL(GL10 gl) {
-		//gl.glDisable(GL10.GL_COLOR_MATERIAL);
-		//gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glEnable(GL10.GL_LIGHTING);
-		//gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_NORMALIZE);
-		//gl.glEnable(GL10.GL_COLOR_MATERIAL);
 	}
 	
 }

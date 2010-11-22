@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Vector;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -28,18 +27,18 @@ import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
-import edu.dhbw.andar.pub.SimpleBox;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ColorPickerDialog.OnColorChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.LayerManager.OnLayersChangedListener;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Cube;
-import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Pyramid;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.Objects.Sphere;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.ShapePickerDialog.OnShapeChangedListener;
 
 /**
- * Example of an application that makes use of the AndAR toolkit.
- * @author Tobi
- *
+ * The Graffiti Builder activity.
+ * Original Tobi
+ * Heavily Modified by
+ * @author Andrew Yee
+ * @author Eric Greer
  */
 public class GraffitiBuilderActivity extends AndARActivity implements OnColorChangedListener, OnShapeChangedListener, OnLayersChangedListener, OnClickListener{
 	
@@ -61,7 +60,11 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	ArrayList<GraffitiObject> objects = new ArrayList<GraffitiObject>();
 	ARToolkit artoolkit;
 	List<Layer> layers = new LinkedList<Layer>();
-		
+	
+	/*
+	 * (non-Javadoc)
+	 * @see edu.dhbw.andar.AndARActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
@@ -72,40 +75,15 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		//layers = new LinkedList<Layer>();
 		try {
 			artoolkit = super.getArtoolkit();
-/*			someObject = new CustomObject
-				("test", "patt.hiro", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);
-			
-			/*someObject = new CustomObject
-			("test", "android.patt", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);*/
-
-		/*	someObject = new CustomObject
-			("test", "toolmarker16.pat", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);	
-			*/
 
 			objects.add(new GraffitiObject
 			("test", "sweepmarker16.pat", 80.0, new double[]{0,0}, new Cube()));
 			artoolkit.registerARObject(objects.get(0));	
 
-
-	/*		someObject = new CustomObject
-			("test", "circles marker16.pat", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(someObject);	
-*/
 			objects.add(new GraffitiObject
-			//("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Pyramid()));
 			("test", "shapemarker16.pat", 80.0, new double[]{0,0}, new Sphere()));
 			artoolkit.registerARObject(objects.get(1));	
-			
-			
-
-			
-			//someObject = new CustomObject
-			//("test", "barcode.patt", 80.0, new double[]{0,0});
-			//artoolkit.registerARObject(someObject);
-			
+						
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
 			System.out.println("");
@@ -124,17 +102,18 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	}	
 	
 	/**
-	 * Creates and adds a new Layer
+	 * Adds a new Layer of Graffitti Objects to the list of layers
 	 * 
-	 * @return
+	 * @return	The new layer
 	 */
 	public Layer addLayer(Layer newLayer) {
-		//Layer newLayer = new Layer(layerID);
 		layers.add(newLayer);
-		//layerID++;
 		return newLayer;
 	}
 	
+	/**
+	 * @return	The list of layers currently saved.
+	 */
 	public List<Layer> getLayers(){
 		return layers;
 	}
@@ -180,17 +159,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		/*if(item.getItemId()==1) {
-			artoolkit.unregisterARObject(someObject);
-		} else if(item.getItemId()==0) {
-			try {
-				someObject = new CustomObject
-				("test", "patt.hiro", 80.0, new double[]{0,0});
-				artoolkit.registerARObject(someObject);
-			} catch (AndARException e) {
-				e.printStackTrace();
-			}
-		}*/
+		
 		//Handles the Menu Actions 
 		switch(item.getItemId()) {
 			case MENU_SCREENSHOT:
@@ -267,6 +236,11 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			return null;
 		}
 		
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
 		protected void onPostExecute(Void result) {
 			if(errorMsg == null)
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.layercreatesuccess), Toast.LENGTH_SHORT ).show();
@@ -276,9 +250,19 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		
 	}
 
+	/** Exports a  picture of all the GL objects on a transparent background
+	 * 
+	 * @author Andrew Yee
+	 * @author Eric Greer
+	 *
+	 */
 	class ExportPicture extends AsyncTask<Void, Void, Void> {
 		private String errorMsg = null;
 
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected Void doInBackground(Void... params) {
 			Bitmap bm = savePicture();
@@ -298,6 +282,11 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			return null;
 		}
 		
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
 		protected void onPostExecute(Void result) {
 			if(errorMsg == null)
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.picturesaved), Toast.LENGTH_SHORT ).show();
@@ -314,6 +303,10 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		
 		private String errorMsg = null;
 
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected Void doInBackground(Void... params) {
 			Bitmap bm = takeScreenshot();
@@ -333,6 +326,11 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 			return null;
 		}
 		
+		/*
+		 * (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
 		protected void onPostExecute(Void result) {
 			if(errorMsg == null)
 				Toast.makeText(GraffitiBuilderActivity.this, getResources().getText(R.string.screenshotsaved), Toast.LENGTH_SHORT ).show();
@@ -350,7 +348,7 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 	@Override
 	public void colorChanged(String key, int color) {
 		SETTING_SHAPE_COLOR = color;
-		Toast.makeText(this, "Color: " + SETTING_SHAPE_COLOR, Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Color: " + SETTING_SHAPE_COLOR, Toast.LENGTH_LONG).show();
 		
 		//Sets all the colors
 		Iterator<GraffitiObject> it = objects.iterator();
@@ -391,7 +389,5 @@ public class GraffitiBuilderActivity extends AndARActivity implements OnColorCha
 		layers.clear();
 		Toast.makeText(this, "Layers Cleared", Toast.LENGTH_LONG).show();
 	}
-	
-	
 	
 }

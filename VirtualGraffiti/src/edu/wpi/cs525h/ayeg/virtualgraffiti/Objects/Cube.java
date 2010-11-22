@@ -1,9 +1,9 @@
 package edu.wpi.cs525h.ayeg.virtualgraffiti.Objects;
 
 import java.nio.FloatBuffer;
+
 import javax.microedition.khronos.opengles.GL10;
 
-import android.graphics.Color;
 import edu.dhbw.andar.util.GraphicsUtil;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
 
@@ -11,6 +11,7 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
  * Cube class copied and modified from edu.dhbw.andar.pub.SimpleBox
  * 
  * @author Andrew Yee
+ * @author Eric Greer
  *
  */
 public class Cube implements GLObject {
@@ -85,8 +86,12 @@ public class Cube implements GLObject {
 			box = GraphicsUtil.makeFloatBuffer(boxf);
 			normals = GraphicsUtil.makeFloatBuffer(normalsf);
 		}
-		
-		
+	
+	/*	
+	 * (non-Javadoc)
+	 * @see edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject#draw(javax.microedition.khronos.opengles.GL10)
+	 */
+	@Override
 	public final void draw(GL10 gl) {	
 	    gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 	    gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
