@@ -38,6 +38,7 @@ import edu.dhbw.andar.interfaces.PreviewFrameSink;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Bitmap.Config;
 import android.opengl.GLDebugHelper;
@@ -124,8 +125,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	 */
 	@Override
 	public final void onDrawFrame(GL10 gl) {
-		//gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.glClearColor((87.0f/255.0f), (65.0f/255.0f), (94.0f/255.0f), 1.0f);
+		//gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);		
 		
 		if(DEBUG)
@@ -213,7 +214,8 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	                   int pb=(pix>>16)&0xff; 
 	                   int pr=(pix<<16)&0x00ff0000; 
 	                   int pix1=(pix&0xff00ff00) | pr | pb;
-	                   if (pix1 == 0xff57415e) {
+	                   //if (pix1 == 0xff57415e) {
+	                   if (pix1 == Color.argb(255, 87, 65, 94)) {
 	                	   pix1 = 0x00000000;
 	                   }  /*8288476*/
 	                   /*if (pix1 == 0xff000000) {
