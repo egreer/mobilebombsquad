@@ -9,6 +9,10 @@ import edu.dhbw.andar.util.GraphicsUtil;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.GLObject;
 
 public class Pyramid implements GLObject {
+	
+	public static float value2500and1250 = 2500f/(new Double(Math.sqrt(7812500)).floatValue());
+	public static float value1250and2500 = 1250f/(new Double(Math.sqrt(7812500)).floatValue());
+	
 
 	private FloatBuffer vertexBuffer;  // Buffer for vertex-array
 	//   private FloatBuffer colorBuffer;   // Buffer for color-array
@@ -70,11 +74,12 @@ public class Pyramid implements GLObject {
 	};
 
 	float normalsf[] =  {
-			// FRONT
+			/*// FRONT
 			0.0f, 0.0f,  1.0f,
 			0.0f, 0.0f,  1.0f,
 			0.0f, 0.0f,  1.0f,
 			0.0f, 0.0f,  1.0f,
+			
 			// BACK
 			0.0f, 0.0f,  -1.0f,
 			0.0f, 0.0f,  -1.0f,
@@ -99,7 +104,31 @@ public class Pyramid implements GLObject {
 			0.0f, -1.0f,  0.0f,
 			0.0f, -1.0f,  0.0f,
 			0.0f, -1.0f,  0.0f,
-			0.0f, -1.0f,  0.0f,
+			0.0f, -1.0f,  0.0f,*/
+			
+			value2500and1250, 0, -value1250and2500,
+			value2500and1250, 0, -value1250and2500,
+			value2500and1250, 0, -value1250and2500,
+			value2500and1250, 0, -value1250and2500,
+			
+			0, -value2500and1250, value1250and2500,
+			0, -value2500and1250, value1250and2500,
+			0, -value2500and1250, value1250and2500,
+			0, -value2500and1250, value1250and2500,
+			
+			0, value2500and1250, -value1250and2500,
+			0, value2500and1250, -value1250and2500,
+			0, value2500and1250, -value1250and2500,
+			0, value2500and1250, -value1250and2500,
+			
+			-value2500and1250, 0, value1250and2500,
+			-value2500and1250, 0, value1250and2500,
+			-value2500and1250, 0, value1250and2500,
+			-value2500and1250, 0, value1250and2500, 
+						
+			0.0f, 0.0f, -1.0f,
+			0.0f, 0.0f, -1.0f,
+			0.0f, 0.0f, -1.0f, 
 		};
 	
 	/*	   private float[] colors = {  // Colors of the 5 vertices in RGBA
