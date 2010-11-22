@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.GpsStatus.Listener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,12 +15,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class LayerManager extends Dialog{
 
@@ -59,16 +63,47 @@ public class LayerManager extends Dialog{
     }
 
 	
-	public static class LayerManagerView extends ListView{
+	public class LayerManagerView extends ListView{
 
 		public LayerManagerView(Context context, List<Layer> layers) {
 			super(context);
-			setAdapter(new ArrayAdapter<Layer>(context,android.R.layout.simple_list_item_1, layers));
-			
-		}	
+			setAdapter(new LayerManagerAdapter(context,android.R.layout.simple_list_item_1, layers));
+			setOnItemClickListener(new LayerClickListener());
+		}
+		
+		@Override
+		public boolean onTouchEvent(MotionEvent ev){
+			return true;
+		}
+		
+		
+	
 	}
 	
-	/**public static class LayerManagerAdapter extends ArrayAdapter{
-	   	 ArrayAdapter(Context context, int textViewResourceId, List<T> objects)	
-	}*/
+	public class LayerManagerAdapter extends ArrayAdapter<Layer>{
+		
+	   	 public LayerManagerAdapter(Context context, int textViewResourceId,
+				List objects) {
+			super(context, textViewResourceId, objects);
+		}
+	  
+	   	
+	}
+	
+	public class LayerClickListener implements OnItemClickListener{
+
+
+		/*
+		 * (non-Javadoc)
+		 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+		 */
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Toast.makeText(getContext(), "Clicked on: " + arg2 + " " + arg3, Toast.LENGTH_SHORT).show();
+			
+		}
+		
+	}
+	
 }
