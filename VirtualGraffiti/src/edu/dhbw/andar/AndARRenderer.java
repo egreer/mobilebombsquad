@@ -211,7 +211,7 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	                   int pb=(pix>>16)&0xff; 
 	                   int pr=(pix<<16)&0x00ff0000; 
 	                   int pix1=(pix&0xff00ff00) | pr | pb;
-	                   if (pix1 == 0xff57415E) {
+	                   if (pix1 == 0xff57415e) {
 	                	   pix1 = 0x00000000;
 	                   }  /*8288476*/
 	                   /*if (pix1 == 0xff000000) {
