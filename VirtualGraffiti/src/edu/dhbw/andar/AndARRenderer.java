@@ -215,7 +215,9 @@ public class AndARRenderer implements Renderer, PreviewFrameSink{
 	                   int pr=(pix<<16)&0x00ff0000; 
 	                   int pix1=(pix&0xff00ff00) | pr | pb;
 	                   //if (pix1 == 0xff57415e) {
-	                   if (pix1 == Color.argb(255, 87, 65, 94)) {
+	                   if (pix1 == Color.argb(255, 90, 65, 90) ||
+	                	   pix1 == Color.argb(255, 85, 65, 90) || 
+	                	   pix1 == Color.argb(255, 90, 65, 99)) {
 	                	   pix1 = 0x00000000;
 	                   }  /*8288476*/
 	                   /*if (pix1 == 0xff000000) {
