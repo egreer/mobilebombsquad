@@ -59,17 +59,17 @@ public class Pyramid implements GLObject {
 			value2500and1250, 0.0f, -value1250and2500,
 			value2500and1250, 0.0f, -value1250and2500,
 			
-			0, -value2500and1250, value1250and2500,
-			0, -value2500and1250, value1250and2500,
-			0, -value2500and1250, value1250and2500,
+			0.0f, -value2500and1250, value1250and2500,
+			0.0f, -value2500and1250, value1250and2500,
+			0.0f, -value2500and1250, value1250and2500,
 			
-			0, value2500and1250, -value1250and2500,
-			0, value2500and1250, -value1250and2500,
-			0, value2500and1250, -value1250and2500,
+			0.0f, value2500and1250, -value1250and2500,
+			0.0f, value2500and1250, -value1250and2500,
+			0.0f, value2500and1250, -value1250and2500,
 			
-			-value2500and1250, 0, value1250and2500,
-			-value2500and1250, 0, value1250and2500,
-			-value2500and1250, 0, value1250and2500, 
+			-value2500and1250, 0.0f, value1250and2500,
+			-value2500and1250, 0.0f, value1250and2500,
+			-value2500and1250, 0.0f, value1250and2500, 
 						
 			0.0f, 0.0f, -1.0f,
 			0.0f, 0.0f, -1.0f,
@@ -95,8 +95,8 @@ public class Pyramid implements GLObject {
 	// Constructor - Set up the buffers
 	public Pyramid() {
 		// Setup vertex-array buffer. Vertices in float. An float has 4 bytes
-		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
-		vbb.order(ByteOrder.nativeOrder()); // Use native byte order
+		//ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+		//vbb.order(ByteOrder.nativeOrder()); // Use native byte order
 		/*vertexBuffer = vbb.asFloatBuffer(); // Convert from byte to float
 		      vertexBuffer.put(vertices);         // Copy data into buffer
 		      vertexBuffer.position(0);           // Rewind
