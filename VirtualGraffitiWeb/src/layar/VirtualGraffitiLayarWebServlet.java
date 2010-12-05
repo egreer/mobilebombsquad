@@ -28,16 +28,27 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 			double currentRadius = Double.parseDouble(radius);
 			
 			ArrayList<POI> pois = DatabaseAccess.getPoints(currentLat, currentLon, currentRadius);
+			
+			//Response
 			resp.setContentType("text/plain");
 			
-			resp.getWriter().println(pois.size() + " Points:");
+			resp.getWriter().println("{");
+			
+			//Output
+			resp.getWriter().println("\"layer\": \"" + name + "\",");
+			resp.getWriter().println("\"errorCode\": 0," );
+			resp.getWriter().println("\"errorString\": \"ok\",");
+			
+			//Output hotspots
+			resp.getWriter().println("\"hotspots\": [");
 			Iterator<POI> iter = pois.iterator();
 			while(iter.hasNext()){
 				POI point = iter.next();
-				resp.getWriter().println(point.toString());
+				resp.getWriter().println(point.toJSONString());
+				if(iter.hasNext()) resp.getWriter().println(",");
 			}
-			resp.getWriter().println("End Points");
-		
+			resp.getWriter().println("],");
+			resp.getWriter().println("}");
 		}	
 	}
 	
