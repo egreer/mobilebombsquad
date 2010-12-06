@@ -1,0 +1,8 @@
+enctype="multipart/form-data"
+
+key
+lat
+lon
+attribution
+image		//File
+layerName
