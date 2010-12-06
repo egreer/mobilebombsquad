@@ -3,10 +3,13 @@ package layar;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
+
+import com.google.appengine.api.datastore.Blob;
 
 
 public class DatabaseAccess {
@@ -79,5 +82,47 @@ public class DatabaseAccess {
 		}
 		pm.close();
 		return (Collection<POI>) returner;
+	}
+
+	
+	public static Blob getImage(String name) {
+	    PersistenceManager pm = PMF.get().getPersistenceManager();
+	         
+	    Extent<MyImage> results =  pm.getExtent(MyImage.class);
+	    Iterator<MyImage> iterator = results.iterator();
+	    
+	    while(iterator.hasNext()){
+	    	MyImage image = iterator.next();
+	    	if(image.getName().equals(name)){
+	    		return image.getImage();
+	    	}
+	    }
+	    
+		return null;
+	}
+	
+	
+	public static boolean storeImage(MyImage image) {
+		boolean returner = true;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		
+		Transaction tx = pm.currentTransaction();
+		try	{
+			tx.begin();
+
+			pm.makePersistent(image);
+
+			tx.commit();
+		}
+		finally	{
+			if (tx.isActive()){
+				tx.rollback();
+				returner = false;
+			}
+		}
+
+		pm.close();
+
+		return returner;
 	}
 }

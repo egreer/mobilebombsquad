@@ -12,6 +12,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>VirtualGraffitiLayarWeb</servlet-name>
 		<url-pattern>/layar</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VirtualGraffitiImageWeb</servlet-name>
+		<servlet-class>layar.VirtualGraffitiImageWebServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VirtualGraffitiImageWeb</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
+	
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>loader.html</welcome-file>

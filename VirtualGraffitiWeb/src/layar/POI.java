@@ -1,6 +1,5 @@
 package layar;
 
-import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -9,9 +8,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class POI implements Serializable{
-	@Persistent
-	private static final long serialVersionUID = -2353794766764992652L;
+public class POI {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -56,22 +53,21 @@ public class POI implements Serializable{
 	@Persistent
 	int relativeAlt = Integer.MIN_VALUE; //`relativeAlt` int(10) default NULL,
 
+	@Persistent
+	boolean inFocus = false;	 // `inFocus` tinyint(1) default '0',
 
 	@Persistent
-	int inFocus = 0;	 // `inFocus` tinyint(1) default '0',
+	boolean doNotIndex = false; //  `doNotIndex` tinyint(1) default '0',
 
 	@Persistent
-	int doNotIndex = 0; //  `doNotIndex` tinyint(1) default '0',
+	boolean showSmallBiw = true; //	`showSmallBiw` tinyint(1) default '1',
 
 	@Persistent
-	int showSmallBiw = 1; //	`showSmallBiw` tinyint(1) default '1',
-
-	@Persistent
-	int showBiwOnClick = 1; //  `showBiwOnClick` tinyint(1) default '1',
+	boolean showBiwOnClick = true; //  `showBiwOnClick` tinyint(1) default '1',
 
 	
     //"object": {  
-    String baseURL; //    "baseURL": "http://layar3d.jsource.nl/", 
+    String baseURL = "http://virtual-graffiti.appspot.com/image?"; //    "baseURL": "http://layar3d.jsource.nl/", 
     String full;    //    "full": "ghost.l3d",
     String reduced; //    "reduced": "ghost_reduced.l3d", 
     String icon;	//    "icon": "icon1.png",
@@ -202,41 +198,177 @@ public class POI implements Serializable{
 		this.distance = distance;
 	}
 
-	public int getInFocus() {
+	public boolean getInFocus() {
 		return inFocus;
 	}
 
-	public void setInFocus(int inFocus) {
+	public void setInFocus(boolean inFocus) {
 		this.inFocus = inFocus;
 	}
 
-	public int getDoNotIndex() {
+	public boolean getDoNotIndex() {
 		return doNotIndex;
 	}
 
-	public void setDoNotIndex(int doNotIndex) {
+	public void setDoNotIndex(boolean doNotIndex) {
 		this.doNotIndex = doNotIndex;
 	}
 
-	public int getShowSmallBiw() {
+	public boolean getShowSmallBiw() {
 		return showSmallBiw;
 	}
 
-	public void setShowSmallBiw(int showSmallBiw) {
+	/**
+	 * @return the baseURL
+	 */
+	public String getBaseURL() {
+		return baseURL;
+	}
+
+
+	/**
+	 * @param baseURL the baseURL to set
+	 */
+	public void setBaseURL(String baseURL) {
+		this.baseURL = baseURL;
+	}
+
+
+	/**
+	 * @return the full
+	 */
+	public String getFull() {
+		return full;
+	}
+
+
+	/**
+	 * @param full the full to set
+	 */
+	public void setFull(String full) {
+		this.full = full;
+	}
+
+
+	/**
+	 * @return the reduced
+	 */
+	public String getReduced() {
+		return reduced;
+	}
+
+
+	/**
+	 * @param reduced the reduced to set
+	 */
+	public void setReduced(String reduced) {
+		this.reduced = reduced;
+	}
+
+
+	/**
+	 * @return the icon
+	 */
+	public String getIcon() {
+		return icon;
+	}
+
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+
+	/**
+	 * @return the size
+	 */
+	public int getSize() {
+		return size;
+	}
+
+
+	/**
+	 * @param size the size to set
+	 */
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+
+	/**
+	 * @return the rel
+	 */
+	public boolean isRel() {
+		return rel;
+	}
+
+
+	/**
+	 * @param rel the rel to set
+	 */
+	public void setRel(boolean rel) {
+		this.rel = rel;
+	}
+
+
+	/**
+	 * @return the angle
+	 */
+	public double getAngle() {
+		return angle;
+	}
+
+
+	/**
+	 * @param angle the angle to set
+	 */
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
+
+	/**
+	 * @return the scale
+	 */
+	public double getScale() {
+		return scale;
+	}
+
+
+	/**
+	 * @param scale the scale to set
+	 */
+	public void setScale(double scale) {
+		this.scale = scale;
+	}
+
+
+	public void setShowSmallBiw(boolean showSmallBiw) {
 		this.showSmallBiw = showSmallBiw;
 	}
 
-	public int getShowBiwOnClick() {
+	public boolean getShowBiwOnClick() {
 		return showBiwOnClick;
 	}
 
-	public void setShowBiwOnClick(int showBiwOnClick) {
+	public void setShowBiwOnClick(boolean showBiwOnClick) {
 		this.showBiwOnClick = showBiwOnClick;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	
+	/**
+	 * @param name	Name of the image
+	 */
+	public void setImage(String name){
+		this.setFull("name="+name+"&quality=full");
+		this.setReduced("name="+name+"&quality=reduced");
+		this.setImageURL(this.getBaseURL() + this.getFull());
+		
+		
 	}
+
 
 	/** Calculates the distance between the current point and the points
 	 * 
@@ -276,11 +408,11 @@ public class POI implements Serializable{
 		
 		//Object JSON Dictionary
 		result += "\"object\": { \n";  
-	    result += "\t\"baseURL\": \"" + "http://site.layar.com/wp-content/uploads/2010/02/" /*baseURL*/ + "\",\n"; 
-	    result += "\t\"full\": \"" + "Layar-logo-shine-copy1.png" /*full*/ + "\",\n";
+	    result += "\t\"baseURL\": \"" + baseURL + "\",\n"; 
+	    result += "\t\"full\": \"" + full + "\",\n";
 	    result += "\t\"reduced\": \"" + reduced + "\",\n";
 	    result += "\t\"icon\": \""+ icon + "\",\n";
-	    result += "\t\"size\": " +  size + ",\n";
+	    result += "\t\"size\": " +  size;
 	    result += "},\n";
 	    
 	    //Transform JSON Dictionary
@@ -290,8 +422,8 @@ public class POI implements Serializable{
 	    result += "\"id\": \"" + id + "\",\n";
 	    result += "\"attribution\": \"" + attribution + "\",\n";
 		result += "\"title\": \"" + title + "\",\n";
-		result += "\"lat\": " + lat * 10e6  + ",\n";			//TODO Need to convert?
-		result += "\"lon\": " + lon * 10e6 + ",\n";			//TODO Need to convert?
+		result += "\"lat\": " + lat * 10e5  + ",\n";			//TODO Need to convert?
+		result += "\"lon\": " + lon * 10e5 + ",\n";			//TODO Need to convert?
 		if(imageURL != null) result += "\"imageURL\": \"" + imageURL + "\",\n";	
 		if(line4 != null) result += "\"line4\": \"" + line4 + "\",\n";			
 		if(line3 != null) result += "\"line3\": \"" + line3 + "\",\n";
@@ -305,6 +437,7 @@ public class POI implements Serializable{
 		result += "\"doNotIndex\": " + doNotIndex +",\n";
 		result += "\"showSmallBiw\": " + showSmallBiw +",\n";
 		result += "\"showBiwOnClick\": " + showBiwOnClick +",\n";
+		result += "\"actions\": [] \n";
 		result += "}";
 		return result;
 	}
