@@ -17,7 +17,6 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
-import org.datanucleus.util.MathUtils;
 
 import com.google.appengine.api.datastore.Blob;
 
@@ -177,70 +176,11 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 		}
 
 			
-		
-/*		resp.setContentType("text/plain");
-		
-		String layerName = req.getParameter("layerName");
-		String key = req.getParameter("key");
-		String paramLon = req.getParameter("lon");
-		String paramLat = req.getParameter("lat");
-		
-		 // Get the image representation
-	    
-	    FileItemIterator iter = null;
-	    FileItemStream imageItem = null;
-	    try {
-			iter = upload.getItemIterator(req);
-			imageItem = iter.next();
-		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		InputStream imgStream = imageItem.openStream();
-	    
-  		
-		if(key== null || paramLon == null || paramLat == null || layerName == null || !layerName.equals(name)){
-			resp.getWriter().println("Please specify the key, lat, lon, radius and layerName");
-			resp.getWriter().println(paramLat);
-			resp.getWriter().println(paramLon);
-			resp.getWriter().println(key);
-			resp.getWriter().println(layerName);
-		}else{
-			double lon = Double.parseDouble(paramLon);
-			double lat = Double.parseDouble(paramLat);
-						
-			POI point = new POI(key, lat, lon);
-
-		    // construct our entity objects
-		    Blob imageBlob = new Blob(IOUtils.toByteArray(imgStream));
-		    MyImage myImage = new MyImage(imageItem.getName(), imageBlob);
-
-		    if(DatabaseAccess.storeImage(myImage)){
-		    	
-		    	if (DatabaseAccess.storePOI(point)){
-					resp.getWriter().println("Data & Image Stored");
-				}else{
-					resp.getWriter().println("Point Not Stored, Image Stored");
-				}
-		    }else{
-				resp.getWriter().println("Point & Image Not Stored");
-			}
-			
-		}
-	*/	
 		} catch (FileUploadException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 	}
-
-
-	private double Integer(double d) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 	
 }
