@@ -6,9 +6,9 @@ package layar;
  *
  */
 public enum Quality {
-	FULL ("full", 500, 500),
-	REDUCED ("reduced", 100, 100), 
-	ICON ("icon", 60, 60);
+	FULL ("full", 850, 480),
+	REDUCED ("reduced", 427, 240), 
+	ICON ("icon", 100, 56);
 	
 	private String quality;
 	private int x;
@@ -26,6 +26,33 @@ public enum Quality {
 	 */
 	public String getQuality() {
 		return quality;
+	}
+
+
+	/** Defaults to full quality
+	 * 
+	 * @param qualityString
+	 * @return
+	 */
+	public static Quality getQuality(String qualityString) {
+		Quality returner = Quality.FULL;
+		
+		if (qualityString == null) return returner;
+		else if(qualityString.equals(Quality.FULL.getQuality())) returner = Quality.FULL;
+		else if(qualityString.equals(Quality.REDUCED.getQuality())) returner = Quality.REDUCED;
+		else if(qualityString.equals(Quality.ICON.getQuality())) returner = Quality.ICON;
+		
+		return returner;
+	}
+
+
+	public int getX() {
+		return x;
+	}
+
+
+	public int getY() {
+		return y;
 	}
 	
 	

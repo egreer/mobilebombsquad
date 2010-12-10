@@ -44,6 +44,7 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 			
 			ArrayList<POI> pois = DatabaseAccess.getPoints(currentLat, currentLon, currentRadius);
 			
+			if(pois.size()!= 0){
 			//Response
 			resp.setContentType("text/plain");
 			
@@ -64,6 +65,19 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 			}
 			resp.getWriter().println("]");
 			resp.getWriter().println("}");
+			}
+			
+			else{
+				resp.setContentType("text/plain");
+				
+				resp.getWriter().println("{");
+				//Output
+				resp.getWriter().println("\"layer\": \"" + name + "\",");
+				resp.getWriter().println("\"errorCode\": 20," );
+				resp.getWriter().println("\"errorString\": \"No Graffiti found please adjust range\",");
+				resp.getWriter().println("\"hotspots\": []");
+				resp.getWriter().println("}");	
+			}
 		}	
 	}
 	
