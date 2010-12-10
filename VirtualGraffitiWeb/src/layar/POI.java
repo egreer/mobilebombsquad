@@ -364,6 +364,7 @@ public class POI {
 	public void setImage(String name){
 		this.setFull("name="+name+"&quality=full");
 		this.setReduced("name="+name+"&quality=reduced");
+		this.setIcon("name="+name+"&quality=icon");
 		this.setImageURL(this.getBaseURL() + this.getFull());
 		
 		
