@@ -1,6 +1,7 @@
 package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 
 import org.apache.http.HttpResponse;
@@ -25,14 +26,17 @@ public class ConnectionUtil {
 	public static void postImage(Tag tag) {
 		try {
 			//Read image file
-			FileInputStream stream = new FileInputStream(tag.getImagePath());
+			File image = new File(tag.getImagePath());
+			
+			FileInputStream stream = new FileInputStream(image);
+			//FileInputStream stream = new FileInputStream(tag.getImagePath());
 			byte[] data = new byte[stream.available()];
 			stream.read(data);
 			
 			//HTTP POST
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(SERVER_URI);
-			InputStreamBody isb = new InputStreamBody(new ByteArrayInputStream(data), "image");
+			InputStreamBody isb = new InputStreamBody(new ByteArrayInputStream(data), image.getName());
 			StringBody lat = new StringBody("" + tag.getLat());
 			StringBody lon = new StringBody("" + tag.getLon());
 			StringBody key = new StringBody(tag.getKey());
