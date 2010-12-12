@@ -5,6 +5,8 @@ public class Tag {
 	String key;
 	double lat;
 	double lon;
+	String attribution;
+	String title;
 	
 	String imageLoc;
 	
@@ -13,9 +15,11 @@ public class Tag {
 		this.lon = lon;
 	}
 	
-	public Tag (String key, double lat, double lon) {
+	public Tag (String key, double lat, double lon, String attribution, String title) {
 		this(lat, lon);
 		this.key = key;
+		this.attribution = attribution;
+		this.title = title;
 	}
 	
 	public void setKey(String key) {
@@ -48,4 +52,22 @@ public class Tag {
 	public String getImagePath() {
 		return imageLoc;
 	}
+	
+
+	public String getAttribution() {
+		return attribution;
+	}
+
+	public void setAttribution(String attribution) {
+		this.attribution = attribution;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 }

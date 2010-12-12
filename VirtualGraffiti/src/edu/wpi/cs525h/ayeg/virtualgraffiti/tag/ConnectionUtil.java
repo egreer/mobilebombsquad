@@ -2,16 +2,14 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
  * http://w3mentor.com/learn/java/android-development/android-http-services/example-of-multipart-post-using-android/
@@ -35,15 +33,19 @@ public class ConnectionUtil {
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(SERVER_URI);
 			InputStreamBody isb = new InputStreamBody(new ByteArrayInputStream(data), "image");
-			StringBody lat = new StringBody("" + tag.lat);
-			StringBody lon = new StringBody("" + tag.lon);
-			StringBody key = new StringBody(tag.key);
+			StringBody lat = new StringBody("" + tag.getLat());
+			StringBody lon = new StringBody("" + tag.getLon());
+			StringBody key = new StringBody(tag.getKey());
+			StringBody title = new StringBody(tag.getTitle());
+			StringBody attribution = new StringBody(tag.getAttribution());
 			
 			MultipartEntity multipartContent = new MultipartEntity();
 			multipartContent.addPart("image", isb);
 			multipartContent.addPart("key", key);
 			multipartContent.addPart("lat", lat);
 			multipartContent.addPart("lon", lon);
+			multipartContent.addPart("title", title);
+			multipartContent.addPart("attribution", attribution);
 			
 			httpPost.setEntity(multipartContent);
 			HttpResponse res = httpClient.execute(httpPost);

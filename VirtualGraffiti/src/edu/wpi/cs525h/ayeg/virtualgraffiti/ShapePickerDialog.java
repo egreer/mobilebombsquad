@@ -9,7 +9,6 @@ import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
@@ -45,7 +44,7 @@ public class ShapePickerDialog extends Dialog {
 		private Shape mCurrentShape;
 		private OnShapeChangedListener mListener;
 		private ArrayList<View> images = new ArrayList<View>();
-		Button confirm;
+
 		private int maxHeight = 20;
 		private int maxWidth = 20;
 		
