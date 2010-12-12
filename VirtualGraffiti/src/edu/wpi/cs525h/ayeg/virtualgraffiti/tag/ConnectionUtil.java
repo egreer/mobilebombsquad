@@ -46,6 +46,7 @@ public class ConnectionUtil {
 			multipartContent.addPart("lon", lon);
 			multipartContent.addPart("title", title);
 			multipartContent.addPart("attribution", attribution);
+			multipartContent.addPart("layerName", new StringBody(LAYER_NAME));
 			
 			httpPost.setEntity(multipartContent);
 			HttpResponse res = httpClient.execute(httpPost);
