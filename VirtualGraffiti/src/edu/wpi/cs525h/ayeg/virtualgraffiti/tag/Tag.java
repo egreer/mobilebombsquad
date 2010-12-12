@@ -5,6 +5,7 @@ public class Tag {
 	String key;
 	double lat;
 	double lon;
+	double alt;
 	String attribution;
 	String title;
 	
@@ -13,6 +14,11 @@ public class Tag {
 	public Tag (double lat, double lon) {
 		this.lat = lat;
 		this.lon = lon;
+	}
+	
+	public Tag (double lat, double lon, double alt) {
+		this(lat, lon);
+		this.alt = alt;
 	}
 	
 	public Tag (String key, double lat, double lon, String attribution, String title) {

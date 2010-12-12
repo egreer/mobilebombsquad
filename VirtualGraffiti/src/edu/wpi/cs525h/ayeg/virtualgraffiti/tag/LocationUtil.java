@@ -17,6 +17,7 @@ public class LocationUtil implements LocationListener {
 
 	double latitude;
 	double longitude;
+	double altitude;
 	LocationManager locManager;
 	
 	public LocationUtil(Activity activity) {
@@ -28,6 +29,7 @@ public class LocationUtil implements LocationListener {
 	public void onLocationChanged(Location arg0) {
 		this.latitude = arg0.getLatitude();
 		this.longitude = arg0.getLongitude();
+		this.altitude = arg0.getAltitude();
 		
 	}
 
@@ -50,7 +52,7 @@ public class LocationUtil implements LocationListener {
 	}
 	
 	public Tag createTag() {
-		return new Tag(latitude, longitude);
+		return new Tag(latitude, longitude, altitude);
 	}
 
 }
