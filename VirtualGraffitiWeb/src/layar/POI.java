@@ -7,12 +7,18 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Key;
+
+/**
+ * @author Eric Greer
+ *
+ */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class POI {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	String id; //PRIMARY KEY  (`id`) `id` varchar(255) NOT NULL,
+	Key id; //PRIMARY KEY  (`id`) `id` varchar(255) NOT NULL,
 
 	@Persistent
 	String attribution; //`attribution` varchar(150) default NULL,
@@ -79,20 +85,23 @@ public class POI {
 	double angle = 0;
 	double scale = 1;
 	
-	public POI(String id, double lat, double lon){
-		this.id = id;
+	public POI(/*String id,*/ double lat, double lon){
+		//this.id = id;
 		this.lat = lat;
 		this.lon = lon;
 	}
 
 
-	public String getId() {
+
+	public Key getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+
+	public void setId(Key id) {
 		this.id = id;
 	}
+
 
 	public String getAttribution() {
 		return attribution;
@@ -420,7 +429,7 @@ public class POI {
 	    result += "\"transform\": { \"rel\":" + rel + ", \"angle\": " + angle +", \"scale\": " + scale + " },\n";   
 
 	    
-	    result += "\"id\": \"" + id + "\",\n";
+	    result += "\"id\": \"" + id.getId() + "\",\n";
 	    result += "\"attribution\": \"" + attribution + "\",\n";
 		result += "\"title\": \"" + title + "\",\n";
 		result += "\"lat\": " + lat * 10e5  + ",\n";			//TODO Need to convert?
