@@ -8,10 +8,37 @@ public class Tag {
 	
 	String imageLoc;
 	
-	public Tag (String key, double lat, double lon) {
-		this.key = key;
+	public Tag (double lat, double lon) {
 		this.lat = lat;
 		this.lon = lon;
+	}
+	
+	public Tag (String key, double lat, double lon) {
+		this(lat, lon);
+		this.key = key;
+	}
+	
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
+	public String getKey() {
+		return key;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	
+	public double getLat() {
+		return lat;
+	}
+	
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+	
+	public double getLon() {
+		return lon;
 	}
 	
 	public void setImagePath(String filepath) {

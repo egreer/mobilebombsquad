@@ -48,5 +48,9 @@ public class LocationUtil implements LocationListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Tag createTag() {
+		return new Tag(latitude, longitude);
+	}
 
 }
