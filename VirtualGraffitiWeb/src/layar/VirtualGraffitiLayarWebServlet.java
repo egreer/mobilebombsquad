@@ -32,16 +32,21 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 		String lon = req.getParameter("lon");
 		String lat = req.getParameter("lat");
 		String radius = req.getParameter("radius");
+		String alt = req.getParameter("alt");
 
 		if (lon == null || lat == null || radius == null || layerName == null || !layerName.equals(name)){
 			resp.setContentType("text/plain");
 			resp.getWriter().println("Please specify the lat, lon, radius and layerName");
 		}else{
+			
 			double currentLon = Double.parseDouble(lon);
 			double currentLat = Double.parseDouble(lat);
 			double currentRadius = Double.parseDouble(radius);
-
-			ArrayList<POI> pois = DatabaseAccess.getPoints(currentLat, currentLon, currentRadius);
+			
+			int currentAlt = Integer.MIN_VALUE;
+			if (alt != null && !alt.isEmpty()) currentAlt = (int) Math.round(Double.parseDouble(alt));
+			
+			ArrayList<POI> pois = DatabaseAccess.getPoints(currentLat, currentLon, currentRadius, currentAlt);
 
 			if(pois.size()!= 0){
 				//Response
@@ -89,6 +94,7 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 		String paramLat = null;
 		String paramAttribution= null;
 		String paramTitle = null;
+		String paramAlt = null;
 
 		Blob imageBlob = null;
 		MyImage myImage = null;
@@ -122,6 +128,7 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 					else if(fieldName.equals("lat"))		paramLat = sb.toString();
 					else if(fieldName.equals("attribution")) paramAttribution =sb.toString();
 					else if(fieldName.equals("title")) paramTitle =sb.toString();
+					else if(fieldName.equals("alt")) paramAlt =sb.toString();
 
 				} else {
 					/*
@@ -143,10 +150,12 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 
 				double lon;
 				double lat;
+				int alt = Integer.MIN_VALUE;
 				
 				try{
 					lon = Double.parseDouble(paramLon);
 					lat = Double.parseDouble(paramLat);
+					if (paramAlt != null && !paramAlt.isEmpty()) alt = Integer.parseInt(paramAlt);
 				}catch(NumberFormatException e){
 					resp.getWriter().println("Lattitude and Longitude must be numbers");
 					return;
@@ -167,7 +176,8 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 				point.setAttribution(paramAttribution);
 				point.setTitle(paramTitle);
 				point.setImage(myImage.getName());
-
+				point.setAlt(alt);
+				
 				if(DatabaseAccess.storeImage(myImage)){
 
 					if (DatabaseAccess.storePOI(point)){

@@ -441,7 +441,7 @@ public class POI {
 		result += "\"type\": " + type + ",\n";
 		result += "\"dimension\": " + dimension + ",\n";
 		if( alt != Integer.MIN_VALUE) result += "\"alt\": " + alt +",\n";
-		if( alt != Integer.MIN_VALUE) result += "\"relativeAlt\": " + relativeAlt +",\n"; 						//TODO Null?
+		if(relativeAlt != Integer.MIN_VALUE) result += "\"relativeAlt\": " + relativeAlt +",\n"; 						//TODO Null?
 		result += "\"distance\": " + distance +",\n"; 						
 		result += "\"inFocus\": " + inFocus +",\n";
 		result += "\"doNotIndex\": " + doNotIndex +",\n";

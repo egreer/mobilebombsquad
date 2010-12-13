@@ -47,9 +47,10 @@ public class DatabaseAccess {
 	 * @param lat		Current Latitude 
 	 * @param lon		Current Longitude
 	 * @param radius	Radius to search within
+	 * @param currentAlt 
 	 * @return
 	 */
-	public static ArrayList<POI> getPoints(double lat, double lon, double radius){
+	public static ArrayList<POI> getPoints(double lat, double lon, double radius, int alt){
 		ArrayList<POI> returner = new ArrayList<POI>();
 		
 		Collection<POI> pois = fetchAllPOIs();
@@ -59,6 +60,8 @@ public class DatabaseAccess {
 			POI point = iterator.next();
 			point.setDistance(point.calcDistance(lat, lon));
 			if(point.getDistance() <= radius){
+				if (point.getAlt() != Integer.MIN_VALUE) point.setRelativeAlt(point.getAlt() - alt);
+				else point.setRelativeAlt(0);
 				returner.add(point);
 			}
 		}
