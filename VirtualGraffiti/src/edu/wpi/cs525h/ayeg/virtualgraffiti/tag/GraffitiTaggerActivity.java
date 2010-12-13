@@ -3,6 +3,7 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class GraffitiTaggerActivity extends Activity {
 	Bundle tagInfo;
 	String title;
 	String tagger;
-
+	ProgressDialog progress;
 	/** dialog **/
 	private final int TITLE_DIALOG = 1;
 	private final int TAGGER_DIALOG = 2;
@@ -104,17 +105,47 @@ public class GraffitiTaggerActivity extends Activity {
 		
 		return builder.create();
 	}
-	
+
 	void tagImage() {
 		//Toast.makeText(this, "We got here", Toast.LENGTH_SHORT).show();
-		Tag tag = generateTag();
-		boolean result = ConnectionUtil.postImage(tag);
+		progress = ProgressDialog.show(this, "", "Uploading " + title + " to server...", true, false);
+		
+		/*boolean result; 
+		new Thread () {
+			public 
+			result = ConnectionUtil.postImage(tag);
+		}.start();
+		
 		if (result) {
 			returnOkay();
 		} else {
 			returnFail();
-		}
+		}*/
 		
+		Thread t = new Thread() {
+			public void run() {
+				Tag tag = generateTag();
+				boolean result = false;
+				try {
+					result = ConnectionUtil.postImage(tag);
+				} catch (Exception e) {}
+				if (result) {
+					getThisContext().runOnUiThread(new Runnable() {
+						public void run() {
+							getThisContext().returnOkay();
+						}
+					});
+				} else {
+					getThisContext().runOnUiThread(new Runnable() {
+						public void run() {
+							getThisContext().returnFail();
+						}
+					});
+				}
+				
+			}
+		};
+		t.start();
 	}
 	
 	Tag generateTag() {
@@ -127,23 +158,26 @@ public class GraffitiTaggerActivity extends Activity {
 		return newTag;
 	}
 	
-	public Activity getThisContext() {
+	public GraffitiTaggerActivity getThisContext() {
 		return this;
 	}
 	
 	public void returnOkay() {
+		progress.dismiss();
 		Intent returnIntent = new Intent();
 		setResult(Activity.RESULT_OK, returnIntent);
 		finish();
 	}
 	
 	public void returnFail() {
+		progress.dismiss();
 		Intent returnIntent = new Intent();
 		setResult(TagModeActivity.RESULT_FAIL, returnIntent);
 		finish();
 	}
 	
 	public void cancelThisActivity() {
+		progress.dismiss();
 		Intent returnIntent = new Intent();
 		setResult(Activity.RESULT_CANCELED, returnIntent);
 		finish();

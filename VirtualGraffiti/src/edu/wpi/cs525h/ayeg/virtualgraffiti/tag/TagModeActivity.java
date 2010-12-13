@@ -31,12 +31,17 @@ public class TagModeActivity extends Activity {
 	
 	String currentImage="";
 	LocationUtil gps;
+	LocationHandler handler;
+	double latitude;
+	double longitude;
+	double altitude;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tagmode);
-		gps = new LocationUtil(this);
+		handler = new LocationHandler(this);
+		gps = new LocationUtil(this, handler);
 		
 		findViewById(R.id.selecttag).setOnClickListener(new selectTagClickListener());
 		findViewById(R.id.tagworld).setOnClickListener(new tagWorldClickListener());
@@ -85,9 +90,12 @@ public class TagModeActivity extends Activity {
 		Intent tagger = new Intent(TagModeActivity.this, GraffitiTaggerActivity.class);
 		Bundle tagInfo = new Bundle();
 		tagInfo.putString("path", currentImage);
-		tagInfo.putDouble("latitude", gps.latitude);
-		tagInfo.putDouble("longitude", gps.longitude);
-		tagInfo.putDouble("altitude", gps.altitude);
+		//tagInfo.putDouble("latitude", gps.latitude);
+		//tagInfo.putDouble("longitude", gps.longitude);
+		//tagInfo.putDouble("altitude", gps.altitude);
+		tagInfo.putDouble("latitude", latitude);
+		tagInfo.putDouble("longitude", longitude);
+		tagInfo.putDouble("altitude", altitude);
 		tagger.putExtras(tagInfo);
 		//tagger.putExtra("imagePath", currentImage);
 		startActivityForResult(tagger, FILE_TAGGER);
