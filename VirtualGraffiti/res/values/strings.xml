@@ -26,4 +26,10 @@
 <string name="tag_mode">Tag Mode</string>
 <string name="quit_app">Quit App</string>
 <string name="buildername">Graffiti Builder</string>
+<string name="choose_a_tag">Choose a Tag</string>
+<string name="file_doesnt_exist">File does not exist</string>
+<string name="wrong_file">Need a .png file</string>
+<string name="select_tag_file">Select a tag</string>
+<string name="android_markt_not_avail">The Android Market is not available</string>
+<string name="pickfile_intent_required">Need to install OI File Manager</string>
 </resources>
