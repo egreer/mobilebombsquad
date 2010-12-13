@@ -20,11 +20,11 @@ public class Tag {
 		this.alt = (int) Math.rint(alt);
 	}
 	
-	public Tag (double lat, double lon, double altitude, String attribution, String title) {
-		this(lat, lon);
+	public Tag (double lat, double lon, double alt, String attribution, String title) {
+		this(lat, lon, alt);
 		this.attribution = attribution;
 		this.title = title;
-		this.alt = (int) Math.rint(altitude);
+		//this.alt = (int) Math.rint(altitude);
 	}
 	
 	public void setLat(double lat) {

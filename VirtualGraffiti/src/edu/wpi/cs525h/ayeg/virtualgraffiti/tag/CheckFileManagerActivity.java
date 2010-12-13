@@ -114,7 +114,7 @@ public class CheckFileManagerActivity extends Activity {
 			    			selectFile();
 			    		} else {
 			    			String fileName = data.getDataString();
-			    			if(!fileName.endsWith(".")) {
+			    			if(!fileName.endsWith(".png")) {
 			    				Toast.makeText(this, res.getText(R.string.wrong_file), TOAST_TIMEOUT).show();
 			    				selectFile();
 			    			} else {
@@ -126,8 +126,16 @@ public class CheckFileManagerActivity extends Activity {
 					            startActivityForResult(intent, VIEW_MODEL);*/
 			    				
 			    				//go back to TagModeActivity
-			    				this.getIntent().setData(data.getData());
-			    				this.finish();
+			    				//http://moazzam-khan.com/blog/?tag=android-passing-data-between-activities
+			    				Bundle tagData = new Bundle();
+			    				String imagePath = data.getDataString();
+			    				tagData.putString("path", imagePath);
+			    				//this.getIntent().setData(data.getData());
+			    				Intent returnIntent = new Intent();
+			    				returnIntent.putExtras(tagData);
+			    				setResult(RESULT_OK, returnIntent);
+			    				//this.getIntent().setData
+			    				finish();
 			    			}
 			    		}
 			    		break;
@@ -136,7 +144,9 @@ public class CheckFileManagerActivity extends Activity {
 			    		//back to the main activity
 			    		/*Intent intent = new Intent(CheckFileManagerActivity.this, ModelChooser.class);
 			            startActivity(intent);*/
-			    		this.finish();
+			    		Intent returnIntent = new Intent();
+			    		setResult(RESULT_CANCELED, returnIntent);
+			    		finish();
 			    		break;
 		    	}
 		    	break;
@@ -150,8 +160,9 @@ public class CheckFileManagerActivity extends Activity {
     private void selectFile() {    	
     	//let the user select a model file
         Intent intent = new Intent("org.openintents.action.PICK_FILE");
-        //intent.setData(Uri.parse("file:///sdcard/"));
-        intent.setData(this.getIntent().getData());
+        intent.setData(Uri.parse("file:///sdcard/"));
+        //intent.setData(this.getIntent().getData());
+        //intent.setData(Uri.parse(getIntent().getExtras().getString("cardloc")));
         intent.putExtra("org.openintents.extra.TITLE", res.getText(
         		R.string.select_tag_file));
         startActivityForResult(intent, PICK_FILE);

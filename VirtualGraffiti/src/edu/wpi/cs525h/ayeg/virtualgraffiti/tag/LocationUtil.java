@@ -18,6 +18,7 @@ public class LocationUtil implements LocationListener {
 	double latitude;
 	double longitude;
 	double altitude;
+	LocationHandler locHandler;
 	LocationManager locManager;
 	
 	public LocationUtil(Activity activity) {
@@ -30,7 +31,6 @@ public class LocationUtil implements LocationListener {
 		this.latitude = arg0.getLatitude();
 		this.longitude = arg0.getLongitude();
 		this.altitude = arg0.getAltitude();
-		
 	}
 
 	@Override

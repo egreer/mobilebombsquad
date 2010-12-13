@@ -3,6 +3,7 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URI;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,6 +12,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.util.Log;
 
 /**
  * http://w3mentor.com/learn/java/android-development/android-http-services/example-of-multipart-post-using-android/
@@ -23,10 +26,11 @@ public class ConnectionUtil {
 	static final String LAYER_NAME = "virtualgraffiti";
 	static final String SERVER_URI = "http://virtual-graffiti.appspot.com/layar";
 	
-	public static void postImage(Tag tag) {
+	public static boolean postImage(Tag tag) {
 		try {
 			//Read image file
-			File image = new File(tag.getImagePath());
+			File image = new File(URI.create(tag.getImagePath()));
+			//image
 			
 			FileInputStream stream = new FileInputStream(image);
 			//FileInputStream stream = new FileInputStream(tag.getImagePath());
@@ -55,9 +59,12 @@ public class ConnectionUtil {
 			httpPost.setEntity(multipartContent);
 			HttpResponse res = httpClient.execute(httpPost);
 			res.getEntity().getContent().close();
+			return true;
 					
 		} catch (Exception e) {
-			
+			e.printStackTrace();
+			Log.e("ConnectionUtil", "Something happened here");
+			return false;
 		}
 	}
 	

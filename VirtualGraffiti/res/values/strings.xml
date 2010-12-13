@@ -32,4 +32,7 @@
 <string name="select_tag_file">Select a tag</string>
 <string name="android_markt_not_avail">The Android Market is not available</string>
 <string name="pickfile_intent_required">Need to install OI File Manager</string>
+<string name="nameyourtag">Name your tag!</string>
+<string name="nameyourself">Who\'s tagging?</string>
+<string name="taggername">Graffiti Tagger</string>
 </resources>

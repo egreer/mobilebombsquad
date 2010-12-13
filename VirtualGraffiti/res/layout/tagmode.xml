@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  			 android:layout_width="wrap_content"
+  			 android:layout_height="wrap_content"
+  			 android:orientation="horizontal"
+  			 android:background="@drawable/tagmodemainscreen">
+  
+	<TableRow>
+		<TextView android:id="@+id/filepathname" />
+		<TextView android:id="@+id/emptyspace" />
+		<LinearLayout android:orientation="vertical"
+					  android:layout_width="fill_parent"
+					  android:layout_height="fill_parent" >
+			<TextView android:id="@+id/latValue"/>
+			<TextView android:id="@+id/lonValue"/>
+		</LinearLayout>
+	</TableRow>
+
+	<TableRow>
+		<ImageView android:id="@+id/selecttag"
+				   android:src="@drawable/buttonselecttag" />
+		<ImageView android:id="@+id/tagworld"
+				   android:src="@drawable/buttontagworld" />
+		<ImageView android:id="@+id/viewtags"
+				   android:src="@drawable/buttonviewtags" />
+		
+	</TableRow>
+  
+</TableLayout>-->
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  			    android:layout_width="fill_parent"
+  			    android:layout_height="fill_parent"
+  			    android:orientation="horizontal"
+  			    android:background="@drawable/tagmodemainscreentext">
+  			 
+  	<TextView android:id="@+id/filepathname" 
+  			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:text="No tag is currently selected" 
+			  android:layout_x="30px" 
+			  android:layout_y="160px"
+			  android:textColor="#FF000000"
+			  android:textSize="25px"
+			  android:textStyle="bold"
+			  android:maxWidth="700px"/> 
+  	
+	<ImageView android:id="@+id/selecttag"
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:src="@drawable/buttonselecttagresize" 
+			   android:layout_x="50px" 
+			   android:layout_y="250px"/>
+	<ImageView android:id="@+id/tagworld"
+			   android:src="@drawable/buttontagworldresize"
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content" 
+			   android:layout_x="300px"
+			   android:layout_y="250px" />
+	<ImageView android:id="@+id/viewtags"
+			   android:src="@drawable/buttonviewtagsresize"
+			   android:layout_width="wrap_content"
+			   android:layout_height="wrap_content"
+			   android:layout_x="550px"
+			   android:layout_y="250px" />
+  			 
+</AbsoluteLayout>
