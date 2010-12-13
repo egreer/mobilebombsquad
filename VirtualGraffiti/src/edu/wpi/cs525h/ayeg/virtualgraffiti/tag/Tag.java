@@ -2,10 +2,9 @@ package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 
 public class Tag {
 
-	String key;
 	double lat;
 	double lon;
-	double alt;
+	int alt;
 	String attribution;
 	String title;
 	
@@ -18,23 +17,16 @@ public class Tag {
 	
 	public Tag (double lat, double lon, double alt) {
 		this(lat, lon);
-		this.alt = alt;
+		this.alt = (int) Math.rint(alt);
 	}
 	
-	public Tag (String key, double lat, double lon, String attribution, String title) {
+	public Tag (double lat, double lon, double altitude, String attribution, String title) {
 		this(lat, lon);
-		this.key = key;
 		this.attribution = attribution;
 		this.title = title;
+		this.alt = (int) Math.rint(altitude);
 	}
 	
-	public void setKey(String key) {
-		this.key = key;
-	}
-	
-	public String getKey() {
-		return key;
-	}
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
@@ -74,6 +66,14 @@ public class Tag {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getAlt() {
+		return alt;
+	}
+
+	public void setAlt(int alt) {
+		this.alt = alt;
 	}
 
 }

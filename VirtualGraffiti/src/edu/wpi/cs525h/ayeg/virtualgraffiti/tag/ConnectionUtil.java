@@ -39,15 +39,15 @@ public class ConnectionUtil {
 			InputStreamBody isb = new InputStreamBody(new ByteArrayInputStream(data), image.getName());
 			StringBody lat = new StringBody("" + tag.getLat());
 			StringBody lon = new StringBody("" + tag.getLon());
-			StringBody key = new StringBody(tag.getKey());
+			StringBody alt = new StringBody("" + tag.getAlt());
 			StringBody title = new StringBody(tag.getTitle());
 			StringBody attribution = new StringBody(tag.getAttribution());
 			
 			MultipartEntity multipartContent = new MultipartEntity();
 			multipartContent.addPart("image", isb);
-			multipartContent.addPart("key", key);
 			multipartContent.addPart("lat", lat);
 			multipartContent.addPart("lon", lon);
+			multipartContent.addPart("alt", alt);
 			multipartContent.addPart("title", title);
 			multipartContent.addPart("attribution", attribution);
 			multipartContent.addPart("layerName", new StringBody(LAYER_NAME));
