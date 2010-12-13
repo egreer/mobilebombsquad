@@ -170,7 +170,9 @@ public class GraffitiTaggerActivity extends Activity {
 	}
 	
 	public void returnFail() {
-		progress.dismiss();
+		if (!tagInfo.getString("path").equals("")) {
+			progress.dismiss();
+		}
 		Intent returnIntent = new Intent();
 		setResult(TagModeActivity.RESULT_FAIL, returnIntent);
 		finish();
