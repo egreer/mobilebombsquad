@@ -16,6 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.util.Log;
 
 /**
+ * Creates a multipart POST to the web server
  * http://w3mentor.com/learn/java/android-development/android-http-services/example-of-multipart-post-using-android/
  * 
  * @author Andrew Yee

@@ -10,6 +10,14 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * The main activity for the Tag Mode portion of Virtual Graffiti.
+ * To select tags, tag the world, or view tags, this activity calls other activities
+ * which perform those actions.  This activity serves to preserve information between the activities.
+ * 
+ * @author Andrew Yee
+ *
+ */
 public class TagModeActivity extends Activity {
 
 	static final String SDCARD_LOCATION = "file:///sdcard/";
@@ -48,6 +56,10 @@ public class TagModeActivity extends Activity {
 		findViewById(R.id.viewtags).setOnClickListener(new viewTagsClickListener());
 	}
 	
+	/**
+	 * Listeners for the ImageViews.  calls the appropriate method based on the view
+	 * @author Andrew Yee
+	 */
 	class selectTagClickListener implements OnClickListener {
 
 		@Override
@@ -77,6 +89,10 @@ public class TagModeActivity extends Activity {
 		
 	}
 	
+	/**
+	 * Starts the CheckFileManagerActivity which will open the file selector
+	 * Waits for a result
+	 */
 	void chooseAnImage() {
 		Intent chooser = new Intent (TagModeActivity.this, CheckFileManagerActivity.class);
 		//chooser.setData(Uri.parse(SDCARD_LOCATION));
@@ -86,6 +102,10 @@ public class TagModeActivity extends Activity {
 		startActivityForResult(chooser, FILE_CHOOSER);
 	}
 	
+	/**
+	 * Starts the GraffitiTaggerActivity which will tag the selected file
+	 * Waits for a result
+	 */
 	void tagAnImage() {
 		Intent tagger = new Intent(TagModeActivity.this, GraffitiTaggerActivity.class);
 		Bundle tagInfo = new Bundle();
@@ -101,6 +121,9 @@ public class TagModeActivity extends Activity {
 		startActivityForResult(tagger, FILE_TAGGER);
 	}
 	
+	/**
+	 * Opens the Layar Reality Browser
+	 */
 	void openLayar() {
 		Intent layar = new Intent(Intent.ACTION_VIEW);
 		layar.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -110,12 +133,17 @@ public class TagModeActivity extends Activity {
 		
 	}
 	
+	/**
+	 * Wait for a result from an activity that we called
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
+			//File selector Activity
 			case FILE_CHOOSER:
 				switch(resultCode) {
+					//if it was successful let us retrieve the path
 					case Activity.RESULT_OK:
 						Bundle dataBundle = data.getExtras();
 						//currentImage = data.getDataString();
@@ -127,12 +155,15 @@ public class TagModeActivity extends Activity {
 						break;
 				}
 				break;
+			//Tagging activity
 			case FILE_TAGGER:
 				switch(resultCode) {
+					//If the tag was successful, let the user know
 					case Activity.RESULT_OK:
 						//toast tag successful
 						Toast.makeText(this, "Tagging was a success!", Toast.LENGTH_SHORT).show();
 						break;
+					//If the tag was unsuccessful, let the user know
 					case TagModeActivity.RESULT_FAIL:
 						//toast tag failure
 						Toast.makeText(this, "Tagging has failed...", Toast.LENGTH_SHORT).show();

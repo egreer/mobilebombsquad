@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
+ * Gets new data from the GPS
  * http://www.softwarepassion.com/android-series-using-gps-data/
  * 
  * @author Andrew Yee
@@ -42,13 +43,11 @@ public class LocationUtil implements LocationListener {
 		this.locHandler = handler;
 	}
 	
+	/**
+	 * If the location has changed, feed the handler the new coordinates
+	 */
 	@Override
 	public void onLocationChanged(Location arg0) {
-		/*this.latitude = arg0.getLatitude();
-		((TextView) activity.findViewById(R.id.latValue)).setText(df.format(latitude));
-		this.longitude = arg0.getLongitude();
-		((TextView) activity.findViewById(R.id.lonValue)).setText(df.format(longitude));
-		this.altitude = arg0.getAltitude();*/
 		final Location loc = arg0;
 		Thread t = new Thread() {
 			public void run() {
@@ -65,6 +64,9 @@ public class LocationUtil implements LocationListener {
 		t.start();
 	}
 
+	/**
+	 * Let us know if the GPS is disabled
+	 */
 	@Override
 	public void onProviderDisabled(String arg0) {
 		Toast.makeText(activity, "GPS is disabled", Toast.LENGTH_SHORT).show();

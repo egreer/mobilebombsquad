@@ -1,5 +1,11 @@
 package edu.wpi.cs525h.ayeg.virtualgraffiti.tag;
 
+/**
+ * Contains information for a particular tag
+ * 
+ * @author Andrew Yee
+ *
+ */
 public class Tag {
 
 	double lat;

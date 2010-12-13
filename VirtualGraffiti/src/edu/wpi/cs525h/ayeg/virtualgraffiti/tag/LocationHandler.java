@@ -6,6 +6,12 @@ import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Handles the changes in location from the GPS/LocationUtil
+ * 
+ * @author Andrew Yee
+ *
+ */
 public class LocationHandler {
 	TagModeActivity activity;
 	
@@ -15,6 +21,13 @@ public class LocationHandler {
 		this.activity = activity;
 	}
 	
+	/**
+	 * Updates the location in the activity, and updates the appropriate TextViews
+	 * 
+	 * @param latitude		the new latitude
+	 * @param longitude		the new longitude
+	 * @param altitude		the new altitude
+	 */
 	void updateLocation(double latitude, double longitude, double altitude) {
 		activity.latitude = latitude;
 		activity.longitude = longitude;

@@ -118,14 +118,7 @@ public class CheckFileManagerActivity extends Activity {
 			    				Toast.makeText(this, res.getText(R.string.wrong_file), TOAST_TIMEOUT).show();
 			    				selectFile();
 			    			} else {
-				    			//hand over control to the model viewer
-					    		/*Intent intent = new Intent(CheckFileManagerActivity.this, TagModeActivity.class);
-					            intent.putExtra("name", data.getDataString());
-					            intent.putExtra("type", TagModeActivity.TYPE_EXTERNAL);
-					            intent.setAction(Intent.ACTION_VIEW);
-					            startActivityForResult(intent, VIEW_MODEL);*/
-			    				
-			    				//go back to TagModeActivity
+			    				//go back to TagModeActivity, sending the image path back
 			    				//http://moazzam-khan.com/blog/?tag=android-passing-data-between-activities
 			    				Bundle tagData = new Bundle();
 			    				String imagePath = data.getDataString();

@@ -12,9 +12,10 @@ import android.widget.Toast;
 import edu.wpi.cs525h.ayeg.virtualgraffiti.R;
 
 /**
- * Probably needs to connect with layar reality browser
+ * Tags the given image at the given coordinates
+ * This Activity expects to be called by another to return a result
  * 
- * @author Andrew
+ * @author Andrew Yee
  *
  */
 public class GraffitiTaggerActivity extends Activity {
@@ -23,6 +24,7 @@ public class GraffitiTaggerActivity extends Activity {
 	String title;
 	String tagger;
 	ProgressDialog progress;
+	
 	/** dialog **/
 	private final int TITLE_DIALOG = 1;
 	private final int TAGGER_DIALOG = 2;
@@ -34,6 +36,7 @@ public class GraffitiTaggerActivity extends Activity {
 		if (tagInfo.getString("path").equals("")) {
 			returnFail();
 		}
+		//need to chain dialogs because that is how android operates
 		showDialog(TITLE_DIALOG);
 		//createTitleDialog().show();
 		//createTaggerDialog().show();
@@ -42,6 +45,9 @@ public class GraffitiTaggerActivity extends Activity {
 		//returnOkay();
 	}
 	
+	/**
+	 * Create a dialog based on the ID
+	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
@@ -60,6 +66,11 @@ public class GraffitiTaggerActivity extends Activity {
 		return dialog;
 	}
 	
+	/**
+	 * Create a dialog for the tagger to name the tag
+	 * 
+	 * @return the dialog
+	 */
 	AlertDialog createTitleDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.nameyourtag);
@@ -83,6 +94,11 @@ public class GraffitiTaggerActivity extends Activity {
 		return builder.create();
 	}
 	
+	/**
+	 * Create a dialog for the tagger to put his name in
+	 * 
+	 * @return the dialog
+	 */
 	AlertDialog createTaggerDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.nameyourself);
@@ -106,22 +122,13 @@ public class GraffitiTaggerActivity extends Activity {
 		return builder.create();
 	}
 
+	/**
+	 * Generate a tag with the given info
+	 */
 	void tagImage() {
 		//Toast.makeText(this, "We got here", Toast.LENGTH_SHORT).show();
 		progress = ProgressDialog.show(this, "", "Uploading " + title + " to server...", true, false);
-		
-		/*boolean result; 
-		new Thread () {
-			public 
-			result = ConnectionUtil.postImage(tag);
-		}.start();
-		
-		if (result) {
-			returnOkay();
-		} else {
-			returnFail();
-		}*/
-		
+			
 		Thread t = new Thread() {
 			public void run() {
 				Tag tag = generateTag();
@@ -148,6 +155,9 @@ public class GraffitiTaggerActivity extends Activity {
 		t.start();
 	}
 	
+	/**
+	 * Generate a tag with the information from the bundle
+	 */
 	Tag generateTag() {
 		String imagePath = tagInfo.getString("path");
 		double latitude = tagInfo.getDouble("latitude");
@@ -158,10 +168,18 @@ public class GraffitiTaggerActivity extends Activity {
 		return newTag;
 	}
 	
+	/**
+	 * get this activity
+	 * 
+	 * @return
+	 */
 	public GraffitiTaggerActivity getThisContext() {
 		return this;
 	}
 	
+	/**
+	 * Return a success
+	 */
 	public void returnOkay() {
 		progress.dismiss();
 		Intent returnIntent = new Intent();
@@ -169,6 +187,9 @@ public class GraffitiTaggerActivity extends Activity {
 		finish();
 	}
 	
+	/**
+	 * Return a failure
+	 */
 	public void returnFail() {
 		if (!tagInfo.getString("path").equals("")) {
 			progress.dismiss();
@@ -178,8 +199,13 @@ public class GraffitiTaggerActivity extends Activity {
 		finish();
 	}
 	
+	/** 
+	 * Cancel this activity
+	 */
 	public void cancelThisActivity() {
-		progress.dismiss();
+		if (progress != null) {
+			progress.dismiss();
+		}
 		Intent returnIntent = new Intent();
 		setResult(Activity.RESULT_CANCELED, returnIntent);
 		finish();
