@@ -10,13 +10,17 @@ import javax.jdo.Transaction;
 
 import com.google.appengine.api.datastore.Blob;
 
-
+/** Virtual Graffiti Web
+ * 
+ * @author Eric Greer
+ *
+ */
 public class DatabaseAccess {
 
 	/** Stores a POI into the Database
 	 * 
-	 * @param point
-	 * @return
+	 * @param point		The Point to store
+	 * @return			Whether the point is stored
 	 */
 	public static boolean storePOI(POI point){
 		boolean returner = true;
@@ -47,8 +51,8 @@ public class DatabaseAccess {
 	 * @param lat		Current Latitude 
 	 * @param lon		Current Longitude
 	 * @param radius	Radius to search within
-	 * @param currentAlt 
-	 * @return
+	 * @param currentAlt Current altitude
+	 * @return			A list of the Points
 	 */
 	public static ArrayList<POI> getPoints(double lat, double lon, double radius, int alt){
 		ArrayList<POI> returner = new ArrayList<POI>();
@@ -70,7 +74,6 @@ public class DatabaseAccess {
 	}
 	
 	/**
-	 * 
 	 * @return Returns all points in the database
 	 */
 	public static Collection<POI> fetchAllPOIs() {
@@ -86,7 +89,11 @@ public class DatabaseAccess {
 		return (Collection<POI>) returner;
 	}
 
-	
+	/** Retrieves an image from the Blobstore
+	 * 
+	 * @param name	The name of the image
+	 * @return		The Blob data
+	 */
 	public static Blob getImage(String name) {
 	    PersistenceManager pm = PMF.get().getPersistenceManager();
 	         
@@ -103,7 +110,11 @@ public class DatabaseAccess {
 		return null;
 	}
 	
-	
+	/**Stores the image in the Blob store
+	 * 
+	 * @param image	The image to store
+	 * @return		Whether the image is stored
+	 */
 	public static boolean storeImage(MyImage image) {
 		boolean returner = true;
 		PersistenceManager pm = PMF.get().getPersistenceManager();

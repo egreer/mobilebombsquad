@@ -20,11 +20,20 @@ import org.apache.commons.io.IOUtils;
 
 import com.google.appengine.api.datastore.Blob;
 
+/** The Layar Web Servlet
+ * 
+ * @author Eric Greer
+ *
+ */
 @SuppressWarnings("serial")
 public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 
 	final static String name = "virtualgraffiti";
 
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 
@@ -85,7 +94,10 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 		}	
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) 
 	throws IOException {
 
@@ -195,7 +207,5 @@ public class VirtualGraffitiLayarWebServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 	}
-
 }

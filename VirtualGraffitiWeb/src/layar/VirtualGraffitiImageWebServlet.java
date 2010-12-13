@@ -12,11 +12,20 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.Transform;
 
+/** The Servlet for the image service
+ * 
+ * @author Eric Greer
+ *
+ */
 @SuppressWarnings("serial")
 public class VirtualGraffitiImageWebServlet extends HttpServlet {
 	
 	final static String name = "virtualgraffiti";
 	
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 	

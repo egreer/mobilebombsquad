@@ -8,7 +8,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Blob;
 
-/**
+/** The persistable image object
  * 
  * @author Eric Greer
  * Original code from
@@ -39,6 +39,10 @@ public class MyImage {
     	return image; 
     }
     
+    /** 
+     * 
+     * @param image		The blob to set as the image 
+     */
     public void setImage(Blob image){
     	this.image = image; 
     }
@@ -54,16 +58,5 @@ public class MyImage {
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param id the id to set
-	 */
-/*	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the id
-	 */
-	/*public Long getId() {
-		return id;
-	}*/
+	
 }

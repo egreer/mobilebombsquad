@@ -9,6 +9,11 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+/**POI are the Graffiti objects and their information about the location
+ *  
+ * @author Eric Greer
+ *
+ */
 /**
  * @author Eric Greer
  *
@@ -92,53 +97,86 @@ public class POI {
 	}
 
 
-
+	/**
+	 * @return	Returns the ID of the Point
+	 */
 	public Key getId() {
 		return id;
 	}
 
-
+	/**
+	 * @param id	The Key to set for the Point 
+	 */
 	public void setId(Key id) {
 		this.id = id;
 	}
 
-
+	/**
+	 * @return	Returns the author of the Point
+	 */
 	public String getAttribution() {
 		return attribution;
 	}
 
+	/**
+	 * @param attribution	Sets the author
+	 */
 	public void setAttribution(String attribution) {
 		this.attribution = attribution;
 	}
 
+	/**
+	 * @return	Returns the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title	The title to set for the point
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * @return	The Latitude of the point 
+	 */
 	public Double getLat() {
 		return lat;
 	}
 
+	/**
+	 * @param lat	The latitude to set for the point
+	 */
 	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
+	/**
+	 * @return	The Longitude of the point
+	 */
 	public Double getLon() {
 		return lon;
 	}
 
+	/**
+	 * @param lon	The Longitude to set for the Point
+	 */
 	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 
+	/**
+	 * @return	Returns the image URL
+	 */
 	public String getImageURL() {
 		return imageURL;
 	}
 
+	/**
+	 * @param imageURL	The URL to set for the image
+	 */
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
@@ -167,58 +205,102 @@ public class POI {
 		this.line2 = line2;
 	}
 
+	/**
+	 * @return	The type of the point
+	 */
 	public int getType() {
 		return type;
 	}
 
+	/**
+	 * @param type	The type of the point
+	 */
 	public void setType(int type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return	The dimension of the point
+	 */
 	public int getDimension() {
 		return dimension;
 	}
 
+	/**
+	 * @param dimension	The dimension to set to
+	 */
 	public void setDimension(int dimension) {
 		this.dimension = dimension;
 	}
 
+	/**
+	 * @return	The altitude of the point 
+	 */
 	public int getAlt() {
 		return alt;
 	}
 
+	/**
+	 * @param alt	The Altitude to set for the point
+	 */
 	public void setAlt(int alt) {
 		this.alt = alt;
 	}
 
+	/** 
+	 * @return The relative altto the current position
+	 * Should not be stored
+	 */
 	public int getRelativeAlt() {
 		return relativeAlt;
 	}
 
+	/**
+	 * @param relativeAlt	Sets the relative altitude to this
+	 */
 	public void setRelativeAlt(int relativeAlt) {
 		this.relativeAlt = relativeAlt;
 	}
 
+	/**
+	 * @return	The distance to the point 
+	 * Should not be stored
+	 */
 	public double getDistance() {
 		return distance;
 	}
 
+	/**
+	 * @param distance	Sets the distance of the point
+	 */
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 
+	/**
+	 * @return	whether the point is in focus
+	 */
 	public boolean getInFocus() {
 		return inFocus;
 	}
 
+	/**
+	 * @param inFocus	is the point in focus
+	 */
 	public void setInFocus(boolean inFocus) {
 		this.inFocus = inFocus;
 	}
 
+	/**
+	 * @return	is this point indexed?
+	 */
 	public boolean getDoNotIndex() {
 		return doNotIndex;
 	}
 
+	/**
+	 * @param doNotIndex	Sets whether the point is indexed
+	 */
 	public void setDoNotIndex(boolean doNotIndex) {
 		this.doNotIndex = doNotIndex;
 	}
@@ -244,7 +326,7 @@ public class POI {
 
 
 	/**
-	 * @return the full
+	 * @return the full URL
 	 */
 	public String getFull() {
 		return full;
@@ -252,7 +334,7 @@ public class POI {
 
 
 	/**
-	 * @param full the full to set
+	 * @param full The full URL to set
 	 */
 	public void setFull(String full) {
 		this.full = full;
@@ -260,7 +342,7 @@ public class POI {
 
 
 	/**
-	 * @return the reduced
+	 * @return The reduced URL
 	 */
 	public String getReduced() {
 		return reduced;
@@ -268,7 +350,7 @@ public class POI {
 
 
 	/**
-	 * @param reduced the reduced to set
+	 * @param reduced The reduced URL to set
 	 */
 	public void setReduced(String reduced) {
 		this.reduced = reduced;
@@ -276,7 +358,7 @@ public class POI {
 
 
 	/**
-	 * @return the icon
+	 * @return the icon URL
 	 */
 	public String getIcon() {
 		return icon;
@@ -284,7 +366,7 @@ public class POI {
 
 
 	/**
-	 * @param icon the icon to set
+	 * @param icon The icon URL to set
 	 */
 	public void setIcon(String icon) {
 		this.icon = icon;
@@ -412,7 +494,9 @@ public class POI {
 		return id + " lat: " + lat + " lon: " + lon + " imageURL: " + imageURL + " Distance: " + distance;
 	}
 	
-	
+	/**
+	 * @return Returns a JSON String representation of the object. 
+	 */
 	public String toJSONString(){
 		String result = "{";
 		

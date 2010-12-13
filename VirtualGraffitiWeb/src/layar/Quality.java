@@ -1,6 +1,6 @@
 package layar;
 
-/**
+/** Quality of the image
  * 
  * @author Eric Greer
  *
@@ -45,12 +45,16 @@ public enum Quality {
 		return returner;
 	}
 
-
+	/**
+	 * @return The X Size
+	 */
 	public int getX() {
 		return x;
 	}
 
-
+	/**
+	 * @return The Y Size
+	 */
 	public int getY() {
 		return y;
 	}
