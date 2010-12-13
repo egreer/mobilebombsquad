@@ -41,7 +41,7 @@
 	<ImageView android:id="@+id/selecttag"
 			   android:layout_width="wrap_content"
 			   android:layout_height="wrap_content"
-			   android:src="@drawable/buttonselecttagresize" 
+			   android:src="@drawable/buttonselecttagcolorresize" 
 			   android:layout_x="50px" 
 			   android:layout_y="250px"/>
 	<ImageView android:id="@+id/tagworld"
